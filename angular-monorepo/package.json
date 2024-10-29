@@ -2,7 +2,9 @@
   "name": "@angular-monorepo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "telestela-dev": "npx nx run telestela:build:development; npx nx run telestela:serve:development"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.2.0",
