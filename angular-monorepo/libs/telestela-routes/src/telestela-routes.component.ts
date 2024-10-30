@@ -6,6 +6,6 @@ import { CommonModule } from '@angular/common'
   standalone: true,
   imports: [CommonModule],
   templateUrl: './telestela-routes.component.html',
-  styleUrl: './telestela-routes.component.css',
+  styleUrl: './telestela-routes.component.scss',
 })
 export class TelestelaRoutesComponent {}
