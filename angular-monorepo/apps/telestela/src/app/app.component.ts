@@ -1,13 +1,15 @@
+import { AppContainerComponent } from '@angular-monorepo/shared'
 import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, AppContainerComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'telestela'
+  // pass in public routes to container component and home component
 }
