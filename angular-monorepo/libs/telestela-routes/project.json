@@ -1,7 +1,7 @@
 {
   "name": "telestela-routes",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/src/lib/telestela-routes",
+  "sourceRoot": "libs/telestela-routes/src",
   "prefix": "",
   "projectType": "library",
   "tags": [],

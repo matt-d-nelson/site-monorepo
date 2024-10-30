@@ -8,6 +8,6 @@ export const appRoutes: Route[] = [
     },
     {
         path: 'home',
-        loadComponent: () => import('@angular-monorepo/telestela-routes').then((m) => m.TelestelaRoutesComponent)
+        loadComponent: () => import('@angular-monorepo/telestela-routes').then((m) => m.TelestelaHomeComponent)
     }
 ]

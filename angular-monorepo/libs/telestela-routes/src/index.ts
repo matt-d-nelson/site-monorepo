@@ -1,1 +1,1 @@
-export * from './telestela-routes.component'
+export * from './telestela-home/telestela-home.component'
