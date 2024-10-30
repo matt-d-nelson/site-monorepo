@@ -1,4 +1,4 @@
-const nx = require('@nx/eslint-plugin');
+const nx = require('@nx/eslint-plugin')
 
 module.exports = [
   ...nx.configs['flat/base'],
@@ -32,4 +32,4 @@ module.exports = [
       semi: ['error', 'never'],
     },
   },
-];
+]
