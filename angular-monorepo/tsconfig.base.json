@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@angular-monorepo/telestela-routes": ["libs/telestela-routes/src/index.ts"]
+      "@angular-monorepo/shared": ["libs/shared/src/index.ts"],
+      "@angular-monorepo/telestela-routes": [
+        "libs/telestela-routes/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

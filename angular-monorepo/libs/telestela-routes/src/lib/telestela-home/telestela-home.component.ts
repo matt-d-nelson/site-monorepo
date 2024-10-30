@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { HomePageComponent } from '@angular-monorepo/shared'
 
 @Component({
   selector: 'telestela-home',
   standalone: true,
-  imports: [],
+  imports: [HomePageComponent],
   templateUrl: './telestela-home.component.html',
   styleUrl: './telestela-home.component.scss'
 })

@@ -1,1 +1,1 @@
-export * from './telestela-home/telestela-home.component'
+export * from './lib/telestela-home/telestela-home.component'
