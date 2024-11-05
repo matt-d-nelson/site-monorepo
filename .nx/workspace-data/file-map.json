@@ -1,0 +1,586 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.0.5",
+  "pathMappings": {
+    "@angular-monorepo/shared": [
+      "libs/shared/src/index.ts"
+    ],
+    "@angular-monorepo/telestela-routes": [
+      "libs/telestela-routes/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    },
+    {
+      "name": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".git/objects/69/bdba44019431bd6cd85016d31efc2468728d66",
+        "hash": "13066245479525035615"
+      },
+      {
+        "file": ".git/objects/8c/1c867e5af0b79cd1e857fafa8cb2a172fb9cce",
+        "hash": "6275695824814871671"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/chunk-FEVMUFLK.js.map",
+        "hash": "11556746130540624938"
+      },
+      {
+        "file": ".nx/cache/cloud/verify.lock",
+        "hash": "830866703469069503"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_router.js",
+        "hash": "18213433724951341971"
+      },
+      {
+        "file": "dist/apps/telestela/browser/styles.css.map",
+        "hash": "10137278655601650020"
+      },
+      {
+        "file": "dist/apps/telestela/browser/index.html",
+        "hash": "5034187167125191666"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/chunk-BTFZICNT.js",
+        "hash": "1023839173346238660"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "16369306552324931012"
+      },
+      {
+        "file": "dist/apps/telestela/browser/chunk-U4AR4GTP.js",
+        "hash": "12537461277389673075"
+      },
+      {
+        "file": ".nx/workspace-data/eslint-4393011795395336301.hash",
+        "hash": "16297457966791738340"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_core.js.map",
+        "hash": "9947606979680686569"
+      },
+      {
+        "file": ".nx/workspace-data/playwright-5186013267177752385.hash",
+        "hash": "9011996769627127513"
+      },
+      {
+        "file": ".DS_Store",
+        "hash": "2402435249916095284"
+      },
+      {
+        "file": ".git/index.lock",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_platform-browser.js",
+        "hash": "14181948506553679629"
+      },
+      {
+        "file": ".nx/workspace-data/83EC4F89-0AC5-5DDF-B435-87269B387AE0.db",
+        "hash": "6240709564311096908"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/chunk-BTFZICNT.js.map",
+        "hash": "11118363247694791612"
+      },
+      {
+        "file": ".git/objects/1b/924453f953b40e68fe6b775c9088e7bc3fe685",
+        "hash": "6690650713292436530"
+      },
+      {
+        "file": "dist/apps/telestela/browser/polyfills.js",
+        "hash": "5469413347400847123"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "14151128445541271795"
+      },
+      {
+        "file": ".git/objects/ec/4f28e91f1b2a24529104d8fb38151e8059754e",
+        "hash": "13262962069001337444"
+      },
+      {
+        "file": "dist/apps/telestela/browser/chunk-U4AR4GTP.js.map",
+        "hash": "15381943430527358537"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_platform-browser.js.map",
+        "hash": "9947606979680686569"
+      },
+      {
+        "file": "dist/apps/telestela/browser/main.js.map",
+        "hash": "5683778838869108689"
+      },
+      {
+        "file": "dist/apps/telestela/browser/styles.css",
+        "hash": "11470055116456228510"
+      },
+      {
+        "file": ".nx/workspace-data/file-map.json",
+        "hash": "17134408529985286646"
+      },
+      {
+        "file": ".git/objects/86/1d6b3302fbe2f96592a5d006907f692b0e1649",
+        "hash": "10925237795918545202"
+      },
+      {
+        "file": "tailwind.config.js",
+        "hash": "16260718527286117405"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/angular-compiler.db",
+        "hash": "4093428741486819247"
+      },
+      {
+        "file": "dist/apps/telestela/browser/favicon.ico",
+        "hash": "9303420814833116677"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/angular-compiler.db-lock",
+        "hash": "7433816868051059544"
+      },
+      {
+        "file": "dist/apps/telestela/browser/main.js",
+        "hash": "12461072285631509563"
+      },
+      {
+        "file": ".git/objects/dd/300484f7f913cb533dc88dff90dcace95526f3",
+        "hash": "1144099861518336660"
+      },
+      {
+        "file": ".nx/workspace-data/83EC4F89-0AC5-5DDF-B435-87269B387AE0.db-wal",
+        "hash": "6152950948720593492"
+      },
+      {
+        "file": "eslint.config.js",
+        "hash": "13284407697401820180"
+      },
+      {
+        "file": ".nx/workspace-data/83EC4F89-0AC5-5DDF-B435-87269B387AE0.db-shm",
+        "hash": "5361751121169746459"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/chunk-FEVMUFLK.js",
+        "hash": "8110559122018273221"
+      },
+      {
+        "file": "package.json",
+        "hash": "1898223206119720762"
+      },
+      {
+        "file": "dist/apps/telestela/browser/chunk-QLXJIL3J.js.map",
+        "hash": "14261360653023570790"
+      },
+      {
+        "file": ".git/objects/91/e66ebd51d256ae436fd7be0d441b5a7ab302e3",
+        "hash": "14336487991178929150"
+      },
+      {
+        "file": ".git/objects/ee/e5bc96e048259d1584c7dd4ae57078aa5d8ccb",
+        "hash": "783971207296460604"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "8932281053936081748"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_core.js",
+        "hash": "10089953580858735749"
+      },
+      {
+        "file": "dist/apps/telestela/browser/polyfills.js.map",
+        "hash": "11744022737919143050"
+      },
+      {
+        "file": "README.md",
+        "hash": "16134222679815344021"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "3494843969422251966"
+      },
+      {
+        "file": "nx.json",
+        "hash": "11128028243075688033"
+      },
+      {
+        "file": ".git/objects/98/652118b6862120fb1a693020ad8654fe85851d",
+        "hash": "2715028118255695934"
+      },
+      {
+        "file": ".git/objects/60/1adf7c2bbde4771ec0c7eabddee9e66ce67854",
+        "hash": "13966694584519049776"
+      },
+      {
+        "file": ".git/objects/78/d8349c6fcb6950cec7647a6526bac94feb448b",
+        "hash": "6364698235348016122"
+      },
+      {
+        "file": "dist/apps/telestela/browser/chunk-QLXJIL3J.js",
+        "hash": "17244564103735182396"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/vite/deps_temp_a9b67ff1/@angular_router.js.map",
+        "hash": "10609120257614010247"
+      },
+      {
+        "file": ".nx/workspace-data/project-graph.json",
+        "hash": "1906881786744025612"
+      },
+      {
+        "file": ".angular/cache/18.2.10/telestela/.tsbuildinfo",
+        "hash": "16866678179356048134"
+      }
+    ],
+    "projectFileMap": {
+      "telestela-e2e": [
+        {
+          "file": "apps/telestela-e2e/eslint.config.js",
+          "hash": "14961487548881507461",
+          "deps": [
+            "npm:eslint-plugin-playwright"
+          ]
+        },
+        {
+          "file": "apps/telestela-e2e/playwright.config.ts",
+          "hash": "18363557318532795255",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "apps/telestela-e2e/project.json",
+          "hash": "1874591485183111777"
+        },
+        {
+          "file": "apps/telestela-e2e/src/example.spec.ts",
+          "hash": "18347798957900842106",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        },
+        {
+          "file": "apps/telestela-e2e/tsconfig.json",
+          "hash": "2800721902587063983"
+        }
+      ],
+      "telestela": [
+        {
+          "file": "apps/telestela/eslint.config.js",
+          "hash": "11257535883038693116",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "apps/telestela/jest.config.ts",
+          "hash": "13190467333558477840"
+        },
+        {
+          "file": "apps/telestela/project.json",
+          "hash": "3278644893553134909"
+        },
+        {
+          "file": "apps/telestela/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/telestela/src/app/app.component.html",
+          "hash": "11974489295153940628"
+        },
+        {
+          "file": "apps/telestela/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/telestela/src/app/app.component.spec.ts",
+          "hash": "681456162317597628",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/telestela/src/app/app.component.ts",
+          "hash": "3912825341963018144",
+          "deps": [
+            "shared",
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/telestela/src/app/app.config.ts",
+          "hash": "5314150641595306333",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/telestela/src/app/app.routes.ts",
+          "hash": "4839130950518136700",
+          "deps": [
+            "npm:@angular/router",
+            [
+              "telestela-routes",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "apps/telestela/src/index.html",
+          "hash": "13949217869575199055"
+        },
+        {
+          "file": "apps/telestela/src/main.ts",
+          "hash": "12131998176465627878",
+          "deps": [
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "apps/telestela/src/output.scss",
+          "hash": "427598720608473550"
+        },
+        {
+          "file": "apps/telestela/src/styles.scss",
+          "hash": "12991726714479872705"
+        },
+        {
+          "file": "apps/telestela/src/test-setup.ts",
+          "hash": "6644094514051657700",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/telestela/tsconfig.app.json",
+          "hash": "8365644956319658761"
+        },
+        {
+          "file": "apps/telestela/tsconfig.json",
+          "hash": "10914157984200731941"
+        },
+        {
+          "file": "apps/telestela/tsconfig.spec.json",
+          "hash": "2927375835638640771"
+        }
+      ],
+      "nx-cloud-client-bundle": [
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/index.js",
+          "hash": "13727776365444821321"
+        },
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/lib/daemon/process-run-end.js",
+          "hash": "563729894000173419"
+        },
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/lib/heartbeat/heartbeat-process.js",
+          "hash": "5238729748069034740"
+        },
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/package.json",
+          "hash": "361065000599325474",
+          "deps": [
+            "npm:axios",
+            "npm:enquirer",
+            "npm:dotenv",
+            "npm:node-machine-id",
+            "npm:tar",
+            "npm:strip-json-comments",
+            "npm:chalk",
+            "npm:yargs-parser",
+            "npm:fs-extra",
+            "npm:open",
+            "npm:ini"
+          ]
+        },
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/static/login-end.html",
+          "hash": "7227742377832893506"
+        },
+        {
+          "file": ".nx/cache/cloud/2410.25.5.hotfix6/static/login-start.html",
+          "hash": "4217172551631503077"
+        }
+      ],
+      "telestela-routes": [
+        {
+          "file": "libs/telestela-routes/README.md",
+          "hash": "13964635076352373196"
+        },
+        {
+          "file": "libs/telestela-routes/eslint.config.js",
+          "hash": "2542705818865346446",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/telestela-routes/jest.config.ts",
+          "hash": "16451071877065485828"
+        },
+        {
+          "file": "libs/telestela-routes/project.json",
+          "hash": "10957916499545705636"
+        },
+        {
+          "file": "libs/telestela-routes/src/index.ts",
+          "hash": "8471135353196974844"
+        },
+        {
+          "file": "libs/telestela-routes/src/lib/telestela-home/telestela-home.component.html",
+          "hash": "7150375470912974957"
+        },
+        {
+          "file": "libs/telestela-routes/src/lib/telestela-home/telestela-home.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/telestela-routes/src/lib/telestela-home/telestela-home.component.spec.ts",
+          "hash": "78297321782186995",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/telestela-routes/src/lib/telestela-home/telestela-home.component.ts",
+          "hash": "17982048153554730704",
+          "deps": [
+            "npm:@angular/core",
+            "shared"
+          ]
+        },
+        {
+          "file": "libs/telestela-routes/src/test-setup.ts",
+          "hash": "6644094514051657700",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/telestela-routes/tsconfig.json",
+          "hash": "1083278824072282325"
+        },
+        {
+          "file": "libs/telestela-routes/tsconfig.lib.json",
+          "hash": "4766185256741444917"
+        },
+        {
+          "file": "libs/telestela-routes/tsconfig.spec.json",
+          "hash": "2129196202529263968"
+        }
+      ],
+      "shared": [
+        {
+          "file": "libs/shared/README.md",
+          "hash": "18321119346861532697"
+        },
+        {
+          "file": "libs/shared/eslint.config.js",
+          "hash": "5433261894814197663",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/shared/jest.config.ts",
+          "hash": "3904800997013269741"
+        },
+        {
+          "file": "libs/shared/project.json",
+          "hash": "16774691441576545213"
+        },
+        {
+          "file": "libs/shared/src/index.ts",
+          "hash": "10211783385640481874"
+        },
+        {
+          "file": "libs/shared/src/lib/app-container/app-container.component.html",
+          "hash": "13511562496487416218"
+        },
+        {
+          "file": "libs/shared/src/lib/app-container/app-container.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/src/lib/app-container/app-container.component.spec.ts",
+          "hash": "8232556603980349339",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/app-container/app-container.component.ts",
+          "hash": "18342708376819296255",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/home-page/home-page.component.html",
+          "hash": "7286148139549973228"
+        },
+        {
+          "file": "libs/shared/src/lib/home-page/home-page.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/src/lib/home-page/home-page.component.spec.ts",
+          "hash": "15771524219797434029",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/home-page/home-page.component.ts",
+          "hash": "8384698999956632927",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/test-setup.ts",
+          "hash": "6644094514051657700",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/shared/tsconfig.json",
+          "hash": "1083278824072282325"
+        },
+        {
+          "file": "libs/shared/tsconfig.lib.json",
+          "hash": "5796668385415907511"
+        },
+        {
+          "file": "libs/shared/tsconfig.spec.json",
+          "hash": "2927375835638640771"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx run telestela:build:development",
+    "startTime": "2024-11-05T23:14:10.121Z",
+    "endTime": "2024-11-05T23:14:18.475Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "telestela:build:development",
+      "target": "build",
+      "projectName": "telestela",
+      "hash": "5022065834341869364",
+      "startTime": "2024-11-05T23:14:10.128Z",
+      "endTime": "2024-11-05T23:14:18.474Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}
