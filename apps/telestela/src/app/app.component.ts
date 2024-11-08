@@ -1,6 +1,7 @@
 import { AppContainerComponent } from '@angular-monorepo/shared'
 import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
+import { ENV } from '@angular-monorepo/environments'
 
 @Component({
   standalone: true,
@@ -11,5 +12,7 @@ import { RouterModule } from '@angular/router'
 })
 export class AppComponent {
   title = 'telestela'
-  // pass in public routes to container component and home component
+  constructor() {
+    console.log(ENV)
+  }
 }

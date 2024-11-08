@@ -6,7 +6,9 @@
     "lint": "npx nx run-many --target=lint --all --skip-nx-cache --fix",
     "format": "npx nx format:write",
     "telestela:dev": "npx nx run telestela:build:development; npx nx run telestela:serve:development",
-    "start:dev": "npm run telestela:dev"
+    "telestela:prod": "npx nx run telestela:build:production; npx nx run telestela:serve:production",
+    "start:dev": "npm run telestela:dev",
+    "start": "npm run telestela:prod"
   },
   "private": true,
   "dependencies": {
