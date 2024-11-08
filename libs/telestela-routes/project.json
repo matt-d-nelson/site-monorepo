@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/jest.config.ts"
+        "jestConfig": "libs/telestela-routes/jest.config.ts"
       }
     },
     "lint": {

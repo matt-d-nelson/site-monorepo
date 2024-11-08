@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "environments/jest.config.ts"
+        "jestConfig": "libs/environments/jest.config.ts"
       }
     },
     "lint": {
