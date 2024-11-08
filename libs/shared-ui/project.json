@@ -1,8 +1,8 @@
 {
-  "name": "shared",
+  "name": "shared-ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/src",
-  "prefix": "shared",
+  "sourceRoot": "libs/shared-ui/src",
+  "prefix": "shared-ui",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/shared/jest.config.ts"
+        "jestConfig": "libs/shared-ui/jest.config.ts"
       }
     },
     "lint": {
