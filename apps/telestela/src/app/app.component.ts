@@ -1,4 +1,4 @@
-import { AppContainerComponent } from '@angular-monorepo/shared'
+import { AppContainerComponent } from '@angular-monorepo/shared-ui'
 import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ENV } from '@angular-monorepo/environments'
