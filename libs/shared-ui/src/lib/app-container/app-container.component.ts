@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'shared-app-container',
+  selector: 'shared-ui-app-container',
   standalone: true,
   imports: [],
   templateUrl: './app-container.component.html',

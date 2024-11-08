@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HomePageComponent } from '@angular-monorepo/shared'
+import { HomePageComponent } from '@angular-monorepo/shared-ui'
 
 @Component({
   selector: 'telestela-home',
