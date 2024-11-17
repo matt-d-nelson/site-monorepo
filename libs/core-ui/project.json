@@ -2,7 +2,7 @@
   "name": "core-ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/core-ui/src",
-  "prefix": "lib",
+  "prefix": "core-ui",
   "projectType": "library",
   "tags": [],
   "targets": {

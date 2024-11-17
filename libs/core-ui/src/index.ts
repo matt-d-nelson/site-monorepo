@@ -1,1 +1,1 @@
-export * from './lib/core-ui/core-ui.component'
+export * from './lib/button/button.component'
