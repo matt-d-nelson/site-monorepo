@@ -1,7 +1,7 @@
 import { ENV } from '@angular-monorepo/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
