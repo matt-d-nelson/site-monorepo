@@ -1,23 +1,23 @@
 import { AppContainerComponent } from '@angular-monorepo/shared-ui'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { ENV } from '@angular-monorepo/environments'
-import { FeedService } from '@angular-monorepo/shared-services'
+import { AuthService } from '@angular-monorepo/shared-services'
 
 @Component({
   standalone: true,
   imports: [RouterModule, AppContainerComponent],
-  providers: [FeedService],
+  providers: [AuthService],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'telestela'
-  constructor(private feedService: FeedService) {
-    console.log(ENV)
-    this.feedService.getFeed().subscribe((res) => {
-      console.log(res)
-    })
+  orgId = '12356'
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+      this.authService.setCurrentOrg(this.orgId)
   }
 }
