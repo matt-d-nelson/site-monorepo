@@ -1,3 +1,7 @@
 
-<core-ui-button label="Login" (onClick)="loginUser()"></core-ui-button>
-<core-ui-button label="Register" (onClick)="registerUser()"></core-ui-button>
+<form class="flex justify-center mt-6" [formGroup]="userForm">
+    <core-ui-input label="Email" type="text" [control]="userForm.get('email')" [parentForm]="userForm"></core-ui-input>
+    <core-ui-input label="Password" type="password" [control]="userForm.get('password')" [parentForm]="userForm"></core-ui-input>
+    <core-ui-button class="m-1" label="Login" (onClick)="loginUser()"></core-ui-button>
+    <core-ui-button class="m-1" label="Register" (onClick)="registerUser()"></core-ui-button>
+</form>
