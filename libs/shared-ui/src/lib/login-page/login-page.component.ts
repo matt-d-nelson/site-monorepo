@@ -42,8 +42,7 @@ export class LoginPageComponent {
       email: loginForm.value.email,
       password: loginForm.value.password
     }
-    this.authService.loginUser(loginUserReqBody).subscribe((res) => {
-      console.log(res)
+    this.authService.loginUser(loginUserReqBody).subscribe(() => {
       //TODO: Alert Success / error handling
       this.formDialogOpen = false
     })
@@ -59,8 +58,7 @@ export class LoginPageComponent {
       email: registerForm.value.email,
       password: registerForm.value.password
     }
-    this.authService.registerUser(registerUserReqBody).subscribe((res) => {
-      console.log(res)
+    this.authService.registerUser(registerUserReqBody).subscribe(() => {
       //TODO: Alert Success / error handling
       this.formDialogOpen = false
     })

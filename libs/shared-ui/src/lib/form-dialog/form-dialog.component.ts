@@ -10,16 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './form-dialog.component.html',
   styleUrl: './form-dialog.component.scss'
 })
-export class FormDialogComponent implements OnChanges, OnInit {
+export class FormDialogComponent implements OnChanges {
   @ViewChild('formDialog', {static:true}) dialog!: ElementRef<HTMLDialogElement>
   @Input() open: boolean = false
   @Output() openChange = new EventEmitter<boolean>()
 
   @Input() dialogConfig!: any //TODO: type
-
-  ngOnInit(): void {
-      console.log( this.dialogConfig)
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['open']) this.updateDialogState()
