@@ -1,5 +1,6 @@
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 
+//TODO: type
 export function CreateLoginDialogConfig(component: any) {
     return {
         header: 'Login',
