@@ -15,9 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@angular-monorepo/core-ui": ["libs/core-ui/src/index.ts"],
       "@angular-monorepo/environments": ["libs/environments/src/index.ts"],
-      "@angular-monorepo/shared-services": ["libs/shared-services/src/index.ts"],
+      "@angular-monorepo/shared-services": [
+        "libs/shared-services/src/index.ts"
+      ],
       "@angular-monorepo/shared-ui": ["libs/shared-ui/src/index.ts"],
+      "@angular-monorepo/shared-utilities": [
+        "libs/shared-utilities/src/index.ts"
+      ],
       "@angular-monorepo/telestela-routes": [
         "libs/telestela-routes/src/index.ts"
       ]

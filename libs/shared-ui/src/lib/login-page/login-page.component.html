@@ -1,0 +1,7 @@
+
+<div class="flex justify-center mt-6">
+    <core-ui-button class="m-1" label="Login" (onClick)="loginUser()"></core-ui-button>
+    <core-ui-button class="m-1" label="Register" (onClick)="registerUser()"></core-ui-button>
+</div>
+
+<shared-ui-form-dialog [(open)]="formDialogOpen" [dialogConfig]="activeDialogConfig"></shared-ui-form-dialog>
