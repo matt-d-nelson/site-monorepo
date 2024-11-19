@@ -23,7 +23,10 @@
                     Unknown input type: {{config?.type}}
                 </div>
             </div>
-
+        </div>
+        <!-- form validation errors -->
+        <div>
+            <small *ngIf="dialogConfig?.form?.hasError('passwordMismatch')">Passwords do not match.</small>
         </div>
     </form>
     <core-ui-button [label]="dialogConfig?.confirmConfig?.label" (onClick)="handleConfirm()"></core-ui-button>
