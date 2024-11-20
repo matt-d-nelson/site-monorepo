@@ -17,6 +17,9 @@
     "paths": {
       "@angular-monorepo/core-ui": ["libs/core-ui/src/index.ts"],
       "@angular-monorepo/environments": ["libs/environments/src/index.ts"],
+      "@angular-monorepo/shared-constants": [
+        "libs/shared-constants/src/index.ts"
+      ],
       "@angular-monorepo/shared-services": [
         "libs/shared-services/src/index.ts"
       ],
