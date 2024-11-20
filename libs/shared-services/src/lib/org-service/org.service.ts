@@ -9,10 +9,10 @@ export class OrgService {
   constructor() { }
 
   private _currentOrgId = new BehaviorSubject<ORGIDS>(ORGIDS.NONE)
-  currentOrgId = this._currentOrgId.asObservable()
+  currentOrgId$ = this._currentOrgId.asObservable()
 
   private _currentOrgTheme = new BehaviorSubject({})
-  currentOrgTheme = this._currentOrgTheme.asObservable()
+  currentOrgTheme$ = this._currentOrgTheme.asObservable()
 
   setCurrentOrg(orgId: ORGIDS) {
     this._currentOrgId.next(orgId)

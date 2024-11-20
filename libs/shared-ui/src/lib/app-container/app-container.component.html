@@ -1,1 +1,15 @@
-<p>app-container works!</p>
+<div class="app-wrapper">
+    <!-- Background Image -->
+    <ng-container *ngTemplateOutlet="backgroundTemplate"></ng-container>
+
+    <!-- Header -->
+    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+  </div>

@@ -1,12 +1,11 @@
-import { AppContainerComponent } from '@angular-monorepo/shared-ui'
+import { AppContainerComponent, BackgroundWaveComponent } from '@angular-monorepo/shared-ui'
 import { Component, OnInit } from '@angular/core'
-import { RouterModule } from '@angular/router'
 import { AuthService, OrgService } from '@angular-monorepo/shared-services'
 import { ORGIDS } from '@angular-monorepo/shared-constants'
 
 @Component({
   standalone: true,
-  imports: [RouterModule, AppContainerComponent],
+  imports: [AppContainerComponent, BackgroundWaveComponent],
   providers: [AuthService],
   selector: 'app-root',
   templateUrl: './app.component.html',
