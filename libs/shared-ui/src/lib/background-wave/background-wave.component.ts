@@ -14,17 +14,24 @@ export class BackgroundWaveComponent implements OnInit {
   constructor(private orgService: OrgService) {}
 
   wavePaths!: any[]
+  screenWidth!: number
+  screenHeight!: number
 
   ngOnInit(): void {
+    this.updateScreenSize()
     this.setWavePaths()
+  }
+
+  updateScreenSize() {
+    this.screenWidth = window.innerWidth
+    this.screenHeight = window.innerHeight
   }
 
   setWavePaths() {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       const waveColors = orgTheme.componentColors.waveColors
       if(!waveColors) return
-      this.wavePaths = GenerateWavePaths(waveColors)
-      console.log(this.wavePaths)
+      this.wavePaths = GenerateWavePaths(waveColors, this.screenWidth, this.screenHeight)
     })
   }
 }
