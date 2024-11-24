@@ -1,11 +1,14 @@
-import { AppContainerComponent } from '@angular-monorepo/shared-ui'
+import {
+  AppContainerComponent,
+  BackgroundWaveComponent,
+} from '@angular-monorepo/shared-ui'
 import { Component, OnInit } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { AuthService } from '@angular-monorepo/shared-services'
+import { AuthService, OrgService } from '@angular-monorepo/shared-services'
+import { ORGIDS } from '@angular-monorepo/shared-constants'
 
 @Component({
   standalone: true,
-  imports: [RouterModule, AppContainerComponent],
+  imports: [AppContainerComponent, BackgroundWaveComponent],
   providers: [AuthService],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,11 +16,11 @@ import { AuthService } from '@angular-monorepo/shared-services'
 })
 export class AppComponent implements OnInit {
   title = 'telestela'
-  orgId = '12356'
+  orgId = ORGIDS.TELESTELA
 
-  constructor(private authService: AuthService) {}
+  constructor(private orgService: OrgService) {}
 
   ngOnInit(): void {
-      this.authService.setCurrentOrg(this.orgId)
+    this.orgService.setCurrentOrg(this.orgId)
   }
 }
