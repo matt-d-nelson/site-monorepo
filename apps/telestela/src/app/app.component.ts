@@ -1,4 +1,7 @@
-import { AppContainerComponent, BackgroundWaveComponent } from '@angular-monorepo/shared-ui'
+import {
+  AppContainerComponent,
+  BackgroundWaveComponent,
+} from '@angular-monorepo/shared-ui'
 import { Component, OnInit } from '@angular/core'
 import { AuthService, OrgService } from '@angular-monorepo/shared-services'
 import { ORGIDS } from '@angular-monorepo/shared-constants'
@@ -18,6 +21,6 @@ export class AppComponent implements OnInit {
   constructor(private orgService: OrgService) {}
 
   ngOnInit(): void {
-      this.orgService.setCurrentOrg(this.orgId)
+    this.orgService.setCurrentOrg(this.orgId)
   }
 }

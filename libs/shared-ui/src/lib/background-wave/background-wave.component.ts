@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GenerateWavePaths } from './background-wave.utils';
-import { OrgService } from '@angular-monorepo/shared-services';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { GenerateWavePaths } from './background-wave.utils'
+import { OrgService } from '@angular-monorepo/shared-services'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'shared-ui-background-wave',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './background-wave.component.html',
-  styleUrl: './background-wave.component.scss'
+  styleUrl: './background-wave.component.scss',
 })
-export class BackgroundWaveComponent implements OnInit, OnDestroy{
+export class BackgroundWaveComponent implements OnInit, OnDestroy {
   constructor(private orgService: OrgService) {}
 
   wavePaths!: any[]
@@ -38,8 +38,12 @@ export class BackgroundWaveComponent implements OnInit, OnDestroy{
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.backgroundColor = orgTheme.componentColors.main.background
       const waveColors = orgTheme.componentColors.waveColors
-      if(!waveColors) return
-      this.wavePaths = GenerateWavePaths(waveColors, this.screenWidth, this.screenHeight)
+      if (!waveColors) return
+      this.wavePaths = GenerateWavePaths(
+        waveColors,
+        this.screenWidth,
+        this.screenHeight
+      )
     })
   }
 

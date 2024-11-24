@@ -1,12 +1,12 @@
-import { ORGIDS, OrgThemes } from '@angular-monorepo/shared-constants';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ORGIDS, OrgThemes } from '@angular-monorepo/shared-constants'
+import { Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrgService {
-  constructor() { }
+  constructor() {}
 
   private _currentOrgId = new BehaviorSubject<ORGIDS>(ORGIDS.NONE)
   currentOrgId$ = this._currentOrgId.asObservable()
@@ -20,7 +20,8 @@ export class OrgService {
   }
 
   setCurrentOrgTheme(orgId: ORGIDS) {
-    return orgId === ORGIDS.NONE ? {} :
-    this._currentOrgTheme.next(OrgThemes[orgId])
+    return orgId === ORGIDS.NONE
+      ? {}
+      : this._currentOrgTheme.next(OrgThemes[orgId])
   }
 }
