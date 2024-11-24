@@ -10,7 +10,8 @@ const OrgBaseColors = {
         pink: '#ea97dd',
         blue: '#007ace',
         purple: '#6759bb',
-        offWhite: '#e2e2e2'
+        offWhite: '#f4f5f7',
+        offBlack: '#3f3e3c',
     },
     [ORGIDS.MATT]: {}
 }
@@ -26,20 +27,33 @@ const OrgComponentColors = {
             w6: OrgBaseColors[ORGIDS.TELESTELA].red,
             w7: OrgBaseColors[ORGIDS.TELESTELA].orange,
             w8: OrgBaseColors[ORGIDS.TELESTELA].yellow
+        },
+        main: {
+            background: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+            border: OrgBaseColors[ORGIDS.TELESTELA].offWhite
         }
     },
     [ORGIDS.MATT]: {
-
     }
 }
 
-export const OrgThemes= {
+const OrgStaticImages = {
+    [ORGIDS.TELESTELA]: {
+        homePage: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png'
+    },
+    [ORGIDS.MATT]: {
+    }
+}
+
+export const OrgThemes = {
     [ORGIDS.TELESTELA]: {
         baseColors: OrgBaseColors[ORGIDS.TELESTELA],
-        componentColors: OrgComponentColors[ORGIDS.TELESTELA]
+        componentColors: OrgComponentColors[ORGIDS.TELESTELA],
+        staticImages: OrgStaticImages[ORGIDS.TELESTELA]
     },
     [ORGIDS.MATT]: {
         baseColors: OrgBaseColors[ORGIDS.MATT],
-        componentColors: OrgComponentColors[ORGIDS.MATT]
+        componentColors: OrgComponentColors[ORGIDS.MATT],
+        staticImages: OrgStaticImages[ORGIDS.MATT]
     }
 }

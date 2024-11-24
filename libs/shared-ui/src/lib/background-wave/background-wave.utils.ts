@@ -1,7 +1,10 @@
 export function GenerateWavePaths(colors: any, width: number, height: number): any { 
-    const scaleX = (x: number) => (x / 875) * width;
-    const scaleY = (y: number) => (y / 700) * height;
-    console.log('in gen')
+    const minWidth = 875
+    const effectiveWidth = Math.max(width, minWidth)
+    
+    const scaleX = (x: number) => Math.floor((x / 875) * effectiveWidth)
+    const scaleY = (y: number) => Math.floor((y / 700) * height)
+
     return [
         {
             path: `M0 ${scaleY(191)}L${scaleX(25)} ${scaleY(213.5)}C${scaleX(50)} ${scaleY(236)} ${scaleX(100)} ${scaleY(281)} ${scaleX(150)} ${scaleY(279.7)}C${scaleX(200)} ${scaleY(278.3)} ${scaleX(250)} ${scaleY(230.7)} ${scaleX(300)} ${scaleY(200.2)}C${scaleX(350)} ${scaleY(169.7)} ${scaleX(400)} ${scaleY(156.3)} ${scaleX(450)} ${scaleY(164.5)}C${scaleX(500)} ${scaleY(172.7)} ${scaleX(550)} ${scaleY(202.3)} ${scaleX(600)} ${scaleY(224.5)}C${scaleX(650)} ${scaleY(246.7)} ${scaleX(700)} ${scaleY(261.3)} ${scaleX(750)} ${scaleY(257.7)}C${scaleX(800)} ${scaleY(254)} ${scaleX(850)} ${scaleY(232)} ${scaleX(875)} ${scaleY(221)}L${width} ${scaleY(210)}L${width} ${height}L${width-scaleX(25)} ${height}C${width-scaleX(50)} ${height} ${width-scaleX(100)} ${height} ${width-scaleX(150)} ${height}C${width-scaleX(200)} ${height} ${width-scaleX(250)} ${height} ${width-scaleX(300)} ${height}C${width-scaleX(350)} ${height} ${width-scaleX(400)} ${height} ${width-scaleX(450)} ${height}C${width-scaleX(500)} ${height} ${width-scaleX(550)} ${height} ${width-scaleX(600)} ${height}C${width-scaleX(650)} ${height} ${width-scaleX(700)} ${height} ${width-scaleX(750)} ${height}C${width-scaleX(800)} ${height} ${width-scaleX(850)} ${height} ${width-scaleX(875)} ${height}L0 ${height}Z`,

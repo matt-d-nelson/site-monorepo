@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GenerateWavePaths } from './background-wave.utils';
 import { OrgService } from '@angular-monorepo/shared-services';
 import { CommonModule } from '@angular/common';
@@ -10,16 +10,23 @@ import { CommonModule } from '@angular/common';
   templateUrl: './background-wave.component.html',
   styleUrl: './background-wave.component.scss'
 })
-export class BackgroundWaveComponent implements OnInit {
+export class BackgroundWaveComponent implements OnInit, OnDestroy{
   constructor(private orgService: OrgService) {}
 
   wavePaths!: any[]
+  backgroundColor!: string
   screenWidth!: number
   screenHeight!: number
+
+  private resizeListener = () => {
+    this.updateScreenSize()
+    this.setWavePaths()
+  }
 
   ngOnInit(): void {
     this.updateScreenSize()
     this.setWavePaths()
+    window.addEventListener('resize', this.resizeListener)
   }
 
   updateScreenSize() {
@@ -29,9 +36,14 @@ export class BackgroundWaveComponent implements OnInit {
 
   setWavePaths() {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
+      this.backgroundColor = orgTheme.componentColors.main.background
       const waveColors = orgTheme.componentColors.waveColors
       if(!waveColors) return
       this.wavePaths = GenerateWavePaths(waveColors, this.screenWidth, this.screenHeight)
     })
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.resizeListener)
   }
 }

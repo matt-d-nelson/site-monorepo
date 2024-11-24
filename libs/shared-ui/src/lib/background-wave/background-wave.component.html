@@ -1,18 +1,19 @@
-<svg 
-  preserveAspectRatio="none"
-  [attr.viewBox]="'0 0' + ' ' + screenWidth + ' ' + screenHeight"
-  width="100%" 
-  height="100%"
-  xmlns="http://www.w3.org/2000/svg" 
-  xmlns:xlink="http://www.w3.org/1999/xlink" 
-  version="1.1"
->
-<rect x="0" y="0" [attr.width]="screenWidth" [attr.height]="screenHeight" fill="#001220"></rect>
-<path
-  *ngFor="let wave of wavePaths; let i = index"
-  [attr.d]="wave?.path"
-  [attr.fill]="wave?.color"
-  class="wave-path"
-  [ngClass]="'wave-path-' + (i + 1)"
-></path>
-</svg>
+<div class="absolute w-full overflow-hidden -z-10">
+        <svg 
+        preserveAspectRatio="none"
+        [attr.viewBox]="'0 0' + ' ' + screenWidth + ' ' + screenHeight"
+        xmlns="http://www.w3.org/2000/svg" 
+        xmlns:xlink="http://www.w3.org/1999/xlink" 
+        version="1.1"
+        >
+            <rect x="0" y="0" [attr.width]="screenWidth" [attr.height]="screenHeight" [attr.fill]="backgroundColor"></rect>
+            <path
+            *ngFor="let wave of wavePaths; let i = index"
+            [attr.d]="wave?.path"
+            [attr.fill]="wave?.color"
+            class="wave-path"
+            [ngClass]="'wave-path-' + (i + 1)"
+            stroke-width="3"
+            ></path>
+        </svg>
+</div>
