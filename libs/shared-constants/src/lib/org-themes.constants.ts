@@ -10,8 +10,9 @@ const OrgBaseColors = {
     pink: '#ea97dd',
     blue: '#007ace',
     purple: '#6759bb',
-    offWhite: '#f4f5f7',
-    offBlack: '#3f3e3c',
+    offWhite: '#e6e6e6',
+    black: '#2b2b2b',
+    offBlack: '#323232',
   },
   [ORGIDS.MATT]: {},
 }
@@ -29,8 +30,58 @@ const OrgComponentColors = {
       w8: OrgBaseColors[ORGIDS.TELESTELA].yellow,
     },
     main: {
-      background: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
-      border: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
+      background: OrgBaseColors[ORGIDS.TELESTELA].black,
+      text: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
+    },
+    nav: {
+      color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      config: [
+        {
+          header: 'navigate',
+          links: [
+            {
+              title: 'about',
+              nav: '/about',
+              color: OrgBaseColors[ORGIDS.TELESTELA].blue,
+            },
+            {
+              title: 'music',
+              nav: '/music',
+              color: OrgBaseColors[ORGIDS.TELESTELA].lightGreen,
+            },
+            {
+              title: 'video',
+              nav: '/video',
+              color: OrgBaseColors[ORGIDS.TELESTELA].orange,
+            },
+            {
+              title: 'events',
+              nav: '/events',
+              color: OrgBaseColors[ORGIDS.TELESTELA].pink,
+            },
+          ],
+        },
+        {
+          header: 'connect',
+          links: [
+            {
+              title: 'facebook',
+              nav: '',
+              color: OrgBaseColors[ORGIDS.TELESTELA].green,
+            },
+            {
+              title: 'instagram',
+              nav: '',
+              color: OrgBaseColors[ORGIDS.TELESTELA].red,
+            },
+            {
+              title: 'email',
+              nav: '',
+              color: OrgBaseColors[ORGIDS.TELESTELA].purple,
+            },
+          ],
+        },
+      ],
     },
   },
   [ORGIDS.MATT]: {},
@@ -40,6 +91,7 @@ const OrgStaticImages = {
   [ORGIDS.TELESTELA]: {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
+    logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
   },
   [ORGIDS.MATT]: {},
 }

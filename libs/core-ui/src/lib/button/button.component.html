@@ -1,3 +1,12 @@
 <button
-    (click)="onClick.emit($event)"
->{{ label }}</button>
+  (click)="onClick.emit($event)"
+  class="flex items-center"
+  [style.--hover-text-color]="hoverTextColor"
+>
+  <span *ngIf="label">
+    {{ label }}
+  </span>
+  <ng-container *ngIf="icon">
+    <ng-container [ngTemplateOutlet]="icon"></ng-container>
+  </ng-container>
+</button>

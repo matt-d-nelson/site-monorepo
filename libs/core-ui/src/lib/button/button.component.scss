@@ -1,0 +1,7 @@
+button {
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--hover-text-color);
+  }
+}

@@ -1,0 +1,85 @@
+<div class="nav-bar" [ngStyle]="{ background: navColor }">
+  <div
+    class="nav-bar-content flex justify-between items-center px-4 md:mx-auto md:max-w-5xl"
+  >
+    <h1 class="text-xl">telestela</h1>
+    <core-ui-button
+      [icon]="menuIcon"
+      (onClick)="toggleDropdown()"
+    ></core-ui-button>
+  </div>
+</div>
+<div
+  class="nav-dropdown p-4 md:max-w-5xl"
+  [ngClass]="{ 'nav-visible': dropdownVisible }"
+  [ngStyle]="{ background: navColor }"
+>
+  <core-ui-lazy-img [source]="logoImg"></core-ui-lazy-img>
+  <div *ngFor="let config of dropdownConfig" class="px-4">
+    <h2 class="text-4xl border-b-2 pb-1">{{ config?.header }}</h2>
+    <div class="m-4">
+      <div *ngFor="let link of config?.links" class="flex mb-2">
+        <div
+          class="w-8 h-8 rounded-full"
+          [ngStyle]="{ background: link?.color }"
+        ></div>
+        <core-ui-button
+          [label]="link?.title"
+          [hoverTextColor]="link?.color"
+          class="text-2xl ml-2"
+        ></core-ui-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- menu svg -->
+<ng-template #menuIcon>
+  <svg
+    class="w-9"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 10 10"
+    [attr.stroke]="svgColor"
+    stroke-width=".6"
+    fill="rgba(0,0,0,0)"
+    stroke-linecap="round"
+    style="cursor: pointer"
+  >
+    <path d="M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7">
+      <animate
+        dur="0.2s"
+        attributeName="d"
+        values="M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7;M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7"
+        fill="freeze"
+        begin="start.begin"
+      />
+      <animate
+        dur="0.2s"
+        attributeName="d"
+        values="M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7;M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7"
+        fill="freeze"
+        begin="reverse.begin"
+      />
+    </path>
+    <rect width="10" height="10" stroke="none">
+      <animate dur="2s" id="reverse" attributeName="width" begin="click" />
+    </rect>
+    <rect width="10" height="10" stroke="none">
+      <animate
+        dur="0.001s"
+        id="start"
+        attributeName="width"
+        values="10;0"
+        fill="freeze"
+        begin="click"
+      />
+      <animate
+        dur="0.001s"
+        attributeName="width"
+        values="0;10"
+        fill="freeze"
+        begin="reverse.begin"
+      />
+    </rect>
+  </svg>
+</ng-template>
