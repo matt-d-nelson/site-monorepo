@@ -1,9 +1,10 @@
+import { LazyImgComponent } from '@angular-monorepo/core-ui'
 import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'shared-ui-home-page',
   standalone: true,
-  imports: [],
+  imports: [LazyImgComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })

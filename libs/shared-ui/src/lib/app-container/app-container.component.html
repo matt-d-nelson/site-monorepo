@@ -1,11 +1,14 @@
 <div class="h-screen">
-  <!-- Background Image -->
-  <ng-container *ngTemplateOutlet="backgroundTemplate"></ng-container>
+  <!-- Background -->
+  <ng-container
+    *ngTemplateOutlet="backgroundTemplate"
+    class="h-full"
+  ></ng-container>
 
   <!-- Header -->
   <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main class="h-full mx-auto w-[95%] md:max-w-3xl">
     <router-outlet></router-outlet>
   </main>
