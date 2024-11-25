@@ -13,15 +13,17 @@ import { Component, OnInit } from '@angular/core'
 export class NavBarComponent implements OnInit {
   constructor(private orgService: OrgService) {}
 
-  dropdownVisible: boolean = true
+  dropdownVisible: boolean = false
   dropdownConfig!: any
   navColor!: string
+  svgColor!: string
   logoImg: string = ''
 
   ngOnInit(): void {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.dropdownConfig = orgTheme.componentColors.nav.config
       this.navColor = orgTheme.componentColors.nav.color
+      this.svgColor = orgTheme.componentColors.main.text
       this.logoImg = orgTheme.staticImages.logo
     })
   }
