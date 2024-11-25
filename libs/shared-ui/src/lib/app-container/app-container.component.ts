@@ -1,3 +1,4 @@
+import { OrgService } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { Component, ContentChild, TemplateRef } from '@angular/core'
 import { RouterModule } from '@angular/router'
@@ -10,7 +11,7 @@ import { RouterModule } from '@angular/router'
   styleUrl: './app-container.component.scss',
 })
 export class AppContainerComponent {
-  @ContentChild('backgroundTemplate') backgroundTemplate!: TemplateRef<any>
-  @ContentChild('headerTemplate') headerTemplate!: TemplateRef<any>
-  @ContentChild('footerTemplate') footerTemplate!: TemplateRef<any>
+  @ContentChild('background') background!: TemplateRef<any>
+  @ContentChild('header') header!: TemplateRef<any>
+  @ContentChild('footer') footer!: TemplateRef<any>
 }

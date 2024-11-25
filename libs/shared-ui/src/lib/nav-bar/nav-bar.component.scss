@@ -1,0 +1,25 @@
+.nav-bar {
+  height: 3rem;
+  position: relative;
+}
+
+.nav-bar-content {
+  height: 3rem;
+}
+
+.nav-dropdown {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  position: fixed;
+  top: 3rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  height: calc(100vh - 3rem);
+}
+
+.nav-visible {
+  opacity: 1;
+  pointer-events: auto;
+}

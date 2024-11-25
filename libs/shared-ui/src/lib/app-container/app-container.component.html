@@ -1,18 +1,24 @@
 <div class="h-screen">
   <!-- Background -->
-  <ng-container
-    *ngTemplateOutlet="backgroundTemplate"
-    class="h-full"
-  ></ng-container>
+  <div class="absolute inset-0 -z-10">
+    <ng-container *ngTemplateOutlet="background"></ng-container>
+  </div>
+  <div class="relative z-10 flex flex-col h-full">
+    <!-- Header -->
+    <div class="sticky top-0 z-20">
+      <ng-container *ngTemplateOutlet="header"></ng-container>
+    </div>
 
-  <!-- Header -->
-  <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    <!-- Main -->
+    <main class="flex-grow overflow-y-auto">
+      <div class="mx-auto p-6 h-full md:max-w-5xl">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
 
-  <!-- Main -->
-  <main class="h-full mx-auto w-[95%] md:max-w-3xl">
-    <router-outlet></router-outlet>
-  </main>
-
-  <!-- Footer -->
-  <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+    <!-- Footer -->
+    <div class="sticky bottom-0 z-10">
+      <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </div>
+  </div>
 </div>
