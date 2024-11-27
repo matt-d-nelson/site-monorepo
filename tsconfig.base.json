@@ -27,9 +27,6 @@
       "@angular-monorepo/shared-utilities": [
         "libs/shared-utilities/src/index.ts"
       ],
-      "@angular-monorepo/telestela-routes": [
-        "libs/telestela-routes/src/index.ts"
-      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

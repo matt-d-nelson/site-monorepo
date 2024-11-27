@@ -8,7 +8,7 @@ export const appRoutes: Route[] = [
     },
     {
         path: 'home',
-        loadComponent: () => import('@angular-monorepo/telestela-routes').then((m) => m.TelestelaHomeComponent)
+        loadComponent: () => import('@angular-monorepo/shared-ui').then((m) => m.HomePageComponent)
     },
     {
         path: 'login',

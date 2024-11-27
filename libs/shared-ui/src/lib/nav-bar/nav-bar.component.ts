@@ -31,4 +31,8 @@ export class NavBarComponent implements OnInit {
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible
   }
+
+  navigate() {
+    
+  }
 }
