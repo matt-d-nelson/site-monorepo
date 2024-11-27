@@ -40,6 +40,11 @@ const OrgComponentColors = {
           header: 'navigate',
           links: [
             {
+              title: 'home',
+              nav: '/home',
+              color: OrgBaseColors[ORGIDS.TELESTELA].yellow
+            },
+            {
               title: 'about',
               nav: '/about',
               color: OrgBaseColors[ORGIDS.TELESTELA].blue,

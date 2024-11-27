@@ -27,6 +27,7 @@
           [label]="link?.title"
           [hoverTextColor]="link?.color"
           class="text-2xl ml-2"
+          (click)="navigate(link?.nav)"
         ></core-ui-button>
       </div>
     </div>

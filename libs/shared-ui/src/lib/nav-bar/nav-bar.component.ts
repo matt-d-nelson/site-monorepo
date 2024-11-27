@@ -2,6 +2,7 @@ import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui'
 import { OrgService } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'shared-ui-nav-bar',
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core'
   styleUrl: './nav-bar.component.scss',
 })
 export class NavBarComponent implements OnInit {
-  constructor(private orgService: OrgService) {}
+  constructor(private orgService: OrgService, private router: Router) {}
 
   dropdownVisible: boolean = false
   dropdownConfig!: any
@@ -32,7 +33,8 @@ export class NavBarComponent implements OnInit {
     this.dropdownVisible = !this.dropdownVisible
   }
 
-  navigate() {
-    
+  navigate(nav: string) {
+    this.router.navigate([nav])
+    this.toggleDropdown()
   }
 }
