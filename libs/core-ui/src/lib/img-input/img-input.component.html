@@ -1,1 +1,11 @@
-<p>img-input works!</p>
+<div>
+    <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        [roundCropper]="true"
+        [cropperMinWidth]="200"
+        (imageCropped)="handleImageCropped($event)"
+    ></image-cropper>
+    <input type="file" (change)="handleFileChange($event)">
+</div>
