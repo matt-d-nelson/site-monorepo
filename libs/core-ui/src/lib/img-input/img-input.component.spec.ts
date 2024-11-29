@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AboutPageComponent } from './about-page.component'
+import { ImgInputComponent } from './img-input.component'
 
-describe('AboutPageComponent', () => {
-  let component: AboutPageComponent
-  let fixture: ComponentFixture<AboutPageComponent>
+describe('ImgInputComponent', () => {
+  let component: ImgInputComponent
+  let fixture: ComponentFixture<ImgInputComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutPageComponent],
+      imports: [ImgInputComponent],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(AboutPageComponent)
+    fixture = TestBed.createComponent(ImgInputComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

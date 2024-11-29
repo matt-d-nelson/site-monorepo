@@ -42,7 +42,7 @@ const OrgComponentColors = {
             {
               title: 'home',
               nav: '/home',
-              color: OrgBaseColors[ORGIDS.TELESTELA].yellow
+              color: OrgBaseColors[ORGIDS.TELESTELA].yellow,
             },
             {
               title: 'about',
