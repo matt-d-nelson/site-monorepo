@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, signal } from '@angular/core'
 
 @Component({
   selector: 'core-ui-lazy-img',
@@ -13,9 +13,9 @@ export class LazyImgComponent {
   @Input() skeleton: boolean = false
   @Input() lazy: boolean = false
 
-  isLoaded: boolean = false
+  isLoaded = signal<boolean>(false)
 
   onImageLoad() {
-    this.isLoaded = true
+    this.isLoaded.set(true)
   }
 }

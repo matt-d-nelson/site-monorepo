@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit, signal } from '@angular/core'
 import { GenerateWavePaths } from './background-wave.utils'
 import { OrgService } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common'
 export class BackgroundWaveComponent implements OnInit, OnDestroy {
   constructor(private orgService: OrgService) {}
 
-  wavePaths!: any[]
-  backgroundColor!: string
-  screenWidth!: number
-  screenHeight!: number
+  wavePaths = signal<any[]>([])
+  backgroundColor = signal<string>('')
+  screenWidth = signal<number>(0)
+  screenHeight = signal<number>(0)
 
   private resizeListener = () => {
     this.updateScreenSize()
@@ -30,19 +30,17 @@ export class BackgroundWaveComponent implements OnInit, OnDestroy {
   }
 
   updateScreenSize() {
-    this.screenWidth = window.innerWidth
-    this.screenHeight = window.innerHeight
+    this.screenWidth.set(window.innerWidth)
+    this.screenHeight.set(window.innerHeight)
   }
 
   setWavePaths() {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.backgroundColor = orgTheme.componentColors.main.background
+      this.backgroundColor.set(orgTheme.componentColors.main.background)
       const waveColors = orgTheme.componentColors.waveColors
       if (!waveColors) return
-      this.wavePaths = GenerateWavePaths(
-        waveColors,
-        this.screenWidth,
-        this.screenHeight
+      this.wavePaths.set(
+        GenerateWavePaths(waveColors, this.screenWidth(), this.screenHeight())
       )
     })
   }

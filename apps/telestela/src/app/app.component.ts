@@ -3,7 +3,7 @@ import {
   BackgroundWaveComponent,
   NavBarComponent,
 } from '@angular-monorepo/shared-ui'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, signal } from '@angular/core'
 import { AuthService, OrgService } from '@angular-monorepo/shared-services'
 import { ORGIDS } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
@@ -23,15 +23,15 @@ import { CommonModule } from '@angular/common'
 })
 export class AppComponent implements OnInit {
   title = 'telestela'
-  orgId = ORGIDS.TELESTELA
-  color!: string
+  orgId = signal<ORGIDS>(ORGIDS.TELESTELA)
+  color = signal<string>('')
 
   constructor(private orgService: OrgService) {}
 
   ngOnInit(): void {
-    this.orgService.setCurrentOrg(this.orgId)
+    this.orgService.setCurrentOrg(this.orgId())
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.color = orgTheme.componentColors.main.text
+      this.color.set(orgTheme.componentColors.main.text)
     })
   }
 }

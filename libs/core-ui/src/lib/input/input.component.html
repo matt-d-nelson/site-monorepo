@@ -1,10 +1,10 @@
 <div [formGroup]="parentForm">
-    <label [attr.for]="label">
-        {{ label }}
-    </label>
-    <input [type]="type" [id]="label" [formControl]="control"/>
-    <div *ngIf="control?.invalid && (control.dirty || control.touched)">
-        <small *ngIf="control.hasError('required')">{{ label }} is required.</small>
-        <small *ngIf="control.hasError('email')">Please enter a valid email.</small>
-    </div>
+  <label [attr.for]="label">
+    {{ label }}
+  </label>
+  <input [type]="type" [id]="label" [formControl]="control" />
+  <div *ngIf="control?.invalid && (control.dirty || control.touched)">
+    <small *ngIf="control.hasError('required')">{{ label }} is required.</small>
+    <small *ngIf="control.hasError('email')">Please enter a valid email.</small>
+  </div>
 </div>

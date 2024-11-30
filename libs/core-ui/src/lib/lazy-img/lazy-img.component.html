@@ -1,6 +1,6 @@
 <img
   [src]="source"
-  [ngClass]="{ 'image-loaded': isLoaded }"
+  [ngClass]="{ 'image-loaded': isLoaded() }"
   [attr.loading]="lazy ? 'lazy' : null"
   (load)="onImageLoad()"
   class="fade-in"

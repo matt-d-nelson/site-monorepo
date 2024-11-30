@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
+import { Component, signal } from '@angular/core'
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper'
 
 @Component({
   selector: 'core-ui-img-input',
@@ -9,28 +9,27 @@ import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
   styleUrl: './img-input.component.scss',
 })
 export class ImgInputComponent {
-  imageChangedEvent: any = ''
-  croppedImage: string = ''
+  imageChangedEvent = signal<any>('')
+  croppedImage = signal<string>('')
 
   handleFileChange(event: any) {
-    this.imageChangedEvent = event
+    this.imageChangedEvent.set(event)
   }
 
   handleImageCropped(event: ImageCroppedEvent) {
-    console.log('baby got cropped')
-    this.croppedImage = event.base64 || ''
+    this.croppedImage.set(event.base64 || '')
   }
 
   dataURItoBlob(dataURI: string): Blob {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    
+    const byteString = atob(dataURI.split(',')[1])
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    const ab = new ArrayBuffer(byteString.length)
+    const ia = new Uint8Array(ab)
+
     for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
+      ia[i] = byteString.charCodeAt(i)
     }
 
-    return new Blob([ab], { type: mimeString });
+    return new Blob([ab], { type: mimeString })
   }
 }

@@ -1,14 +1,14 @@
 <dialog #formDialog>
-  <h1>{{ dialogConfig?.header }}</h1>
-  <form [formGroup]="dialogConfig?.form">
-    <div *ngFor="let config of dialogConfig?.formConfig">
+  <h1>{{ dialogConfig()?.header }}</h1>
+  <form [formGroup]="dialogConfig()?.form">
+    <div *ngFor="let config of dialogConfig()?.formConfig">
       <div [ngSwitch]="config?.type">
         <core-ui-input
           *ngSwitchCase="'text'"
           [label]="config?.label"
           type="text"
-          [control]="dialogConfig?.form?.get(config?.control)"
-          [parentForm]="dialogConfig?.form"
+          [control]="dialogConfig()?.form?.get(config?.control)"
+          [parentForm]="dialogConfig()?.form"
         >
         </core-ui-input>
 
@@ -16,8 +16,8 @@
           *ngSwitchCase="'password'"
           [label]="config?.label"
           type="password"
-          [control]="dialogConfig?.form?.get(config?.control)"
-          [parentForm]="dialogConfig?.form"
+          [control]="dialogConfig()?.form?.get(config?.control)"
+          [parentForm]="dialogConfig()?.form"
         >
         </core-ui-input>
 
@@ -26,13 +26,13 @@
     </div>
     <!-- form validation errors -->
     <div>
-      <small *ngIf="dialogConfig?.form?.hasError('passwordMismatch')"
+      <small *ngIf="dialogConfig()?.form?.hasError('passwordMismatch')"
         >Passwords do not match.</small
       >
     </div>
   </form>
   <core-ui-button
-    [label]="dialogConfig?.confirmConfig?.label"
+    [label]="dialogConfig()?.confirmConfig?.label"
     (onClick)="handleConfirm()"
   ></core-ui-button>
   <core-ui-button label="Cancel" (onClick)="closeModal()"></core-ui-button>

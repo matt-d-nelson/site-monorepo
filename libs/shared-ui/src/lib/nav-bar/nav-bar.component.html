@@ -1,4 +1,4 @@
-<div class="nav-bar" [ngStyle]="{ background: navColor }">
+<div class="nav-bar" [ngStyle]="{ background: navColor() }">
   <div
     class="nav-bar-content flex justify-between items-center px-4 md:mx-auto md:max-w-5xl"
   >
@@ -11,11 +11,11 @@
 </div>
 <div
   class="nav-dropdown p-4 md:max-w-5xl"
-  [ngClass]="{ 'nav-visible': dropdownVisible }"
-  [ngStyle]="{ background: navColor }"
+  [ngClass]="{ 'nav-visible': dropdownVisible() }"
+  [ngStyle]="{ background: navColor() }"
 >
-  <core-ui-lazy-img [source]="logoImg"></core-ui-lazy-img>
-  <div *ngFor="let config of dropdownConfig" class="px-4">
+  <core-ui-lazy-img [source]="logoImg()"></core-ui-lazy-img>
+  <div *ngFor="let config of dropdownConfig()" class="px-4">
     <h2 class="text-4xl border-b-2 pb-1">{{ config?.header }}</h2>
     <div class="m-4">
       <div *ngFor="let link of config?.links" class="flex mb-2">
@@ -40,7 +40,7 @@
     class="w-9"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 10 10"
-    [attr.stroke]="svgColor"
+    [attr.stroke]="svgColor()"
     stroke-width=".6"
     fill="rgba(0,0,0,0)"
     stroke-linecap="round"
