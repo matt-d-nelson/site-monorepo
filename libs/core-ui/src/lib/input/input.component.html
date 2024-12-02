@@ -1,10 +1,22 @@
-<div [formGroup]="parentForm">
-  <label [attr.for]="label">
-    {{ label }}
-  </label>
-  <input [type]="type" [id]="label" [formControl]="control" />
-  <div *ngIf="control?.invalid && (control.dirty || control.touched)">
-    <small *ngIf="control.hasError('required')">{{ label }} is required.</small>
-    <small *ngIf="control.hasError('email')">Please enter a valid email.</small>
+<div [formGroup]="parentForm" class="w-full">
+  <div class="w-full flex items-center">
+    <label [attr.for]="label" class="mr-1"> {{ label }}: </label>
+    <input
+      [type]="type"
+      [id]="label"
+      [formControl]="control"
+      class="grow input-main"
+    />
+  </div>
+  <div
+    *ngIf="control?.invalid && (control.dirty || control.touched)"
+    class="ml-2 text-xs"
+  >
+    <small class="error-msg" *ngIf="control.hasError('required')"
+      >{{ label }} is required.</small
+    >
+    <small class="error-msg" *ngIf="control.hasError('email')"
+      >Please enter a valid email.</small
+    >
   </div>
 </div>

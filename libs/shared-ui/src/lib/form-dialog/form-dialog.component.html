@@ -1,7 +1,7 @@
-<dialog #formDialog>
-  <h1>{{ dialogConfig()?.header }}</h1>
-  <form [formGroup]="dialogConfig()?.form">
-    <div *ngFor="let config of dialogConfig()?.formConfig">
+<dialog #formDialog class="p-6 dialog-body">
+  <h1 class="mb-3 text-xl border-b-2">{{ dialogConfig()?.header }}</h1>
+  <form [formGroup]="dialogConfig()?.form" class="border-b-2 mb-3">
+    <div *ngFor="let config of dialogConfig()?.formConfig" class="mb-3">
       <div [ngSwitch]="config?.type">
         <core-ui-input
           *ngSwitchCase="'text'"
@@ -31,9 +31,18 @@
       >
     </div>
   </form>
-  <core-ui-button
-    [label]="dialogConfig()?.confirmConfig?.label"
-    (onClick)="handleConfirm()"
-  ></core-ui-button>
-  <core-ui-button label="Cancel" (onClick)="closeModal()"></core-ui-button>
+  <div class="flex justify-end">
+    <core-ui-button
+      label="Cancel"
+      (onClick)="closeModal()"
+      [type]="BUTTON_TYPES.OUTLINE"
+      [color]="CORE_COLORS.DANGER"
+    ></core-ui-button>
+    <core-ui-button
+      [label]="dialogConfig()?.confirmConfig?.label"
+      (onClick)="handleConfirm()"
+      [type]="BUTTON_TYPES.OUTLINE"
+      class="ml-3"
+    ></core-ui-button>
+  </div>
 </dialog>

@@ -1,4 +1,5 @@
 import { ButtonComponent, InputComponent } from '@angular-monorepo/core-ui'
+import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
 import {
   Component,
@@ -30,6 +31,8 @@ export class FormDialogComponent {
   openChange = output<boolean>()
 
   dialogConfig = input.required<any>() //TODO: type
+  BUTTON_TYPES = BUTTON_TYPES
+  CORE_COLORS = CORE_COLORS
 
   constructor() {
     effect(() => {

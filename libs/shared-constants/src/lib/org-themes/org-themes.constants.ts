@@ -25,24 +25,26 @@ const OrgComponentColors = {
       [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.TELESTELA].pink,
       [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.TELESTELA].orange,
       [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.TELESTELA].red,
-    },
-    waveColors: {
-      w1: OrgBaseColors[ORGIDS.TELESTELA].purple,
-      w2: OrgBaseColors[ORGIDS.TELESTELA].blue,
-      w3: OrgBaseColors[ORGIDS.TELESTELA].pink,
-      w4: OrgBaseColors[ORGIDS.TELESTELA].green,
-      w5: OrgBaseColors[ORGIDS.TELESTELA].lightGreen,
-      w6: OrgBaseColors[ORGIDS.TELESTELA].red,
-      w7: OrgBaseColors[ORGIDS.TELESTELA].orange,
-      w8: OrgBaseColors[ORGIDS.TELESTELA].yellow,
-    },
-    main: {
       background: OrgBaseColors[ORGIDS.TELESTELA].black,
       text: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
+    },
+    backgroundWave: {
+      waveColors: {
+        w1: OrgBaseColors[ORGIDS.TELESTELA].purple,
+        w2: OrgBaseColors[ORGIDS.TELESTELA].blue,
+        w3: OrgBaseColors[ORGIDS.TELESTELA].pink,
+        w4: OrgBaseColors[ORGIDS.TELESTELA].green,
+        w5: OrgBaseColors[ORGIDS.TELESTELA].lightGreen,
+        w6: OrgBaseColors[ORGIDS.TELESTELA].red,
+        w7: OrgBaseColors[ORGIDS.TELESTELA].orange,
+        w8: OrgBaseColors[ORGIDS.TELESTELA].yellow,
+      },
+      background: OrgBaseColors[ORGIDS.TELESTELA].black,
     },
     nav: {
       title: 'telestela',
       color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      svgColor: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
       config: [
         {
           header: 'navigate',

@@ -25,17 +25,13 @@ import { HexToRGB } from '@angular-monorepo/shared-utilities'
 export class AppComponent implements OnInit {
   title = 'telestela'
   orgId = signal<ORGIDS>(ORGIDS.TELESTELA)
-  textColor = signal<string>('')
-  coreColors = signal({})
 
   constructor(private orgService: OrgService) {}
 
   ngOnInit(): void {
     this.orgService.setCurrentOrg(this.orgId())
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.textColor.set(orgTheme.componentColors.main.text)
-      this.coreColors.set(orgTheme.componentColors.core)
-      this.registerGlobalStyles(this.coreColors())
+      this.registerGlobalStyles(orgTheme.componentColors.core)
     })
   }
 

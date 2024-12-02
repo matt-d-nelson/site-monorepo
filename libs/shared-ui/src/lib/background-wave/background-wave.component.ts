@@ -36,8 +36,10 @@ export class BackgroundWaveComponent implements OnInit, OnDestroy {
 
   setWavePaths() {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.backgroundColor.set(orgTheme.componentColors.main.background)
-      const waveColors = orgTheme.componentColors.waveColors
+      this.backgroundColor.set(
+        orgTheme.componentColors.backgroundWave.background
+      )
+      const waveColors = orgTheme.componentColors.backgroundWave.waveColors
       if (!waveColors) return
       this.wavePaths.set(
         GenerateWavePaths(waveColors, this.screenWidth(), this.screenHeight())
