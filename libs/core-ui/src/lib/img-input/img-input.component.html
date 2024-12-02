@@ -1,4 +1,4 @@
-<div>
+<div [formGroup]="parentForm()" class="max-w-72">
   <image-cropper
     [imageChangedEvent]="imageChangedEvent()"
     [maintainAspectRatio]="true"
@@ -6,6 +6,17 @@
     [roundCropper]="true"
     [cropperMinWidth]="200"
     (imageCropped)="handleImageCropped($event)"
+    class="mb-3"
   ></image-cropper>
-  <input type="file" (change)="handleFileChange($event)" />
+  <input
+    #fileInput
+    type="file"
+    (change)="handleFileChange($event)"
+    class="hidden"
+  />
+  <core-ui-button
+    [type]="BUTTON_TYPES().OUTLINE"
+    label="Select File"
+    (onClick)="fileInput.click()"
+  ></core-ui-button>
 </div>

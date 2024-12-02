@@ -1,1 +1,10 @@
-<core-ui-img-input></core-ui-img-input>
+<core-ui-button
+  [type]="BUTTON_TYPES().OUTLINE"
+  label="Add Bio"
+  (onClick)="addBioClick()"
+  class="flex justify-self-end"
+></core-ui-button>
+<shared-ui-form-dialog
+  [(open)]="formDialogOpen"
+  [dialogConfig]="createBioDialogConfig()"
+></shared-ui-form-dialog>
