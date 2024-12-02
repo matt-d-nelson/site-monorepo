@@ -1,4 +1,5 @@
-import { ORGIDS } from './org-ids.constants'
+import { ORGIDS } from '../org-ids.constants'
+import { CORE_COLORS } from './org-themes.models'
 
 const OrgBaseColors = {
   [ORGIDS.TELESTELA]: {
@@ -19,6 +20,12 @@ const OrgBaseColors = {
 
 const OrgComponentColors = {
   [ORGIDS.TELESTELA]: {
+    core: {
+      [CORE_COLORS.PRIMARY]: OrgBaseColors[ORGIDS.TELESTELA].green,
+      [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.TELESTELA].pink,
+      [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.TELESTELA].orange,
+      [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.TELESTELA].red,
+    },
     waveColors: {
       w1: OrgBaseColors[ORGIDS.TELESTELA].purple,
       w2: OrgBaseColors[ORGIDS.TELESTELA].blue,

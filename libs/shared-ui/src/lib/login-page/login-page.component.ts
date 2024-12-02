@@ -1,12 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core'
+import { Component, signal } from '@angular/core'
 import { ButtonComponent } from '@angular-monorepo/core-ui'
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
 import { AuthService } from '@angular-monorepo/shared-services'
@@ -14,6 +8,7 @@ import {
   CreateLoginDialogConfig,
   CreateRegisterDialogConfig,
 } from './login-page.config'
+import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 
 @Component({
   selector: 'shared-ui-login-page',
@@ -30,6 +25,9 @@ import {
   styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
+  BUTTON_TYPES = BUTTON_TYPES
+  CORE_COLORS = CORE_COLORS
+
   formDialogOpen = signal<boolean>(false)
   loginDialogConfig = signal<any>(CreateLoginDialogConfig(this)) //TODO: type
   registerDialogConfig = signal<any>(CreateRegisterDialogConfig(this))
