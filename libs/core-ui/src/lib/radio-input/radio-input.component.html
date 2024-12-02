@@ -1,0 +1,14 @@
+<div [formGroup]="parentForm()">
+  <label> {{ label() }} </label>
+  <div *ngFor="let option of options()" class="ml-2">
+    <input
+      type="radio"
+      [formControl]="control()"
+      [value]="option.value"
+      [id]="option.label"
+    />
+    <label [for]="option.label">
+      {{ option.label }}
+    </label>
+  </div>
+</div>

@@ -31,9 +31,19 @@
         >
         </core-ui-input>
         <!-- image -->
-        <core-ui-img-input *ngSwitchCase="'image'" [parentForm]="dialogConfig()?.form" [control]="dialogConfig()?.form?.get(config?.control)"></core-ui-img-input>
+        <core-ui-img-input
+          *ngSwitchCase="'image'"
+          [parentForm]="dialogConfig()?.form"
+          [control]="dialogConfig()?.form?.get(config?.control)"
+        ></core-ui-img-input>
         <!-- radio -->
-        
+        <core-ui-radio-input
+          *ngSwitchCase="'radio'"
+          [label]="config?.label"
+          [options]="config.options"
+          [parentForm]="dialogConfig()?.form"
+          [control]="dialogConfig()?.form?.get(config?.control)"
+        ></core-ui-radio-input>
         <!-- not found -->
         <div *ngSwitchDefault>Unknown input type: {{ config?.type }}</div>
       </div>

@@ -33,7 +33,7 @@ export function CreateAboutDialogConfig(component: any) {
         label: 'Is Primary Bio',
         control: 'primary',
         type: 'radio',
-        config: [
+        options: [
           {
             label: 'Yes',
             value: true,

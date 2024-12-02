@@ -2,6 +2,7 @@ import {
   ButtonComponent,
   ImgInputComponent,
   InputComponent,
+  RadioInputComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     FormsModule,
     ReactiveFormsModule,
     ImgInputComponent,
+    RadioInputComponent,
   ],
   templateUrl: './form-dialog.component.html',
   styleUrl: './form-dialog.component.scss',
