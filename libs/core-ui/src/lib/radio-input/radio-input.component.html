@@ -1,7 +1,8 @@
 <div [formGroup]="parentForm()">
-  <label> {{ label() }} </label>
+  <label> {{ label() }}: </label>
   <div *ngFor="let option of options()" class="ml-2">
     <input
+      class="radio-main"
       type="radio"
       [formControl]="control()"
       [value]="option.value"

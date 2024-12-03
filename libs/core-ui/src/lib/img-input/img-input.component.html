@@ -14,9 +14,11 @@
     (change)="handleFileChange($event)"
     class="hidden"
   />
-  <core-ui-button
+  <div>
+    <core-ui-button
     [type]="BUTTON_TYPES().OUTLINE"
-    label="Select File"
+    label="Select Image"
     (onClick)="fileInput.click()"
-  ></core-ui-button>
+    ></core-ui-button>
+  </div>
 </div>

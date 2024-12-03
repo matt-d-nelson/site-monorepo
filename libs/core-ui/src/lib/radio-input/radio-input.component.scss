@@ -1,0 +1,37 @@
+.radio-main {
+    appearance: none;
+    
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgb(var(--secondary));
+    margin-right: 8px;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+
+    &:checked {
+
+      border-color: rgb(var(--primary));
+  
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgb(var(--primary));
+      }
+    }
+  
+    &:hover {
+      border-color: rgb(var(--primary));
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+  }
+  

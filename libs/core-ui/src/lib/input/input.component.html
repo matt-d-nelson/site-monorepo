@@ -1,29 +1,33 @@
 <div [formGroup]="parentForm()" class="w-full">
-  <div class="w-full flex items-center">
-    <label [attr.for]="label()" class="mr-1"> {{ label() }}: </label>
-    <input
+  <div class="w-full grid grid-cols-4 gap-2">
+    <label [attr.for]="label()" class="justify-self-end self-center"> {{ label() }}: </label>
+    <div class="col-span-3">
+      <input
       *ngIf="type() !== 'textarea'"
       [type]="type()"
       [id]="label()"
       [formControl]="control()"
-      class="grow input-main"
-    />
-    <textarea
+      class="input-main w-full"
+      />
+      <textarea
       *ngIf="type() === 'textarea'"
       [id]="label()"
       [formControl]="control()"
-      class="grow input-main min-h-36"
-    ></textarea>
-  </div>
-  <div
-    *ngIf="control()?.invalid && (control().dirty || control().touched)"
-    class="ml-2 text-xs"
-  >
-    <small class="error-msg" *ngIf="control().hasError('required')"
-      >{{ label() }} is required.</small
-    >
-    <small class="error-msg" *ngIf="control().hasError('email')"
-      >Please enter a valid email.</small
-    >
+      class="min-h-36 input-main w-full"
+      ></textarea>
+    </div>
+    <div class="col-start-2 col-span-3">
+      <div
+        *ngIf="control()?.invalid && (control().dirty || control().touched)"
+        class="ml-2 text-xs"
+        >
+        <small class="error-msg" *ngIf="control().hasError('required')"
+        >{{ label() }} is required.</small
+        >
+        <small class="error-msg" *ngIf="control().hasError('email')"
+        >Please enter a valid email.</small
+        >
+      </div>
+    </div>
   </div>
 </div>
