@@ -50,7 +50,9 @@
     </div>
     <!-- form validation errors -->
     <div>
-      <small *ngIf="dialogConfig()?.form?.hasError('passwordMismatch')"
+      <small
+        *ngIf="dialogConfig()?.form?.hasError('passwordMismatch')"
+        class="error-msg"
         >Passwords do not match.</small
       >
     </div>

@@ -11,7 +11,7 @@ export function CreateAboutDialogConfig(component: any) {
       image: new FormControl<Blob | null>(null, [Validators.required]),
       name: new FormControl('', [Validators.required]),
       biography: new FormControl('', [Validators.required]),
-      primary: new FormControl(false),
+      isPrimary: new FormControl(false),
     }),
     formConfig: [
       {
@@ -31,7 +31,7 @@ export function CreateAboutDialogConfig(component: any) {
       },
       {
         label: 'Is Primary Bio',
-        control: 'primary',
+        control: 'isPrimary',
         type: 'radio',
         options: [
           {

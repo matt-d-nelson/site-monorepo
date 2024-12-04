@@ -11,11 +11,7 @@ import {
 @Component({
   selector: 'core-ui-input',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',

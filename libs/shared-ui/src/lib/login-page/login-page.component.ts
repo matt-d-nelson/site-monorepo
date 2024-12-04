@@ -25,8 +25,8 @@ import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
   styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
-  BUTTON_TYPES = BUTTON_TYPES
-  CORE_COLORS = CORE_COLORS
+  BUTTON_TYPES = signal(BUTTON_TYPES)
+  CORE_COLORS = signal(CORE_COLORS)
 
   formDialogOpen = signal<boolean>(false)
   loginDialogConfig = signal<any>(CreateLoginDialogConfig(this)) //TODO: type
@@ -36,7 +36,7 @@ export class LoginPageComponent {
   constructor(private authService: AuthService) {}
 
   loginUser() {
-    this.activeDialogConfig = this.loginDialogConfig
+    this.activeDialogConfig.set(this.loginDialogConfig())
     this.formDialogOpen.set(true)
   }
 
@@ -51,11 +51,7 @@ export class LoginPageComponent {
       loginForm.markAllAsTouched()
       return
     }
-    const loginUserReqBody = {
-      email: loginForm.value.email,
-      password: loginForm.value.password,
-    }
-    this.authService.loginUser(loginUserReqBody).subscribe(() => {
+    this.authService.loginUser(loginForm.value).subscribe(() => {
       //TODO: Alert Success / error handling
       this.formDialogOpen.set(false)
     })
@@ -67,11 +63,7 @@ export class LoginPageComponent {
       registerForm.markAllAsTouched()
       return
     }
-    const registerUserReqBody = {
-      email: registerForm.value.email,
-      password: registerForm.value.password,
-    }
-    this.authService.registerUser(registerUserReqBody).subscribe(() => {
+    this.authService.registerUser(registerForm.value).subscribe(() => {
       //TODO: Alert Success / error handling
       this.formDialogOpen.set(false)
     })

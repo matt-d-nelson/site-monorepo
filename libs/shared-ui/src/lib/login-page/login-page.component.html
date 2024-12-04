@@ -1,13 +1,13 @@
 <div class="flex justify-center mt-6">
   <core-ui-button
-    [type]="BUTTON_TYPES.OUTLINE"
+    [type]="BUTTON_TYPES().OUTLINE"
     class="m-1"
     label="Login"
     (onClick)="loginUser()"
   ></core-ui-button>
   <core-ui-button
-    [type]="BUTTON_TYPES.OUTLINE"
-    [color]="CORE_COLORS.SECONDARY"
+    [type]="BUTTON_TYPES().OUTLINE"
+    [color]="CORE_COLORS().SECONDARY"
     class="m-1"
     label="Register"
     (onClick)="registerUser()"

@@ -52,6 +52,7 @@ export class FormDialogComponent {
   }
 
   closeModal() {
+    this.dialogConfig().form.reset()
     this.dialog.nativeElement.close()
     this.openChange.emit(false)
   }
