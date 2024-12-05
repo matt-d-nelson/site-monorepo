@@ -13,4 +13,8 @@ export class AboutService {
   createBio(orgId: string, body: {}): Observable<any> {
     return this.http.post(`${ENV.API_URL}/api/about/${orgId}`, body)
   }
+
+  getBios(orgId: string): Observable<any> {
+    return this.http.get(`${ENV.API_URL}/api/about/${orgId}`)
+  }
 }

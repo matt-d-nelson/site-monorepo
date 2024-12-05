@@ -11,7 +11,7 @@ export function CreateAboutDialogConfig(component: any) {
       image: new FormControl<Blob | null>(null, [Validators.required]),
       name: new FormControl('', [Validators.required]),
       biography: new FormControl('', [Validators.required]),
-      isPrimary: new FormControl(false),
+      isPrimary: new FormControl(false, [Validators.required]),
     }),
     formConfig: [
       {

@@ -1,0 +1,18 @@
+.primaryBio-wrapper {
+  background-color: rgba(var(--primary), 0.5);
+  border-radius: 18rem 18rem 1rem 1rem;
+  margin: auto;
+}
+
+.bio-wrapper {
+  background-color: rgba(var(--secondary), 0.5);
+  border-radius: 18rem 18rem 1rem 1rem;
+  @screen md {
+    border-radius: 10rem 1rem 1rem 10rem;
+  }
+}
+
+.members-wrapper {
+  color: rgb(var(--background));
+  border-color: rgb(var(--background));
+}

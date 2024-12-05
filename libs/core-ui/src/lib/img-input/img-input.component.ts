@@ -1,5 +1,5 @@
 import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
-import { Component, input, OnInit, signal } from '@angular/core'
+import { Component, input, signal } from '@angular/core'
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper'
 import { ButtonComponent } from '../button/button.component'
 import {
