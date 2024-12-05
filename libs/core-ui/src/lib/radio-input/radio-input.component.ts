@@ -1,3 +1,4 @@
+import { RadioOptions } from '@angular-monorepo/shared-models'
 import { CommonModule } from '@angular/common'
 import { Component, input } from '@angular/core'
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -13,5 +14,5 @@ export class RadioInputComponent {
   label = input.required<string>()
   parentForm = input.required<FormGroup>()
   control = input.required<any>()
-  options = input.required<any>() //TODO: type
+  options = input.required<RadioOptions[] | undefined>() //Absolutely should be defined, lol
 }

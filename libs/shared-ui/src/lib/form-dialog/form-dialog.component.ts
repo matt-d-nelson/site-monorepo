@@ -5,6 +5,7 @@ import {
   RadioInputComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
+import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
 import { CommonModule } from '@angular/common'
 import {
   Component,
@@ -33,14 +34,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
   styleUrl: './form-dialog.component.scss',
 })
 export class FormDialogComponent {
+  BUTTON_TYPES = signal(BUTTON_TYPES)
+  CORE_COLORS = signal(CORE_COLORS)
+  INPUT_TYPES = signal(FORM_DIALOG_INPUT_TYPES)
+
   @ViewChild('formDialog', { static: true })
   dialog!: ElementRef<HTMLDialogElement>
   open = input(false)
   openChange = output<boolean>()
 
-  dialogConfig = input.required<any>() //TODO: type
-  BUTTON_TYPES = signal(BUTTON_TYPES)
-  CORE_COLORS = signal(CORE_COLORS)
+  dialogConfig = input.required<FormDialogConfig>()
 
   constructor() {
     effect(() => {

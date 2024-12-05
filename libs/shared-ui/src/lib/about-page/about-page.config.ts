@@ -1,3 +1,4 @@
+import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 const baseAboutConfig = {
@@ -11,22 +12,22 @@ const baseAboutConfig = {
     {
       label: 'Image',
       control: 'image',
-      type: 'image',
+      type: FORM_DIALOG_INPUT_TYPES.IMAGE,
     },
     {
       label: 'Name',
       control: 'name',
-      type: 'text',
+      type: FORM_DIALOG_INPUT_TYPES.TEXT,
     },
     {
       label: 'Bio',
       control: 'biography',
-      type: 'textarea',
+      type: FORM_DIALOG_INPUT_TYPES.TEXTAREA,
     },
     {
       label: 'Is Primary Bio',
       control: 'isPrimary',
-      type: 'radio',
+      type: FORM_DIALOG_INPUT_TYPES.RADIO,
       options: [
         {
           label: 'Yes',
@@ -41,7 +42,7 @@ const baseAboutConfig = {
   ],
 }
 
-export function CreateAboutDialogConfig(component: any) {
+export function CreateAboutDialogConfig(component: any): FormDialogConfig {
   return {
     header: 'Add Biography',
     confirmConfig: {

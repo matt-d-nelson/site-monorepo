@@ -1,10 +1,10 @@
 import { ButtonComponent } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { ConfirmationDialogService } from '@angular-monorepo/shared-services'
+import { ConfirmDialogConfig } from '@angular-monorepo/shared-models'
 import { CommonModule } from '@angular/common'
 import {
   Component,
-  effect,
   ElementRef,
   OnInit,
   signal,
@@ -24,12 +24,12 @@ export class ConfirmationDialogComponent implements OnInit {
 
   @ViewChild('confirmationDialog', { static: true })
   dialog!: ElementRef<HTMLDialogElement>
-  dialogConfig = signal<any>({}) //TODO: type
+  dialogConfig = signal<ConfirmDialogConfig | null>(null)
 
   constructor(private confirmationDialogService: ConfirmationDialogService) {}
 
   ngOnInit(): void {
-    this.confirmationDialogService.dialogConfig$.subscribe((config: any) => {
+    this.confirmationDialogService.dialogConfig$.subscribe((config: ConfirmDialogConfig | null) => {
       this.dialogConfig.set(config)
     })
     this.confirmationDialogService.dialogOpen$.subscribe((isOpen: boolean) => {

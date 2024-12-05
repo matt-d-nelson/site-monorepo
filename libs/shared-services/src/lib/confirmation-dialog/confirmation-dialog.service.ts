@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, filter, Subject, take } from 'rxjs'
+import { ConfirmDialogConfig } from '@angular-monorepo/shared-models'
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { BehaviorSubject, filter, Subject, take } from 'rxjs'
 export class ConfirmationDialogService {
   constructor() {}
 
-  private _dialogConfig = new BehaviorSubject<any | null>(null) //TODO: type
+  private _dialogConfig = new BehaviorSubject<ConfirmDialogConfig | null>(null)
   dialogConfig$ = this._dialogConfig.asObservable()
 
   private _dialogOpen = new BehaviorSubject<boolean>(false)
@@ -16,7 +17,7 @@ export class ConfirmationDialogService {
   private _dialogResponse = new Subject<boolean>()
   dialogResponse$ = this._dialogResponse.asObservable()
 
-  openDialog(config: any) {
+  openDialog(config: ConfirmDialogConfig) {
     this._dialogConfig.next({
       ...config,
       confirmText: config.confirmText || 'Confirm',

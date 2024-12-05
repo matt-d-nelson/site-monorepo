@@ -1,3 +1,4 @@
+import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
 import {
   AbstractControl,
   FormControl,
@@ -7,8 +8,7 @@ import {
   Validators,
 } from '@angular/forms'
 
-//TODO: type
-export function CreateLoginDialogConfig(component: any) {
+export function CreateLoginDialogConfig(component: any): FormDialogConfig {
   return {
     header: 'Login',
     confirmConfig: {
@@ -23,18 +23,18 @@ export function CreateLoginDialogConfig(component: any) {
       {
         label: 'Email',
         control: 'email',
-        type: 'text',
+        type: FORM_DIALOG_INPUT_TYPES.TEXT,
       },
       {
         label: 'Password',
         control: 'password',
-        type: 'password',
+        type: FORM_DIALOG_INPUT_TYPES.PASSWORD,
       },
     ],
   }
 }
 
-export function CreateRegisterDialogConfig(component: any) {
+export function CreateRegisterDialogConfig(component: any): FormDialogConfig {
   return {
     header: 'Register Account',
     confirmConfig: {
@@ -53,17 +53,17 @@ export function CreateRegisterDialogConfig(component: any) {
       {
         label: 'Email',
         control: 'email',
-        type: 'text',
+        type: FORM_DIALOG_INPUT_TYPES.TEXT,
       },
       {
         label: 'Password',
         control: 'password',
-        type: 'password',
+        type: FORM_DIALOG_INPUT_TYPES.PASSWORD,
       },
       {
         label: 'Confirm Password',
         control: 'confirmPassword',
-        type: 'password',
+        type: FORM_DIALOG_INPUT_TYPES.PASSWORD,
       },
     ],
   }

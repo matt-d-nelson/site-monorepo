@@ -17,7 +17,7 @@ export class ButtonComponent {
   color = input<CORE_COLORS>(CORE_COLORS.PRIMARY)
   textColor = input<string | null>(null)
   hoverTextColor = input<string | null>(null)
-  label = input<string | null>(null)
+  label = input<string | null | undefined>(null)
   icon = input<TemplateRef<any> | null>(null)
 
   onClick = output<Event>()
