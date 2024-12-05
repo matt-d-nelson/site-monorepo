@@ -42,7 +42,6 @@ const OrgComponentColors = {
       background: OrgBaseColors[ORGIDS.TELESTELA].black,
     },
     nav: {
-      title: 'telestela',
       color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
       svgColor: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
       config: [

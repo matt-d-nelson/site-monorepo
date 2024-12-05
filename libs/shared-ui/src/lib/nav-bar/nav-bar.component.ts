@@ -16,7 +16,6 @@ export class NavBarComponent implements OnInit {
 
   dropdownVisible = signal<boolean>(false)
   dropdownConfig = signal<any>({})
-  title = signal<string>('')
   navColor = signal<string>('')
   svgColor = signal<string>('')
   logoImg = signal<string>('')
@@ -24,7 +23,6 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.dropdownConfig.set(orgTheme.componentColors.nav.config)
-      this.title.set(orgTheme.componentColors.nav.title)
       this.navColor.set(orgTheme.componentColors.nav.color)
       this.svgColor.set(orgTheme.componentColors.nav.svgColor)
       this.logoImg.set(orgTheme.staticImages.logo)
