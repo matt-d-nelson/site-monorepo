@@ -5,7 +5,7 @@ import {
 } from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
-import { CreateAboutDialogConfig } from './about-page.config'
+import { CreateAboutDialogConfig, UpdateAboutDialogConfig } from './about-page.config'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import {
   AboutService,
@@ -34,6 +34,7 @@ export class AboutPageComponent implements OnInit {
 
   formDialogOpen = signal<boolean>(false)
   createBioDialogConfig = signal<any>(CreateAboutDialogConfig(this))
+  updateBioDialogConfig = signal<any>(UpdateAboutDialogConfig(this))
   activeDialogConfig = signal<any>(this.createBioDialogConfig())
 
   bios = signal<any[]>([])
@@ -53,11 +54,10 @@ export class AboutPageComponent implements OnInit {
   }
 
   getAndFilterBios(orgId: string) {
-    this.aboutService.getBios(orgId).subscribe(aboutRes => {
-      this.primaryBio.set(aboutRes.find((bio: any) => bio.isPrimary))
-      this.bios.set(aboutRes.filter((bio: any) => !bio.isPrimary))
-      console.log(this.bios())
-      console.log(this.primaryBio())
+    this.aboutService.getBios(orgId)
+    this.aboutService.bios$.subscribe(bios => {
+      this.primaryBio.set(bios.find((bio: any) => bio.isPrimary))
+      this.bios.set(bios.filter((bio: any) => !bio.isPrimary))
     })
   }
 
@@ -67,7 +67,12 @@ export class AboutPageComponent implements OnInit {
   }
 
   editBioClick(bio: any) {
-    console.log('edit', bio)
+    this.activeDialogConfig.set(this.updateBioDialogConfig())
+    this.activeDialogConfig().form.patchValue({
+      ...bio,
+      image: bio.imageUrl
+    })
+    this.formDialogOpen.set(true)
   }
 
   deleteBioClick(bio: any) {
@@ -78,7 +83,10 @@ export class AboutPageComponent implements OnInit {
         confirmText: 'Delete',
       })
       .subscribe((confirmed: boolean) => {
-        console.log('delete', confirmed)
+        if(!confirmed) return
+        this.aboutService.deleteBio(this.orgId(), bio.id, bio.imageId).subscribe((res) => {
+          this.aboutService.getBios(this.orgId())
+        })
       })
   }
 
@@ -88,6 +96,7 @@ export class AboutPageComponent implements OnInit {
       bioForm.markAllAsTouched()
       return
     }
+    //FormData is necesary to attach image file in the way the BE can understand
     const data = new FormData()
     data.append('name', bioForm.get('name').value)
     data.append('biography', bioForm.get('biography').value)
@@ -100,5 +109,14 @@ export class AboutPageComponent implements OnInit {
       this.getAndFilterBios(this.orgId())
       this.formDialogOpen.set(false)
     })
+  }
+
+  updateBio() {
+    const bioUpdateForm = this.updateBioDialogConfig().form
+    console.log(bioUpdateForm.value, bioUpdateForm.valid)
+    if(!bioUpdateForm.valid) {
+      bioUpdateForm.markAllAsTouched()
+      return
+    }
   }
 }
