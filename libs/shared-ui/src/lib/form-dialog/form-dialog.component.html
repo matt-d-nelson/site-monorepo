@@ -61,13 +61,13 @@
     <core-ui-button
       label="Cancel"
       (onClick)="closeModal()"
-      [type]="BUTTON_TYPES.OUTLINE"
-      [color]="CORE_COLORS.DANGER"
+      [type]="BUTTON_TYPES().OUTLINE"
+      [color]="CORE_COLORS().DANGER"
     ></core-ui-button>
     <core-ui-button
       [label]="dialogConfig()?.confirmConfig?.label"
       (onClick)="handleConfirm()"
-      [type]="BUTTON_TYPES.OUTLINE"
+      [type]="BUTTON_TYPES().OUTLINE"
       class="ml-3"
     ></core-ui-button>
   </div>

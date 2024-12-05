@@ -7,7 +7,11 @@ import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
 import { CreateAboutDialogConfig } from './about-page.config'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
-import { AboutService, OrgService } from '@angular-monorepo/shared-services'
+import {
+  AboutService,
+  ConfirmationDialogService,
+  OrgService,
+} from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 
 @Component({
@@ -37,7 +41,8 @@ export class AboutPageComponent implements OnInit {
 
   constructor(
     private aboutService: AboutService,
-    private orgService: OrgService
+    private orgService: OrgService,
+    private confirmationDialogService: ConfirmationDialogService
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +71,15 @@ export class AboutPageComponent implements OnInit {
   }
 
   deleteBioClick(bio: any) {
-    console.log('delete', bio)
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Bio',
+        message: `Are you sure you want to delete ${bio.name}'s bio?`,
+        confirmText: 'Delete',
+      })
+      .subscribe((confirmed: boolean) => {
+        console.log('delete', confirmed)
+      })
   }
 
   createBio() {

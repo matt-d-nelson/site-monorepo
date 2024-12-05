@@ -13,6 +13,7 @@ import {
   output,
   ViewChild,
   effect,
+  signal,
 } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
@@ -38,8 +39,8 @@ export class FormDialogComponent {
   openChange = output<boolean>()
 
   dialogConfig = input.required<any>() //TODO: type
-  BUTTON_TYPES = BUTTON_TYPES
-  CORE_COLORS = CORE_COLORS
+  BUTTON_TYPES = signal(BUTTON_TYPES)
+  CORE_COLORS = signal(CORE_COLORS)
 
   constructor() {
     effect(() => {

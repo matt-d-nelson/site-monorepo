@@ -1,0 +1,18 @@
+<dialog #confirmationDialog class="dialog-body p-6">
+  <h1 class="mb-3 text-xl border-b-2">{{ dialogConfig()?.title }}</h1>
+  <p class="mb-3">{{ dialogConfig()?.message }}</p>
+  <div class="flex justify-end">
+    <core-ui-button
+      [label]="dialogConfig()?.cancelText"
+      (onClick)="handleCancel()"
+      [type]="BUTTON_TYPES().OUTLINE"
+    ></core-ui-button>
+    <core-ui-button
+      [label]="dialogConfig()?.confirmText"
+      (onClick)="handleConfirm()"
+      [type]="BUTTON_TYPES().OUTLINE"
+      [color]="CORE_COLORS().DANGER"
+      class="ml-3"
+    ></core-ui-button>
+  </div>
+</dialog>

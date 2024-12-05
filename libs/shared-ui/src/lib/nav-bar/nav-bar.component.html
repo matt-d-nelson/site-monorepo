@@ -18,7 +18,7 @@
   <div *ngFor="let config of dropdownConfig()" class="px-4">
     <h2 class="text-4xl border-b-2 pb-1">{{ config?.header }}</h2>
     <div class="m-4">
-      <div *ngFor="let link of config?.links" class="flex mb-2">
+      <div *ngFor="let link of config?.links" class="flex items-center mb-2">
         <div
           class="w-8 h-8 rounded-full"
           [ngStyle]="{ background: link?.color }"
