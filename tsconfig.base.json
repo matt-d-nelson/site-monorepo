@@ -20,15 +20,13 @@
       "@angular-monorepo/shared-constants": [
         "libs/shared-constants/src/index.ts"
       ],
+      "@angular-monorepo/shared-models": ["libs/shared-models/src/index.ts"],
       "@angular-monorepo/shared-services": [
         "libs/shared-services/src/index.ts"
       ],
       "@angular-monorepo/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@angular-monorepo/shared-utilities": [
         "libs/shared-utilities/src/index.ts"
-      ],
-      "@angular-monorepo/telestela-routes": [
-        "libs/telestela-routes/src/index.ts"
       ]
     }
   },

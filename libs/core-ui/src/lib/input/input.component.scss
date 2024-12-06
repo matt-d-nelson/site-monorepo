@@ -1,0 +1,16 @@
+.input-main {
+  border: 3px solid;
+  border-color: rgb(var(--background));
+  border-radius: 4px;
+  background-color: rgba(var(--background), 0.75);
+  padding: 4px;
+
+  &:focus {
+    border-color: rgb(var(--primary));
+    outline: none;
+  }
+}
+
+.error-msg {
+  color: rgb(var(--danger));
+}

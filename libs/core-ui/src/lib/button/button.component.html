@@ -1,12 +1,22 @@
 <button
   (click)="onClick.emit($event)"
-  class="flex items-center"
-  [style.--hover-text-color]="hoverTextColor"
+  class="flex items-center px-3 py-1"
+  [ngClass]="{
+    'btn-text': type() === BUTTON_TYPES.TEXT,
+    'btn-outline': type() === BUTTON_TYPES.OUTLINE,
+    'btn-solid': type() === BUTTON_TYPES.SOLID,
+    'btn-primary': color() === CORE_COLORS.PRIMARY,
+    'btn-secondary': color() === CORE_COLORS.SECONDARY,
+    'btn-warning': color() === CORE_COLORS.WARNING,
+    'btn-danger': color() === CORE_COLORS.DANGER,
+  }"
+  [style.--hover-text-color]="hoverTextColor()"
+  [style.--text-color]="textColor()"
 >
-  <span *ngIf="label">
-    {{ label }}
+  <span *ngIf="label()">
+    {{ label() }}
   </span>
-  <ng-container *ngIf="icon">
-    <ng-container [ngTemplateOutlet]="icon"></ng-container>
+  <ng-container *ngIf="icon()">
+    <ng-container [ngTemplateOutlet]="icon()"></ng-container>
   </ng-container>
 </button>

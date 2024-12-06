@@ -1,4 +1,5 @@
-import { ORGIDS } from './org-ids.constants'
+import { ORGIDS } from '../org-ids.constants'
+import { CORE_COLORS } from './org-themes.models'
 
 const OrgBaseColors = {
   [ORGIDS.TELESTELA]: {
@@ -19,26 +20,39 @@ const OrgBaseColors = {
 
 const OrgComponentColors = {
   [ORGIDS.TELESTELA]: {
-    waveColors: {
-      w1: OrgBaseColors[ORGIDS.TELESTELA].purple,
-      w2: OrgBaseColors[ORGIDS.TELESTELA].blue,
-      w3: OrgBaseColors[ORGIDS.TELESTELA].pink,
-      w4: OrgBaseColors[ORGIDS.TELESTELA].green,
-      w5: OrgBaseColors[ORGIDS.TELESTELA].lightGreen,
-      w6: OrgBaseColors[ORGIDS.TELESTELA].red,
-      w7: OrgBaseColors[ORGIDS.TELESTELA].orange,
-      w8: OrgBaseColors[ORGIDS.TELESTELA].yellow,
-    },
-    main: {
+    core: {
+      [CORE_COLORS.PRIMARY]: OrgBaseColors[ORGIDS.TELESTELA].green,
+      [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.TELESTELA].pink,
+      [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.TELESTELA].orange,
+      [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.TELESTELA].red,
       background: OrgBaseColors[ORGIDS.TELESTELA].black,
       text: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
     },
+    backgroundWave: {
+      waveColors: {
+        w1: OrgBaseColors[ORGIDS.TELESTELA].purple,
+        w2: OrgBaseColors[ORGIDS.TELESTELA].blue,
+        w3: OrgBaseColors[ORGIDS.TELESTELA].pink,
+        w4: OrgBaseColors[ORGIDS.TELESTELA].green,
+        w5: OrgBaseColors[ORGIDS.TELESTELA].lightGreen,
+        w6: OrgBaseColors[ORGIDS.TELESTELA].red,
+        w7: OrgBaseColors[ORGIDS.TELESTELA].orange,
+        w8: OrgBaseColors[ORGIDS.TELESTELA].yellow,
+      },
+      background: OrgBaseColors[ORGIDS.TELESTELA].black,
+    },
     nav: {
       color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      svgColor: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
       config: [
         {
           header: 'navigate',
           links: [
+            {
+              title: 'home',
+              nav: '/home',
+              color: OrgBaseColors[ORGIDS.TELESTELA].yellow,
+            },
             {
               title: 'about',
               nav: '/about',

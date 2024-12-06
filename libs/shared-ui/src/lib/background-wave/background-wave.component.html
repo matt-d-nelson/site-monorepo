@@ -1,7 +1,7 @@
 <div class="h-full w-full overflow-hidden">
   <svg
     preserveAspectRatio="none"
-    [attr.viewBox]="'0 0' + ' ' + screenWidth + ' ' + screenHeight"
+    [attr.viewBox]="'0 0' + ' ' + screenWidth() + ' ' + screenHeight()"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     version="1.1"
@@ -9,12 +9,12 @@
     <rect
       x="0"
       y="0"
-      [attr.width]="screenWidth"
-      [attr.height]="screenHeight"
-      [attr.fill]="backgroundColor"
+      [attr.width]="screenWidth()"
+      [attr.height]="screenHeight()"
+      [attr.fill]="backgroundColor()"
     ></rect>
     <path
-      *ngFor="let wave of wavePaths; let i = index"
+      *ngFor="let wave of wavePaths(); let i = index"
       [attr.d]="wave?.path"
       [attr.fill]="wave?.color"
       class="wave-path"

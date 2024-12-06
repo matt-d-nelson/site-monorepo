@@ -1,7 +1,68 @@
 button {
   transition: color 0.3s ease;
+  color: var(--text-color);
 
   &:hover {
     color: var(--hover-text-color);
+  }
+}
+
+.btn-solid {
+  border: solid 3px;
+  border-radius: 4px;
+
+  &.btn-primary {
+    background-color: rgb(var(--primary));
+    border-color: rgb(var(--primary));
+  }
+  &.btn-secondary {
+    background-color: rgb(var(--secondary));
+    border-color: rgb(var(--secondary));
+  }
+  &.btn-warning {
+    background-color: rgb(var(--warning));
+    border-color: rgb(var(--warning));
+  }
+  &.btn-danger {
+    background-color: rgb(var(--danger));
+    border-color: rgb(var(--danger));
+  }
+}
+
+.btn-outline {
+  &.btn-primary {
+    background-color: rgba(var(--primary), 0);
+    border-color: rgb(var(--primary));
+  }
+  &.btn-secondary {
+    background-color: rgba(var(--secondary), 0);
+    border-color: rgb(var(--secondary));
+  }
+  &.btn-warning {
+    background-color: rgba(var(--warning), 0);
+    border-color: rgb(var(--warning));
+  }
+  &.btn-danger {
+    background-color: rgba(var(--danger), 0);
+    border-color: rgb(var(--danger));
+  }
+  transition: background-color 0.3s ease;
+
+  border: solid 3px;
+  border-radius: 4px;
+
+  &:hover {
+    &.btn-primary {
+      background-color: rgba(var(--primary), 0.5);
+    }
+    &.btn-secondary {
+      background-color: rgba(var(--secondary), 0.5);
+    }
+    &.btn-warning {
+      background-color: rgba(var(--warning), 0.5);
+    }
+    &.btn-danger {
+      background-color: rgba(var(--danger), 0.5);
+    }
   }
 }

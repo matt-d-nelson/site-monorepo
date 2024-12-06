@@ -1,5 +1,6 @@
 import { LazyImgComponent } from '@angular-monorepo/core-ui'
-import { Component, Input } from '@angular/core'
+import { OrgService } from '@angular-monorepo/shared-services'
+import { Component, OnInit, signal } from '@angular/core'
 
 @Component({
   selector: 'shared-ui-home-page',
@@ -8,6 +9,14 @@ import { Component, Input } from '@angular/core'
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
-export class HomePageComponent {
-  @Input() homeImg!: string
+export class HomePageComponent implements OnInit {
+  constructor(private orgService: OrgService) {}
+
+  homeImg = signal<string>('')
+
+  ngOnInit(): void {
+    this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
+      this.homeImg.set(orgTheme.staticImages.homePage)
+    })
+  }
 }
