@@ -30,4 +30,8 @@ export class AboutService {
       }
     })
   }
+
+  updateBio(orgId: string, bioId: string, body: {}): Observable<any> {
+    return this.http.patch(`${ENV.API_URL}/api/about/${orgId}/${bioId}`, body)
+  }
 }

@@ -13,6 +13,8 @@ import {
   OrgService,
 } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
+import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
+import { isEmpty } from 'lodash'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -35,6 +37,8 @@ export class AboutPageComponent implements OnInit {
   formDialogOpen = signal<boolean>(false)
   createBioDialogConfig = signal<any>(CreateAboutDialogConfig(this))
   updateBioDialogConfig = signal<any>(UpdateAboutDialogConfig(this))
+  previousBioValue = signal<any>(null)
+
   activeDialogConfig = signal<any>(this.createBioDialogConfig())
 
   bios = signal<any[]>([])
@@ -68,10 +72,12 @@ export class AboutPageComponent implements OnInit {
 
   editBioClick(bio: any) {
     this.activeDialogConfig.set(this.updateBioDialogConfig())
-    this.activeDialogConfig().form.patchValue({
+    const previousBio = {
       ...bio,
       image: bio.imageUrl
-    })
+    }
+    this.activeDialogConfig().form.patchValue(previousBio)
+    this.previousBioValue.set(previousBio)
     this.formDialogOpen.set(true)
   }
 
@@ -106,7 +112,7 @@ export class AboutPageComponent implements OnInit {
 
     this.aboutService.createBio(this.orgId(), data).subscribe(res => {
       // TODO: add success and error messaging / Also add error messaging for img input
-      this.getAndFilterBios(this.orgId())
+      this.aboutService.getBios(this.orgId())
       this.formDialogOpen.set(false)
     })
   }
@@ -118,5 +124,29 @@ export class AboutPageComponent implements OnInit {
       bioUpdateForm.markAllAsTouched()
       return
     }
+
+    const bioDif = GetObjectDifference(this.previousBioValue(), bioUpdateForm.value)
+    if(isEmpty(bioDif)) {
+      bioUpdateForm.markAllAsTouched()
+      // message no change detected
+      return
+    }
+
+    const data = new FormData()
+    bioDif.name && data.append('name', bioDif.name)
+    bioDif.biography && data.append('biography', bioDif.biography)
+    if(bioDif.isPrimary !== undefined) {
+      data.append('isPrimary', bioDif.isPrimary)
+    } 
+    if(bioDif.image) {
+      data.append('imageId', bioUpdateForm.get('imageId').value)
+      data.append('image', bioDif.image, bioDif.image.name)
+    }
+
+    this.aboutService.updateBio(this.orgId(), bioUpdateForm.get('id').value, data).subscribe((res) => {
+      this.aboutService.getBios(this.orgId())
+      this.formDialogOpen.set(false)
+    })
+
   }
 }

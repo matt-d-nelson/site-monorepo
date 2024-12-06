@@ -1,14 +1,7 @@
 import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
-const baseAboutConfig = {
-  form: new FormGroup({
-    image: new FormControl<File | null>(null, [Validators.required]),
-    name: new FormControl('', [Validators.required]),
-    biography: new FormControl('', [Validators.required]),
-    isPrimary: new FormControl(false, [Validators.required]),
-  }),
-  formConfig: [
+const aboutFormConfig = [
     {
       label: 'Image',
       control: 'image',
@@ -39,8 +32,7 @@ const baseAboutConfig = {
         },
       ],
     },
-  ],
-}
+  ]
 
 export function CreateAboutDialogConfig(component: any): FormDialogConfig {
   return {
@@ -49,7 +41,13 @@ export function CreateAboutDialogConfig(component: any): FormDialogConfig {
       label: 'Create',
       confirmMethod: () => component.createBio(),
     },
-    ...baseAboutConfig
+    form: new FormGroup({
+      image: new FormControl<Blob | null>(null, [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      biography: new FormControl('', [Validators.required]),
+      isPrimary: new FormControl(false, [Validators.required]),
+    }),
+    formConfig: aboutFormConfig
   }
 }
 
@@ -60,6 +58,14 @@ export function UpdateAboutDialogConfig(component: any) {
       label: 'Update',
       confirmMethod: () => component.updateBio(),
     },
-    ...baseAboutConfig
+    form: new FormGroup({
+      image: new FormControl<Blob | null>(null, [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      biography: new FormControl('', [Validators.required]),
+      isPrimary: new FormControl(false, [Validators.required]),
+      id: new FormControl('', [Validators.required]),
+      imageId: new FormControl('', [Validators.required])
+    }),
+    formConfig: aboutFormConfig
   }
 }
