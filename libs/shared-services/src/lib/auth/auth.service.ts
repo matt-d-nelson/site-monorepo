@@ -43,8 +43,10 @@ export class AuthService {
 
   isUserAdmin(orgId: ORGIDS): boolean {
     const userToken = localStorage.getItem('jwt_token')
+    console.log(userToken)
     if(!userToken) return false
     const currentUser: DecodedUserToken | null = this.decodeToken(userToken)
+    console.log(currentUser)
     if(!currentUser) return false
 
     let isAdmin = false
