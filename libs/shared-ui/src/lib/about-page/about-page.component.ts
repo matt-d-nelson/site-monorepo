@@ -6,9 +6,10 @@ import {
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
 import { CreateAboutDialogConfig, UpdateAboutDialogConfig } from './about-page.config'
-import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
+import { BUTTON_TYPES, CORE_COLORS, ORGIDS } from '@angular-monorepo/shared-constants'
 import {
   AboutService,
+  AuthService,
   ConfirmationDialogService,
   OrgService,
 } from '@angular-monorepo/shared-services'
@@ -33,6 +34,7 @@ export class AboutPageComponent implements OnInit {
   BUTTON_TYPES = signal(BUTTON_TYPES)
   CORE_COLORS = signal(CORE_COLORS)
   orgId = signal<string>('')
+  userIsAdmin = signal<boolean>(false)
 
   formDialogOpen = signal<boolean>(false)
   createBioDialogConfig = signal<any>(CreateAboutDialogConfig(this))
@@ -47,12 +49,14 @@ export class AboutPageComponent implements OnInit {
   constructor(
     private aboutService: AboutService,
     private orgService: OrgService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {
       this.orgId.set(orgId)
+      this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
       this.getAndFilterBios(orgId)
     })
   }

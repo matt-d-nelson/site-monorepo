@@ -25,7 +25,7 @@ export class ImgInputComponent {
   BUTTON_TYPES = signal(BUTTON_TYPES)
 
   parentForm = input.required<FormGroup>()
-  control = input.required<FormControl>()
+  control = input.required<any>()
 
   imageChangedEvent = signal<any>('')
 
