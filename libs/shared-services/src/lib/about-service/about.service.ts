@@ -12,13 +12,18 @@ export class AboutService {
   _bioCache = new BehaviorSubject<any[]>([])
   bios$ = this._bioCache.asObservable()
 
+  _loadingBios = new BehaviorSubject<boolean>(false)
+  loadingBios$ = this._loadingBios.asObservable
+
   createBio(orgId: string, body: {}): Observable<any> {
     return this.http.post(`${ENV.API_URL}/api/about/${orgId}`, body)
   }
 
   getBios(orgId: string) {
+    this._loadingBios.next(true)
     this.http.get(`${ENV.API_URL}/api/about/${orgId}`).subscribe((bios: any) => {
       this._bioCache.next(bios)
+      this._loadingBios.next(false)
     })
   }
 

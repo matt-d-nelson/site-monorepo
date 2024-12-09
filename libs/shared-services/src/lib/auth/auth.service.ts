@@ -3,23 +3,8 @@ import { ORGIDS } from '@angular-monorepo/shared-constants'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { jwtDecode } from 'jwt-decode'
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs'
-
-interface DecodedUserToken {
-  exp: number
-  iat: number
-  user: {
-    email: string
-    id: number
-    roles: {
-      orgId: {
-        id: number
-        name: string
-      },
-      role: string
-    }[]
-  }
-}
+import { tap } from 'rxjs'
+import { DecodedUserToken } from '@angular-monorepo/shared-models'
 
 @Injectable({
   providedIn: 'root',
