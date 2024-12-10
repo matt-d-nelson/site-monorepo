@@ -3,21 +3,30 @@ import { ORGIDS } from '@angular-monorepo/shared-constants'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { jwtDecode } from 'jwt-decode'
-import { tap } from 'rxjs'
+import { finalize, tap } from 'rxjs'
 import { DecodedUserToken } from '@angular-monorepo/shared-models'
+import { NgxSpinnerService } from 'ngx-spinner'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private spinnerService: NgxSpinnerService
+  ) {}
 
   registerUser(newUser: any) {
-    return this.http.post(`${ENV.API_URL}/api/auth/register`, newUser)
+    this.spinnerService.show()
+    return this.http
+      .post(`${ENV.API_URL}/api/auth/register`, newUser)
+      .pipe(finalize(() => this.spinnerService.hide()))
   }
 
   loginUser(user: any) {
+    this.spinnerService.show()
     return this.http.post(`${ENV.API_URL}/api/auth/login`, user).pipe(
+      finalize(() => this.spinnerService.hide()),
       tap((res: any) => {
         if (res?.token) {
           localStorage.setItem('jwt_token', res.token)
@@ -31,6 +40,10 @@ export class AuthService {
     if (!userToken) return false
     const currentUser: DecodedUserToken | null = this.decodeToken(userToken)
     if (!currentUser) return false
+    const currentTime = Math.floor(Date.now() / 1000)
+    if (currentUser.exp && currentUser.exp < currentTime) {
+      return false
+    }
 
     let isAdmin = false
     currentUser.user.roles.forEach(role => {

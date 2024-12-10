@@ -19,7 +19,6 @@ export class ToastComponent implements OnInit {
 
   ngOnInit(): void {
     this.toastService.toast$.subscribe((toastMessage: ToastMessage | null) => {
-      console.log(toastMessage)
       this.activeToast.set(toastMessage)
       this.entering.set(true)
       this.leaving.set(false)

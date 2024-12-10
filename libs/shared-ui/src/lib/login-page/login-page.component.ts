@@ -3,12 +3,13 @@ import { ButtonComponent } from '@angular-monorepo/core-ui'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
-import { AuthService } from '@angular-monorepo/shared-services'
+import { AuthService, ToastService } from '@angular-monorepo/shared-services'
 import {
   CreateLoginDialogConfig,
   CreateRegisterDialogConfig,
 } from './login-page.config'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
+import { ToastMessage } from '@angular-monorepo/shared-models'
 
 @Component({
   selector: 'shared-ui-login-page',
@@ -33,7 +34,10 @@ export class LoginPageComponent {
   registerDialogConfig = signal<any>(CreateRegisterDialogConfig(this))
   activeDialogConfig = signal<any>(this.loginDialogConfig())
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
 
   loginUser() {
     this.activeDialogConfig.set(this.loginDialogConfig())
@@ -51,9 +55,23 @@ export class LoginPageComponent {
       loginForm.markAllAsTouched()
       return
     }
-    this.authService.loginUser(loginForm.value).subscribe(() => {
-      //TODO: Alert Success / error handling
-      this.formDialogOpen.set(false)
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: 'Login successfull',
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: 'Login failed',
+    }
+    this.formDialogOpen.set(false)
+    this.authService.loginUser(loginForm.value).subscribe({
+      next: () => {
+        this.toastService.showToast(successMsg)
+      },
+      error: () => {
+        this.toastService.showToast(errorMsg)
+      },
     })
   }
 
@@ -63,9 +81,23 @@ export class LoginPageComponent {
       registerForm.markAllAsTouched()
       return
     }
-    this.authService.registerUser(registerForm.value).subscribe(() => {
-      //TODO: Alert Success / error handling
-      this.formDialogOpen.set(false)
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: 'Account has been registered',
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: 'Account registration failed',
+    }
+    this.formDialogOpen.set(false)
+    this.authService.registerUser(registerForm.value).subscribe({
+      next: () => {
+        this.toastService.showToast(successMsg)
+      },
+      error: () => {
+        this.toastService.showToast(errorMsg)
+      },
     })
   }
 }

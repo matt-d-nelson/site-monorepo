@@ -111,13 +111,14 @@ export class AboutPageComponent implements OnInit {
         if (!confirmed) return
         this.aboutService
           .deleteBio(this.orgId(), bio.id, bio.imageId)
-          .subscribe(res => {
-            if (!res) {
+          .subscribe({
+            next: () => {
+              this.toastService.showToast(successMsg)
+              this.aboutService.getBios(this.orgId())
+            },
+            error: () => {
               this.toastService.showToast(errorMsg)
-              return
-            }
-            this.toastService.showToast(successMsg)
-            this.aboutService.getBios(this.orgId())
+            },
           })
       })
   }
@@ -138,28 +139,27 @@ export class AboutPageComponent implements OnInit {
 
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `${bioForm.get('name')}'s bio was created`,
+      message: `${bioForm.get('name').value}'s bio was created`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
       message: `Error creating bio`,
     }
 
-    this.aboutService.createBio(this.orgId(), data).subscribe(res => {
-      if (!res) {
+    this.formDialogOpen.set(false)
+    this.aboutService.createBio(this.orgId(), data).subscribe({
+      next: () => {
+        this.toastService.showToast(successMsg)
+        this.aboutService.getBios(this.orgId())
+      },
+      error: () => {
         this.toastService.showToast(errorMsg)
-        return
-      }
-
-      this.toastService.showToast(successMsg)
-      this.aboutService.getBios(this.orgId())
-      this.formDialogOpen.set(false)
+      },
     })
   }
 
   updateBio() {
     const bioUpdateForm = this.updateBioDialogConfig().form
-    console.log(bioUpdateForm.value, bioUpdateForm.valid)
     if (!bioUpdateForm.valid) {
       bioUpdateForm.markAllAsTouched()
       return
@@ -191,24 +191,24 @@ export class AboutPageComponent implements OnInit {
 
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `${bioUpdateForm.get('name')}'s bio was updated`,
+      message: `${bioUpdateForm.get('name').value}'s bio was updated`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
       message: `Error updating bio`,
     }
 
+    this.formDialogOpen.set(false)
     this.aboutService
       .updateBio(this.orgId(), bioUpdateForm.get('id').value, data)
-      .subscribe(res => {
-        if (!res) {
+      .subscribe({
+        next: () => {
+          this.toastService.showToast(successMsg)
+          this.aboutService.getBios(this.orgId())
+        },
+        error: () => {
           this.toastService.showToast(errorMsg)
-          return
-        }
-
-        this.toastService.showToast(successMsg)
-        this.aboutService.getBios(this.orgId())
-        this.formDialogOpen.set(false)
+        },
       })
   }
 }
