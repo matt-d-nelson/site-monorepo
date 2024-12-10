@@ -4,7 +4,7 @@ import {
   NavBarComponent,
 } from '@angular-monorepo/shared-ui'
 import { Component, OnInit, signal } from '@angular/core'
-import { AuthService, OrgService } from '@angular-monorepo/shared-services'
+import { OrgService } from '@angular-monorepo/shared-services'
 import { ORGIDS } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
 import { HexToRGB } from '@angular-monorepo/shared-utilities'
@@ -17,7 +17,6 @@ import { HexToRGB } from '@angular-monorepo/shared-utilities'
     NavBarComponent,
     CommonModule,
   ],
-  providers: [AuthService],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

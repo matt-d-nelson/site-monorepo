@@ -5,17 +5,22 @@ import {
 } from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
-import { CreateAboutDialogConfig, UpdateAboutDialogConfig } from './about-page.config'
-import { BUTTON_TYPES, CORE_COLORS, ORGIDS } from '@angular-monorepo/shared-constants'
+import {
+  CreateAboutDialogConfig,
+  UpdateAboutDialogConfig,
+} from './about-page.config'
+import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import {
   AboutService,
   AuthService,
   ConfirmationDialogService,
   OrgService,
+  ToastService,
 } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
+import { ToastMessage } from '@angular-monorepo/shared-models'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -50,7 +55,8 @@ export class AboutPageComponent implements OnInit {
     private aboutService: AboutService,
     private orgService: OrgService,
     private confirmationDialogService: ConfirmationDialogService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +84,7 @@ export class AboutPageComponent implements OnInit {
     this.activeDialogConfig.set(this.updateBioDialogConfig())
     const previousBio = {
       ...bio,
-      image: bio.imageUrl
+      image: bio.imageUrl,
     }
     this.activeDialogConfig().form.patchValue(previousBio)
     this.previousBioValue.set(previousBio)
@@ -86,6 +92,15 @@ export class AboutPageComponent implements OnInit {
   }
 
   deleteBioClick(bio: any) {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${bio.name} was deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting bio`,
+    }
+
     this.confirmationDialogService
       .openDialog({
         title: 'Delete Bio',
@@ -93,10 +108,17 @@ export class AboutPageComponent implements OnInit {
         confirmText: 'Delete',
       })
       .subscribe((confirmed: boolean) => {
-        if(!confirmed) return
-        this.aboutService.deleteBio(this.orgId(), bio.id, bio.imageId).subscribe((res) => {
-          this.aboutService.getBios(this.orgId())
-        })
+        if (!confirmed) return
+        this.aboutService
+          .deleteBio(this.orgId(), bio.id, bio.imageId)
+          .subscribe(res => {
+            if (!res) {
+              this.toastService.showToast(errorMsg)
+              return
+            }
+            this.toastService.showToast(successMsg)
+            this.aboutService.getBios(this.orgId())
+          })
       })
   }
 
@@ -114,8 +136,22 @@ export class AboutPageComponent implements OnInit {
     const imageFile = bioForm.get('image')
     data.append('image', imageFile.value, imageFile.name)
 
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${bioForm.get('name')}'s bio was created`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error creating bio`,
+    }
+
     this.aboutService.createBio(this.orgId(), data).subscribe(res => {
-      // TODO: add success and error messaging / Also add error messaging for img input
+      if (!res) {
+        this.toastService.showToast(errorMsg)
+        return
+      }
+
+      this.toastService.showToast(successMsg)
       this.aboutService.getBios(this.orgId())
       this.formDialogOpen.set(false)
     })
@@ -124,33 +160,55 @@ export class AboutPageComponent implements OnInit {
   updateBio() {
     const bioUpdateForm = this.updateBioDialogConfig().form
     console.log(bioUpdateForm.value, bioUpdateForm.valid)
-    if(!bioUpdateForm.valid) {
+    if (!bioUpdateForm.valid) {
       bioUpdateForm.markAllAsTouched()
       return
     }
 
-    const bioDif = GetObjectDifference(this.previousBioValue(), bioUpdateForm.value)
-    if(isEmpty(bioDif)) {
+    const bioDif = GetObjectDifference(
+      this.previousBioValue(),
+      bioUpdateForm.value
+    )
+    if (isEmpty(bioDif)) {
       bioUpdateForm.markAllAsTouched()
-      // message no change detected
+      this.toastService.showToast({
+        type: 'error',
+        message: 'No updates detected',
+      })
       return
     }
 
     const data = new FormData()
     bioDif.name && data.append('name', bioDif.name)
     bioDif.biography && data.append('biography', bioDif.biography)
-    if(bioDif.isPrimary !== undefined) {
+    if (bioDif.isPrimary !== undefined) {
       data.append('isPrimary', bioDif.isPrimary)
-    } 
-    if(bioDif.image) {
+    }
+    if (bioDif.image) {
       data.append('imageId', bioUpdateForm.get('imageId').value)
       data.append('image', bioDif.image, bioDif.image.name)
     }
 
-    this.aboutService.updateBio(this.orgId(), bioUpdateForm.get('id').value, data).subscribe((res) => {
-      this.aboutService.getBios(this.orgId())
-      this.formDialogOpen.set(false)
-    })
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${bioUpdateForm.get('name')}'s bio was updated`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error updating bio`,
+    }
 
+    this.aboutService
+      .updateBio(this.orgId(), bioUpdateForm.get('id').value, data)
+      .subscribe(res => {
+        if (!res) {
+          this.toastService.showToast(errorMsg)
+          return
+        }
+
+        this.toastService.showToast(successMsg)
+        this.aboutService.getBios(this.orgId())
+        this.formDialogOpen.set(false)
+      })
   }
 }

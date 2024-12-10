@@ -1,0 +1,44 @@
+.toast {
+  transform: translate(-50%, -100%);
+  color: rgb(var(--textColor));
+  z-index: 1000;
+  opacity: 0;
+
+  &.toast-success {
+    background-color: rgb(var(--primary));
+  }
+
+  &.toast-error {
+    background-color: rgb(var(--danger));
+  }
+}
+
+@keyframes toast-enter {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-leave {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+}
+
+.toast.animate-enter {
+  animation: toast-enter 0.3s ease-out forwards;
+}
+
+.toast.animate-leave {
+  animation: toast-leave 0.3s ease-in forwards;
+}
