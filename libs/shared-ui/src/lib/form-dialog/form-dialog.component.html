@@ -21,6 +21,15 @@
           [parentForm]="dialogConfig().form"
         >
         </core-ui-input>
+        <!-- password -->
+        <core-ui-input
+          *ngSwitchCase="INPUT_TYPES().DATE"
+          [label]="config.label"
+          type="date"
+          [control]="dialogConfig().form.get(config.control)"
+          [parentForm]="dialogConfig().form"
+        >
+        </core-ui-input>
         <!-- textarea -->
         <core-ui-input
           *ngSwitchCase="INPUT_TYPES().TEXTAREA"

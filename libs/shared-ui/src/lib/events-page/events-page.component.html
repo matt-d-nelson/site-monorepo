@@ -1,0 +1,13 @@
+<!-- *ngIf="userIsAdmin()" -->
+<core-ui-button
+  [type]="BUTTON_TYPES().OUTLINE"
+  label="Add Event"
+  (onClick)="addEventClick()"
+  class="flex justify-self-end"
+></core-ui-button>
+
+<shared-ui-form-dialog
+  [(open)]="formDialogOpen"
+  [dialogConfig]="activeDialogConfig()"
+  [loading]="dialogLoading()"
+></shared-ui-form-dialog>

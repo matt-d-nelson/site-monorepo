@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
 import { ToastMessage } from '@angular-monorepo/shared-models'
-import { delay, finalize } from 'rxjs'
+import { finalize } from 'rxjs'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -43,12 +43,11 @@ export class AboutPageComponent implements OnInit {
   userIsAdmin = signal<boolean>(false)
 
   formDialogOpen = signal<boolean>(false)
+  dialogLoading = signal<boolean>(false)
   createBioDialogConfig = signal<any>(CreateAboutDialogConfig(this))
   updateBioDialogConfig = signal<any>(UpdateAboutDialogConfig(this))
   previousBioValue = signal<any>(null)
-
   activeDialogConfig = signal<any>(this.createBioDialogConfig())
-  dialogLoading = signal<boolean>(false)
 
   bios = signal<any[]>([])
   primaryBio = signal<any>(null)
