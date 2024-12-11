@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
 import { ToastMessage } from '@angular-monorepo/shared-models'
+import { delay, finalize } from 'rxjs'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -47,6 +48,7 @@ export class AboutPageComponent implements OnInit {
   previousBioValue = signal<any>(null)
 
   activeDialogConfig = signal<any>(this.createBioDialogConfig())
+  dialogLoading = signal<boolean>(false)
 
   bios = signal<any[]>([])
   primaryBio = signal<any>(null)
@@ -145,17 +147,20 @@ export class AboutPageComponent implements OnInit {
       type: 'error',
       message: `Error creating bio`,
     }
-
-    this.formDialogOpen.set(false)
-    this.aboutService.createBio(this.orgId(), data).subscribe({
-      next: () => {
-        this.toastService.showToast(successMsg)
-        this.aboutService.getBios(this.orgId())
-      },
-      error: () => {
-        this.toastService.showToast(errorMsg)
-      },
-    })
+    this.dialogLoading.set(true)
+    this.aboutService
+      .createBio(this.orgId(), data)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.toastService.showToast(successMsg)
+          this.aboutService.getBios(this.orgId())
+          this.formDialogOpen.set(false)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 
   updateBio() {
@@ -197,14 +202,15 @@ export class AboutPageComponent implements OnInit {
       type: 'error',
       message: `Error updating bio`,
     }
-
-    this.formDialogOpen.set(false)
+    this.dialogLoading.set(true)
     this.aboutService
       .updateBio(this.orgId(), bioUpdateForm.get('id').value, data)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
       .subscribe({
         next: () => {
           this.toastService.showToast(successMsg)
           this.aboutService.getBios(this.orgId())
+          this.formDialogOpen.set(false)
         },
         error: () => {
           this.toastService.showToast(errorMsg)

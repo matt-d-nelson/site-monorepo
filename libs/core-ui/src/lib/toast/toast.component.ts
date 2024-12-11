@@ -25,7 +25,7 @@ export class ToastComponent implements OnInit {
 
       setTimeout(() => {
         this.entering.set(false), this.leaving.set(true)
-      }, 5000)
+      }, 9000)
     })
   }
 }

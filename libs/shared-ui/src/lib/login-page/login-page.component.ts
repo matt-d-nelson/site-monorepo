@@ -10,6 +10,7 @@ import {
 } from './login-page.config'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { ToastMessage } from '@angular-monorepo/shared-models'
+import { delay, finalize } from 'rxjs'
 
 @Component({
   selector: 'shared-ui-login-page',
@@ -33,6 +34,8 @@ export class LoginPageComponent {
   loginDialogConfig = signal<any>(CreateLoginDialogConfig(this)) //TODO: type
   registerDialogConfig = signal<any>(CreateRegisterDialogConfig(this))
   activeDialogConfig = signal<any>(this.loginDialogConfig())
+
+  dialogLoading = signal<boolean>(false)
 
   constructor(
     private authService: AuthService,
@@ -64,15 +67,19 @@ export class LoginPageComponent {
       type: 'error',
       message: 'Login failed',
     }
-    this.formDialogOpen.set(false)
-    this.authService.loginUser(loginForm.value).subscribe({
-      next: () => {
-        this.toastService.showToast(successMsg)
-      },
-      error: () => {
-        this.toastService.showToast(errorMsg)
-      },
-    })
+    this.dialogLoading.set(true)
+    this.authService
+      .loginUser(loginForm.value)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.formDialogOpen.set(false)
+          this.toastService.showToast(successMsg)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 
   handleRegister() {
@@ -90,14 +97,18 @@ export class LoginPageComponent {
       type: 'error',
       message: 'Account registration failed',
     }
-    this.formDialogOpen.set(false)
-    this.authService.registerUser(registerForm.value).subscribe({
-      next: () => {
-        this.toastService.showToast(successMsg)
-      },
-      error: () => {
-        this.toastService.showToast(errorMsg)
-      },
-    })
+    this.dialogLoading.set(true)
+    this.authService
+      .registerUser(registerForm.value)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.formDialogOpen.set(false)
+          this.toastService.showToast(successMsg)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 }

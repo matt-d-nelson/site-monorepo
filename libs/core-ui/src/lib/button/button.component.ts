@@ -19,6 +19,7 @@ export class ButtonComponent {
   hoverTextColor = input<string | null>(null)
   label = input<string | null | undefined>(null)
   icon = input<TemplateRef<any> | null>(null)
+  loading = input<boolean | null>(null)
 
   onClick = output<Event>()
 }

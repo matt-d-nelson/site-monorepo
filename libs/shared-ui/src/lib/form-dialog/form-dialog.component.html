@@ -63,11 +63,13 @@
       (onClick)="closeModal()"
       [type]="BUTTON_TYPES().OUTLINE"
       [color]="CORE_COLORS().DANGER"
+      [loading]="loading()"
     ></core-ui-button>
     <core-ui-button
       [label]="dialogConfig().confirmConfig.label"
       (onClick)="handleConfirm()"
       [type]="BUTTON_TYPES().OUTLINE"
+      [loading]="loading()"
       class="ml-3"
     ></core-ui-button>
   </div>

@@ -5,7 +5,10 @@ import {
   RadioInputComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
-import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
+import {
+  FORM_DIALOG_INPUT_TYPES,
+  FormDialogConfig,
+} from '@angular-monorepo/shared-models'
 import { CommonModule } from '@angular/common'
 import {
   Component,
@@ -44,6 +47,7 @@ export class FormDialogComponent {
   openChange = output<boolean>()
 
   dialogConfig = input.required<FormDialogConfig>()
+  loading = input.required<boolean>()
 
   constructor() {
     effect(() => {

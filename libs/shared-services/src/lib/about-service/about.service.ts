@@ -17,10 +17,7 @@ export class AboutService {
   bios$ = this._bioCache.asObservable()
 
   createBio(orgId: string, body: {}): Observable<any> {
-    this.spinnerService.show()
-    return this.http
-      .post(`${ENV.API_URL}/api/about/${orgId}`, body)
-      .pipe(finalize(() => this.spinnerService.hide()))
+    return this.http.post(`${ENV.API_URL}/api/about/${orgId}`, body)
   }
 
   getBios(orgId: string) {
@@ -46,9 +43,6 @@ export class AboutService {
   }
 
   updateBio(orgId: string, bioId: string, body: {}): Observable<any> {
-    this.spinnerService.show()
-    return this.http
-      .patch(`${ENV.API_URL}/api/about/${orgId}/${bioId}`, body)
-      .pipe(finalize(() => this.spinnerService.hide()))
+    return this.http.patch(`${ENV.API_URL}/api/about/${orgId}/${bioId}`, body)
   }
 }
