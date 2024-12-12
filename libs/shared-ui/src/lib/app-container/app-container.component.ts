@@ -9,8 +9,9 @@ import {
 import { RouterModule } from '@angular/router'
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component'
 import { ToastComponent } from '@angular-monorepo/core-ui'
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner'
+import { NgxSpinnerModule } from 'ngx-spinner'
 import { OrgService } from '@angular-monorepo/shared-services'
+import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'shared-ui-app-container',
@@ -21,6 +22,7 @@ import { OrgService } from '@angular-monorepo/shared-services'
     ConfirmationDialogComponent,
     ToastComponent,
     NgxSpinnerModule,
+    NgScrollbarModule
   ],
   templateUrl: './app-container.component.html',
   styleUrl: './app-container.component.scss',

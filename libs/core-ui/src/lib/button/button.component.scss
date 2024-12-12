@@ -2,7 +2,7 @@ button {
   transition: color 0.3s ease;
   color: var(--text-color);
 
-  &:not(.btn-loading) :hover {
+  &:not(.btn-loading):hover {
     color: var(--hover-text-color);
   }
 }
@@ -56,7 +56,7 @@ button {
   border: solid 3px;
   border-radius: 4px;
 
-  &:not(.btn-loading) :hover {
+  &:not(.btn-loading):hover {
     &.btn-primary {
       background-color: rgba(var(--primary), 0.5);
     }
