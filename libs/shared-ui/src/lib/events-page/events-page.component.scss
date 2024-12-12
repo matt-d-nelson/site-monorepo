@@ -1,0 +1,22 @@
+.events-wrapper {
+    background-color: rgba(var(--background),0.5);
+}
+
+.event-line {
+    background-color: rgb(var(--primary));
+    height: 2px;
+}
+
+.hover-primary {
+    transition: color 0.3s ease;
+    &:hover {
+        color: rgb(var(--primary));
+    }
+}
+
+.hover-secondary {
+    transition: color 0.3s ease;
+    &:hover {
+        color: rgb(var(--secondary));
+    }
+}

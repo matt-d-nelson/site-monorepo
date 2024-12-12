@@ -5,7 +5,11 @@ module.exports = {
     "./libs/**/*.{html,js,ts}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
+    },
   },
   plugins: [],
 }

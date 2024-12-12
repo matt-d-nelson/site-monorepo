@@ -1,9 +1,9 @@
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants';
 import { AuthService, ConfirmationDialogService, EventsService, OrgService, ToastService } from '@angular-monorepo/shared-services';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { FormDialogComponent } from '../form-dialog/form-dialog.component';
-import { ButtonComponent } from '@angular-monorepo/core-ui';
+import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui';
 import { CreateEventDialogConfig } from './events-page.config';
 
 @Component({
@@ -12,7 +12,8 @@ import { CreateEventDialogConfig } from './events-page.config';
   imports: [
     CommonModule,
     FormDialogComponent,
-    ButtonComponent
+    ButtonComponent,
+    LazyImgComponent
   ],
   templateUrl: './events-page.component.html',
   styleUrl: './events-page.component.scss'
@@ -31,6 +32,19 @@ export class EventsPageComponent implements OnInit{
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
 
+  upcomingEvents = signal<any>([]) //TODO: type
+  pastEvents = signal<any>([])
+  sectionsConfig = computed(() => [
+    {
+      title: 'Upcoming',
+      events: this.upcomingEvents
+    },
+    {
+      title: 'Past',
+      events: this.pastEvents
+    }
+  ])
+
   formDialogOpen = signal<boolean>(false)
   dialogLoading = signal<boolean>(false)
   createEventDialogConfig = signal<any>(CreateEventDialogConfig(this))
@@ -45,9 +59,25 @@ export class EventsPageComponent implements OnInit{
   }
 
   getAndSortEvents(orgId: string) {
+
     this.eventsService.getEvents(orgId)
+
+    
     this.eventsService.events$.subscribe(events => {
-      console.log(events)
+      const today = new Date().setHours(0,0,0,0)
+      const pastTemp: any = []
+      const upcomingTemp: any = []
+
+      events.forEach((event: any) => {
+        const eventDate = new Date(event.date).setHours(0,0,0,0)
+        if(eventDate < today) {
+          pastTemp.push(event)
+        } else {
+          upcomingTemp.push(event)
+        }
+      })
+      this.pastEvents.set(pastTemp)
+      this.upcomingEvents.set(upcomingTemp)
     })
   }
 
@@ -59,5 +89,8 @@ export class EventsPageComponent implements OnInit{
   createEvent() {
     const eventForm = this.createEventDialogConfig().form
     console.log(eventForm.value)
+    this.eventsService.createEvent(this.orgId(), eventForm.value).subscribe((res) => {
+      this.eventsService.getEvents(this.orgId())
+    })
   }
 }
