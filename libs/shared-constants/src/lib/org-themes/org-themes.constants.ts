@@ -106,7 +106,8 @@ const OrgStaticImages = {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
-    eventsPage: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png'
+    eventsPage:
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
   },
   [ORGIDS.MATT]: {},
 }

@@ -22,7 +22,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     ConfirmationDialogComponent,
     ToastComponent,
     NgxSpinnerModule,
-    NgScrollbarModule
+    NgScrollbarModule,
   ],
   templateUrl: './app-container.component.html',
   styleUrl: './app-container.component.scss',

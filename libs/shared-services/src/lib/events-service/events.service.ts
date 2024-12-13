@@ -32,16 +32,19 @@ export class EventsService {
 
   deleteEvent(orgId: string, eventId: string) {
     this.spinnerService.show()
-    return(this.http
+    return this.http
       .delete(`${ENV.API_URL}/api/events/${orgId}`, {
         params: {
           eventId: eventId,
         },
       })
-      .pipe(finalize(() => this.spinnerService.hide())))
+      .pipe(finalize(() => this.spinnerService.hide()))
   }
 
   updateEvent(orgId: string, eventId: string, updatedData: any) {
-    return(this.http.patch(`${ENV.API_URL}/api/events/${orgId}/${eventId}`, updatedData))
+    return this.http.patch(
+      `${ENV.API_URL}/api/events/${orgId}/${eventId}`,
+      updatedData
+    )
   }
 }
