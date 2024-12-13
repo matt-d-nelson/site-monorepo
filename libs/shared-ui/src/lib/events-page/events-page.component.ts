@@ -103,7 +103,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   editEventClick(event: any) {
-    console.log(event)
     this.activeDialogConfig.set(this.updateEventDialogConfig())
     this.activeDialogConfig().form.patchValue(event)
     this.previousEventValue.set(event)
@@ -111,7 +110,6 @@ export class EventsPageComponent implements OnInit {
   }
 
   deleteEventClick(event: any) {
-    console.log(event)
     const successMsg: ToastMessage = {
       type: 'success',
       message: `${event.name} was deleted`,

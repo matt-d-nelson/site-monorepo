@@ -34,7 +34,6 @@ export class NavBarComponent implements OnInit {
   }
 
   navigate(link: any) {
-    console.log(link)
     if (link?.nav) {
       this.router.navigate([link.nav])
     }

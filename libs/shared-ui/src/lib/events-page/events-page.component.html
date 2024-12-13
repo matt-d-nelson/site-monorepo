@@ -3,8 +3,8 @@
   <div class="mb-3">
     <div class="flex justify-between">
       <h1 class="text-3xl">events</h1>
-      <!-- *ngIf="userIsAdmin()" -->
       <core-ui-button
+        *ngIf="userIsAdmin()"
         [type]="BUTTON_TYPES().OUTLINE"
         label="Add Event"
         (onClick)="addEventClick()"
@@ -38,7 +38,7 @@
         >
         <div class="w-full mx-3 event-line"></div>
         <p class="min-w-fit">{{ event.date | date : 'MM/dd/yy' }}</p>
-        <div class="flex ml-2">
+        <div class="flex ml-2" *ngIf="userIsAdmin()">
           <core-ui-button
             [type]="BUTTON_TYPES().OUTLINE"
             [color]="CORE_COLORS().DANGER"
