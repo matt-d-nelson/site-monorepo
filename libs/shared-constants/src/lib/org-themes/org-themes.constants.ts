@@ -80,17 +80,17 @@ const OrgComponentColors = {
           links: [
             {
               title: 'facebook',
-              nav: '',
+              externalNav: 'https://www.facebook.com/Telestela',
               color: OrgBaseColors[ORGIDS.TELESTELA].green,
             },
             {
               title: 'instagram',
-              nav: '',
+              externalNav: 'https://www.instagram.com/telestela',
               color: OrgBaseColors[ORGIDS.TELESTELA].red,
             },
             {
               title: 'email',
-              nav: '',
+              externalNav: 'mailto:telestela.booking@gmail.com',
               color: OrgBaseColors[ORGIDS.TELESTELA].purple,
             },
           ],
