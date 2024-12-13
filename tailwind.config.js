@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       aspectRatio: {
         '4/3': '4 / 3',
+        '4/1': '4 / 1'
       },
     },
   },
