@@ -42,3 +42,20 @@ export function CreateEventDialogConfig(component: any) {
     formConfig: eventFormConfig,
   }
 }
+
+export function UpdateEventDialogConfig(component: any) {
+  return {
+    header: 'Update Event',
+    confirmConfig: {
+      label: 'Update',
+      confirmMethod: () => component.updateEvent(),
+    },
+    form: new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      link: new FormControl('', [Validators.required]),
+    }),
+    formConfig: eventFormConfig,
+  }
+}

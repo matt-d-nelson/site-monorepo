@@ -174,7 +174,6 @@ export class AboutPageComponent implements OnInit {
       bioUpdateForm.value
     )
     if (isEmpty(bioDif)) {
-      bioUpdateForm.markAllAsTouched()
       this.toastService.showToast({
         type: 'error',
         message: 'No updates detected',

@@ -23,10 +23,24 @@
       <h2 class="px-2">{{ section.title }}</h2>
     </div>
     <div class="py-4 md:px-20">
-      <div *ngFor="let event of section.events(); let i = index" class="flex justify-between py-1">
+      <div *ngFor="let event of section.events(); let i = index" class="flex justify-between items-center py-1">
         <a class="min-w-fit" [ngClass]="{'hover-primary': i % 2 === 0, 'hover-secondary': i % 2 !== 0}" [href]="event.link" target="_blank" rel="noopener noreferrer">{{ event.name }}</a>
-        <div class="w-full mx-3 my-auto event-line"></div>
+        <div class="w-full mx-3 event-line"></div>
         <p class="min-w-fit">{{ event.date | date:'MM/dd/yy' }}</p>
+        <div class="flex ml-2">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            label="Delete"
+            (onClick)="deleteEventClick(event)"
+          ></core-ui-button>
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            label="Edit"
+            (onClick)="editEventClick(event)"
+            class="ml-2"
+          ></core-ui-button>
+        </div>
       </div>
     </div>
   </div>
