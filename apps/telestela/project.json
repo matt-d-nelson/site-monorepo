@@ -22,7 +22,10 @@
             "input": "apps/telestela/public"
           }
         ],
-        "styles": ["apps/telestela/src/styles.scss"],
+        "styles": [
+          "apps/telestela/src/styles.scss",
+          "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+        ],
         "scripts": []
       },
       "configurations": {

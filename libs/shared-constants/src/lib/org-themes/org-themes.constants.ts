@@ -80,17 +80,17 @@ const OrgComponentColors = {
           links: [
             {
               title: 'facebook',
-              nav: '',
+              externalNav: 'https://www.facebook.com/Telestela',
               color: OrgBaseColors[ORGIDS.TELESTELA].green,
             },
             {
               title: 'instagram',
-              nav: '',
+              externalNav: 'https://www.instagram.com/telestela',
               color: OrgBaseColors[ORGIDS.TELESTELA].red,
             },
             {
               title: 'email',
-              nav: '',
+              externalNav: 'mailto:telestela.booking@gmail.com',
               color: OrgBaseColors[ORGIDS.TELESTELA].purple,
             },
           ],
@@ -106,6 +106,8 @@ const OrgStaticImages = {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
+    eventsPage:
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
   },
   [ORGIDS.MATT]: {},
 }

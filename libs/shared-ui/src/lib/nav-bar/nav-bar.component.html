@@ -8,12 +8,15 @@
     ></core-ui-button>
   </div>
 </div>
+<!-- TODO: adjust overflow scroll so that the nav bar doesn't need this magic number -->
 <div
   class="nav-dropdown p-4 md:max-w-5xl"
   [ngClass]="{ 'nav-visible': dropdownVisible() }"
   [ngStyle]="{ background: navColor() }"
 >
-  <core-ui-lazy-img [source]="logoImg()"></core-ui-lazy-img>
+  <div class="aspect-[4/1]">
+    <core-ui-lazy-img [source]="logoImg()"></core-ui-lazy-img>
+  </div>
   <div *ngFor="let config of dropdownConfig()" class="px-4">
     <h2 class="text-4xl border-b-2 pb-1">{{ config?.header }}</h2>
     <div class="m-4">
@@ -26,7 +29,7 @@
           [label]="link?.title"
           [hoverTextColor]="link?.color"
           class="text-2xl ml-2"
-          (click)="navigate(link?.nav)"
+          (click)="navigate(link)"
         ></core-ui-button>
       </div>
     </div>

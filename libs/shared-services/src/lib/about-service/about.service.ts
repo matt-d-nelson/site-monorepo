@@ -1,13 +1,17 @@
 import { ENV } from '@angular-monorepo/environments'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { NgxSpinnerService } from 'ngx-spinner'
+import { BehaviorSubject, finalize, Observable, tap } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AboutService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private spinnerService: NgxSpinnerService
+  ) {}
 
   _bioCache = new BehaviorSubject<any[]>([])
   bios$ = this._bioCache.asObservable()
@@ -17,18 +21,25 @@ export class AboutService {
   }
 
   getBios(orgId: string) {
-    this.http.get(`${ENV.API_URL}/api/about/${orgId}`).subscribe((bios: any) => {
-      this._bioCache.next(bios)
-    })
+    this.spinnerService.show()
+    this.http
+      .get(`${ENV.API_URL}/api/about/${orgId}`)
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe((bios: any) => {
+        this._bioCache.next(bios)
+      })
   }
 
   deleteBio(orgId: string, bioId: string, imageId: string): Observable<any> {
-    return this.http.delete(`${ENV.API_URL}/api/about/${orgId}`, {
-      params: {
-        imageId: imageId,
-        bioId: bioId
-      }
-    })
+    this.spinnerService.show()
+    return this.http
+      .delete(`${ENV.API_URL}/api/about/${orgId}`, {
+        params: {
+          imageId: imageId,
+          bioId: bioId,
+        },
+      })
+      .pipe(finalize(() => this.spinnerService.hide()))
   }
 
   updateBio(orgId: string, bioId: string, body: {}): Observable<any> {

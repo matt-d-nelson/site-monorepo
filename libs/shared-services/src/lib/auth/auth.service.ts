@@ -3,23 +3,8 @@ import { ORGIDS } from '@angular-monorepo/shared-constants'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { jwtDecode } from 'jwt-decode'
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs'
-
-interface DecodedUserToken {
-  exp: number
-  iat: number
-  user: {
-    email: string
-    id: number
-    roles: {
-      orgId: {
-        id: number
-        name: string
-      },
-      role: string
-    }[]
-  }
-}
+import { tap } from 'rxjs'
+import { DecodedUserToken } from '@angular-monorepo/shared-models'
 
 @Injectable({
   providedIn: 'root',
@@ -43,13 +28,17 @@ export class AuthService {
 
   isUserAdmin(orgId: ORGIDS): boolean {
     const userToken = localStorage.getItem('jwt_token')
-    if(!userToken) return false
+    if (!userToken) return false
     const currentUser: DecodedUserToken | null = this.decodeToken(userToken)
-    if(!currentUser) return false
+    if (!currentUser) return false
+    const currentTime = Math.floor(Date.now() / 1000)
+    if (currentUser.exp && currentUser.exp < currentTime) {
+      return false
+    }
 
     let isAdmin = false
-    currentUser.user.roles.forEach((role) => {
-      if(role.orgId.id === parseInt(orgId) && role.role === 'admin') {
+    currentUser.user.roles.forEach(role => {
+      if (role.orgId.id === parseInt(orgId) && role.role === 'admin') {
         isAdmin = true
       }
     })
@@ -59,7 +48,7 @@ export class AuthService {
   private decodeToken(token: string): DecodedUserToken | null {
     try {
       return jwtDecode(token)
-    } catch(Error) {
+    } catch (Error) {
       return null
     }
   }

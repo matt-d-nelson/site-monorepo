@@ -33,8 +33,13 @@ export class NavBarComponent implements OnInit {
     this.dropdownVisible.set(!this.dropdownVisible())
   }
 
-  navigate(nav: string) {
-    this.router.navigate([nav])
+  navigate(link: any) {
+    if (link?.nav) {
+      this.router.navigate([link.nav])
+    }
+    if (link?.externalNav) {
+      window.open(link.externalNav, '_blank')
+    }
     this.toggleDropdown()
   }
 }

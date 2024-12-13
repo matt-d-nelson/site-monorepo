@@ -1,20 +1,23 @@
-<core-ui-button
-  *ngIf="userIsAdmin()"
-  [type]="BUTTON_TYPES().OUTLINE"
-  label="Add Bio"
-  (onClick)="addBioClick()"
-  class="flex justify-self-end"
-></core-ui-button>
-<div>
+<div class="about-wrapper p-5 min-h-full max-h-fit md:px-32">
+  <div class="flex justify-between">
+    <h1 class="text-3xl">about</h1>
+    <core-ui-button
+      *ngIf="userIsAdmin()"
+      [type]="BUTTON_TYPES().OUTLINE"
+      label="Add Bio"
+      (onClick)="addBioClick()"
+      class="flex justify-self-end"
+    ></core-ui-button>
+  </div>
   <!-- primary bio -->
   <div *ngIf="primaryBio()">
     <div class="primaryBio-wrapper p-4 mb-3 max-w-xl">
-      <div class="rounded-full overflow-hidden">
+      <div class="rounded-full overflow-hidden aspect-square">
         <core-ui-lazy-img [source]="primaryBio().imageUrl"></core-ui-lazy-img>
       </div>
       <div>
         <div class="flex justify-between items-center py-1">
-          <h2 class="text-2xl px-2">{{ primaryBio().name }}</h2>
+          <h2 class="text-xl px-2">{{ primaryBio().name }}</h2>
           <div class="flex" *ngIf="userIsAdmin()">
             <core-ui-button
               [type]="BUTTON_TYPES().OUTLINE"
@@ -24,7 +27,6 @@
             ></core-ui-button>
             <core-ui-button
               [type]="BUTTON_TYPES().OUTLINE"
-              [color]="CORE_COLORS().SECONDARY"
               label="Edit"
               (onClick)="editBioClick(primaryBio())"
               class="ml-2"
@@ -32,14 +34,11 @@
           </div>
         </div>
         <div class="border-b-2"></div>
-        <p class="text-s p-2 min-h-40">{{ primaryBio().biography }}</p>
+        <p class="p-2 min-h-40">{{ primaryBio().biography }}</p>
       </div>
     </div>
-    <div
-      *ngIf="bios().length > 0"
-      class="border-b-4 my-4 text-3xl members-wrapper"
-    >
-      <h3 class="px-2">Members</h3>
+    <div *ngIf="bios().length > 0" class="border-b-2 my-4 text-xl">
+      <h3 class="px-2">members</h3>
     </div>
   </div>
   <!-- member bios -->
@@ -76,4 +75,5 @@
 <shared-ui-form-dialog
   [(open)]="formDialogOpen"
   [dialogConfig]="activeDialogConfig()"
+  [loading]="dialogLoading()"
 ></shared-ui-form-dialog>

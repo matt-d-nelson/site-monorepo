@@ -1,38 +1,41 @@
-import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
+import {
+  FORM_DIALOG_INPUT_TYPES,
+  FormDialogConfig,
+} from '@angular-monorepo/shared-models'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 const aboutFormConfig = [
-    {
-      label: 'Image',
-      control: 'image',
-      type: FORM_DIALOG_INPUT_TYPES.IMAGE,
-    },
-    {
-      label: 'Name',
-      control: 'name',
-      type: FORM_DIALOG_INPUT_TYPES.TEXT,
-    },
-    {
-      label: 'Bio',
-      control: 'biography',
-      type: FORM_DIALOG_INPUT_TYPES.TEXTAREA,
-    },
-    {
-      label: 'Is Primary Bio',
-      control: 'isPrimary',
-      type: FORM_DIALOG_INPUT_TYPES.RADIO,
-      options: [
-        {
-          label: 'Yes',
-          value: true,
-        },
-        {
-          label: 'No',
-          value: false,
-        },
-      ],
-    },
-  ]
+  {
+    label: 'Image',
+    control: 'image',
+    type: FORM_DIALOG_INPUT_TYPES.IMAGE,
+  },
+  {
+    label: 'Name',
+    control: 'name',
+    type: FORM_DIALOG_INPUT_TYPES.TEXT,
+  },
+  {
+    label: 'Bio',
+    control: 'biography',
+    type: FORM_DIALOG_INPUT_TYPES.TEXTAREA,
+  },
+  {
+    label: 'Is Primary Bio',
+    control: 'isPrimary',
+    type: FORM_DIALOG_INPUT_TYPES.RADIO,
+    options: [
+      {
+        label: 'Yes',
+        value: true,
+      },
+      {
+        label: 'No',
+        value: false,
+      },
+    ],
+  },
+]
 
 export function CreateAboutDialogConfig(component: any): FormDialogConfig {
   return {
@@ -47,11 +50,11 @@ export function CreateAboutDialogConfig(component: any): FormDialogConfig {
       biography: new FormControl('', [Validators.required]),
       isPrimary: new FormControl(false, [Validators.required]),
     }),
-    formConfig: aboutFormConfig
+    formConfig: aboutFormConfig,
   }
 }
 
-export function UpdateAboutDialogConfig(component: any) {
+export function UpdateAboutDialogConfig(component: any): FormDialogConfig {
   return {
     header: 'Edit Biography',
     confirmConfig: {
@@ -64,8 +67,8 @@ export function UpdateAboutDialogConfig(component: any) {
       biography: new FormControl('', [Validators.required]),
       isPrimary: new FormControl(false, [Validators.required]),
       id: new FormControl('', [Validators.required]),
-      imageId: new FormControl('', [Validators.required])
+      imageId: new FormControl('', [Validators.required]),
     }),
-    formConfig: aboutFormConfig
+    formConfig: aboutFormConfig,
   }
 }

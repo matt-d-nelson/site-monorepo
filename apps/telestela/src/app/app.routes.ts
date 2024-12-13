@@ -21,4 +21,9 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@angular-monorepo/shared-ui').then(m => m.LoginPageComponent),
   },
+  {
+    path: 'events',
+    loadComponent: () =>
+      import('@angular-monorepo/shared-ui').then(m => m.EventsPageComponent),
+  },
 ]

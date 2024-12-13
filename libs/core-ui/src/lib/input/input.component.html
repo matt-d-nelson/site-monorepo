@@ -4,19 +4,35 @@
       {{ label() }}:
     </label>
     <div class="col-span-3">
-      <input
-        *ngIf="type() !== 'textarea'"
-        [type]="type()"
-        [id]="label()"
-        [formControl]="control()"
-        class="input-main w-full"
-      />
-      <textarea
-        *ngIf="type() === 'textarea'"
-        [id]="label()"
-        [formControl]="control()"
-        class="min-h-36 input-main w-full"
-      ></textarea>
+      <div [ngSwitch]="type()">
+        <input
+          *ngSwitchCase="'text'"
+          type="text"
+          [id]="label()"
+          [formControl]="control()"
+          class="input-main w-full"
+        />
+        <input
+          *ngSwitchCase="'password'"
+          type="password"
+          [id]="label()"
+          [formControl]="control()"
+          class="input-main w-full"
+        />
+        <input
+          *ngSwitchCase="'date'"
+          type="date"
+          [id]="label()"
+          [formControl]="control()"
+          class="input-main input-cal w-full"
+        />
+        <textarea
+          *ngSwitchCase="'textarea'"
+          [id]="label()"
+          [formControl]="control()"
+          class="min-h-36 input-main w-full"
+        ></textarea>
+      </div>
     </div>
     <div class="col-start-2 col-span-3">
       <div

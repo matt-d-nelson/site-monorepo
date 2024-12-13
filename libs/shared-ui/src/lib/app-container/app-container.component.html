@@ -10,9 +10,11 @@
     </div>
 
     <!-- Main -->
-    <main class="flex-grow overflow-y-auto">
-      <div class="mx-auto p-6 h-full md:max-w-5xl">
-        <router-outlet></router-outlet>
+    <main class="overflow-hidden">
+      <div class="mx-auto h-full md:max-w-5xl">
+        <ng-scrollbar>
+          <router-outlet></router-outlet>
+        </ng-scrollbar>
       </div>
     </main>
 
@@ -24,3 +26,8 @@
 </div>
 
 <shared-ui-confirmation-dialog></shared-ui-confirmation-dialog>
+<core-ui-toast></core-ui-toast>
+<ngx-spinner
+  [type]="spinnerTheme().type"
+  [color]="spinnerTheme().color"
+></ngx-spinner>
