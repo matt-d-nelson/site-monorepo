@@ -34,6 +34,7 @@ export class EventsPageComponent implements OnInit{
   BUTTON_TYPES = signal(BUTTON_TYPES)
   CORE_COLORS = signal(CORE_COLORS)
   orgId = signal<string>('')
+  bannerImg = signal<string>('')
   userIsAdmin = signal<boolean>(false)
 
   upcomingEvents = signal<any>([]) //TODO: type
@@ -61,6 +62,9 @@ export class EventsPageComponent implements OnInit{
       this.orgId.set(orgId)
       this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
       this.getAndSortEvents(orgId)
+    })
+    this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
+      this.bannerImg.set(orgTheme.staticImages.eventsPage)
     })
   }
 
