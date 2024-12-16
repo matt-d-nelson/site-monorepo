@@ -33,7 +33,11 @@ export class VideosService {
   deleteVideo(orgId: string, videoId: string) {
     this.spinnerService.show()
     return this.http
-      .delete(`${ENV.API_URL}/api/videos/${orgId}/${videoId}`)
+      .delete(`${ENV.API_URL}/api/videos/${orgId}`, {
+        params: {
+          videoId: videoId,
+        },
+      })
       .pipe(finalize(() => this.spinnerService.hide()))
   }
 

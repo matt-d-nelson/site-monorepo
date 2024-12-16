@@ -1,8 +1,8 @@
 <div class="page-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
   <div class="flex justify-between mb-3">
     <h1 class="text-3xl">video</h1>
-    <!-- *ngIf="userIsAdmin()" -->
     <core-ui-button
+      *ngIf="userIsAdmin()"
       [type]="BUTTON_TYPES().OUTLINE"
       label="Add Video"
       (onClick)="addVideoClick()"
@@ -18,8 +18,22 @@
         'video-wrapper-secondary': i % 2 !== 0
       }"
     >
-      <div class="text-xl border-b-2">
+      <div class="flex justify-between items-center py-1 text-xl border-b-2">
         <h2 class="px-2">{{ video.name }}</h2>
+        <div class="flex" *ngIf="userIsAdmin()">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            label="Delete"
+            (onClick)="deleteVideoClick(video)"
+          ></core-ui-button>
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            label="Edit"
+            (onClick)="editVideoClick(video)"
+            class="ml-2"
+          ></core-ui-button>
+        </div>
       </div>
 
       <div class="border-b-2 py-4 px-2">

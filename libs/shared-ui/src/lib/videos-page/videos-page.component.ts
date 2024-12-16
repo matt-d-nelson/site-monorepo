@@ -69,7 +69,6 @@ export class VideosPageComponent implements OnInit {
     this.videosService.getVideos(orgId)
     this.videosService.videos$.subscribe(videos => {
       this.videos.set(videos)
-      console.log(videos)
     })
   }
 
@@ -78,9 +77,42 @@ export class VideosPageComponent implements OnInit {
     this.formDialogOpen.set(true)
   }
 
-  editVideoClick(video: any) {}
+  editVideoClick(video: any) {
+    this.activeDialogConfig.set(this.updateVideoConfig())
+    this.activeDialogConfig().form.patchValue(video)
+    this.previousVideoValue.set(video)
+    this.formDialogOpen.set(true)
+  }
 
-  deleteVideoClick(video: any) {}
+  deleteVideoClick(video: any) {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${video.name} was deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting bio`,
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Event',
+        message: `Are you sure you want to delete ${video.name}?`,
+        confirmText: 'Delete',
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.videosService.deleteVideo(this.orgId(), video.id).subscribe({
+          next: () => {
+            this.toastService.showToast(successMsg)
+            this.videosService.getVideos(this.orgId())
+          },
+          error: () => {
+            this.toastService.showToast(errorMsg)
+          },
+        })
+      })
+  }
 
   createVideo() {
     const videoForm = this.createVideoConfig().form
@@ -112,6 +144,49 @@ export class VideosPageComponent implements OnInit {
       })
   }
 
+  updateVideo() {
+    const videoUpdateForm = this.updateVideoConfig().form
+    if (!videoUpdateForm.valid) {
+      videoUpdateForm.markAllAsTouched()
+      return
+    }
+
+    const videoDif = GetObjectDifference(
+      this.previousVideoValue(),
+      videoUpdateForm.value
+    )
+    if (isEmpty(videoDif)) {
+      this.toastService.showToast({
+        type: 'error',
+        message: 'No updates detected',
+      })
+      return
+    }
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${videoUpdateForm.get('name').value} was updated`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error updating event`,
+    }
+    this.dialogLoading.set(true)
+    this.videosService
+      .updateVideo(this.orgId(), videoUpdateForm.get('id').value, videoDif)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.toastService.showToast(successMsg)
+          this.videosService.getVideos(this.orgId())
+          this.formDialogOpen.set(false)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
+  }
+
   isSafeVideoUrl(url: string): boolean {
     const allowedDomains = ['youtube.com', 'youtu.be', 'vimeo.com']
 
@@ -130,5 +205,3 @@ export class VideosPageComponent implements OnInit {
     return null
   }
 }
-
-// https://www.youtube.com/embed/0iiKwhQWwdI?si=IVpIyUdXWnUqcnUq
