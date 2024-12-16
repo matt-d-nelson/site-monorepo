@@ -18,11 +18,18 @@ import {
   CreateVideoDialogConfig,
   UpdateVideoDialogConfig,
 } from './videos-page.config'
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'shared-ui-videos-page',
   standalone: true,
-  imports: [CommonModule, FormDialogComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    FormDialogComponent,
+    ButtonComponent,
+    NgScrollbarModule,
+  ],
   templateUrl: './videos-page.component.html',
   styleUrl: './videos-page.component.scss',
 })
@@ -32,7 +39,8 @@ export class VideosPageComponent implements OnInit {
     private orgService: OrgService,
     private confirmationDialogService: ConfirmationDialogService,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sanitizer: DomSanitizer
   ) {}
 
   BUTTON_TYPES = signal(BUTTON_TYPES)
@@ -102,6 +110,24 @@ export class VideosPageComponent implements OnInit {
           this.toastService.showToast(errorMsg)
         },
       })
+  }
+
+  isSafeVideoUrl(url: string): boolean {
+    const allowedDomains = ['youtube.com', 'youtu.be', 'vimeo.com']
+
+    try {
+      const parsedUrl = new URL(url)
+      return allowedDomains.some(domain => parsedUrl.hostname.includes(domain))
+    } catch {
+      return false
+    }
+  }
+
+  getSafeVideoUrl(url: string): SafeResourceUrl | null {
+    if (this.isSafeVideoUrl(url)) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+    }
+    return null
   }
 }
 

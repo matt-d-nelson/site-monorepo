@@ -1,4 +1,4 @@
-<div class="videos-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
+<div class="page-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
   <div class="flex justify-between mb-3">
     <h1 class="text-3xl">video</h1>
     <!-- *ngIf="userIsAdmin()" -->
@@ -10,8 +10,35 @@
     ></core-ui-button>
   </div>
 
-  <div *ngFor="let video of videos()">
-    <p>test</p>
+  <div *ngFor="let video of videos(); let i = index" class="my-10">
+    <div
+      class="max-w-2xl p-4 mx-auto rounded-2xl"
+      [ngClass]="{
+        'video-wrapper-primary': i % 2 === 0,
+        'video-wrapper-secondary': i % 2 !== 0
+      }"
+    >
+      <div class="text-xl border-b-2">
+        <h2 class="px-2">{{ video.name }}</h2>
+      </div>
+
+      <div class="border-b-2 py-4 px-2">
+        <div class="aspect-[16/9] rounded-2xl overflow-hidden">
+          <iframe
+            class="w-full h-full"
+            [src]="getSafeVideoUrl(video.link)"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      <div class="h-40 md:h-56 overflow-hidden px-2">
+        <ng-scrollbar>
+          <p class="text-xs md:text-base m-2">{{ video.description }}</p>
+        </ng-scrollbar>
+      </div>
+    </div>
   </div>
 </div>
 

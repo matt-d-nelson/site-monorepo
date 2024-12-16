@@ -22,6 +22,7 @@ import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
 import { ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
+import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -32,6 +33,7 @@ import { finalize } from 'rxjs'
     FormDialogComponent,
     ButtonComponent,
     LazyImgComponent,
+    NgScrollbarModule,
   ],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.scss',

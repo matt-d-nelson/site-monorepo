@@ -16,7 +16,7 @@
         <core-ui-lazy-img [source]="primaryBio().imageUrl"></core-ui-lazy-img>
       </div>
       <div>
-        <div class="flex justify-between items-center py-1">
+        <div class="flex justify-between items-center py-1 border-b-2">
           <h2 class="text-xl px-2">{{ primaryBio().name }}</h2>
           <div class="flex" *ngIf="userIsAdmin()">
             <core-ui-button
@@ -33,8 +33,11 @@
             ></core-ui-button>
           </div>
         </div>
-        <div class="border-b-2"></div>
-        <p class="p-2 min-h-40">{{ primaryBio().biography }}</p>
+        <div class="h-40 overflow-hidden px-2">
+          <ng-scrollbar>
+            <p class="text-xs md:text-base">{{ primaryBio().biography }}</p>
+          </ng-scrollbar>
+        </div>
       </div>
     </div>
     <div *ngIf="bios().length > 0" class="border-b-2 my-4 text-xl">
@@ -44,11 +47,13 @@
   <!-- member bios -->
   <div *ngFor="let bio of bios()" class="py-4 md:px-4">
     <div class="grid grid-cols-3 gap-4 mb-3 p-4 bio-wrapper">
-      <div class="col-span-3 md:col-span-1 rounded-full overflow-hidden">
+      <div
+        class="col-span-3 md:col-span-1 rounded-full overflow-hidden aspect-square"
+      >
         <core-ui-lazy-img [source]="bio.imageUrl"></core-ui-lazy-img>
       </div>
       <div class="col-span-3 md:col-span-2">
-        <div class="flex justify-between items-center py-1">
+        <div class="flex justify-between items-center py-1 border-b-2">
           <h4 class="text-xl mx-2">{{ bio.name }}</h4>
           <div class="flex" *ngIf="userIsAdmin()">
             <core-ui-button
@@ -65,8 +70,11 @@
             ></core-ui-button>
           </div>
         </div>
-        <div class="border-b-2"></div>
-        <p class="text-s md:text-base m-2 min-h-40">{{ bio.biography }}</p>
+        <div class="h-40 overflow-hidden px-2">
+          <ng-scrollbar>
+            <p class="text-xs md:text-base">{{ bio.biography }}</p>
+          </ng-scrollbar>
+        </div>
       </div>
     </div>
   </div>
