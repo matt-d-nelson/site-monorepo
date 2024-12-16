@@ -26,4 +26,9 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@angular-monorepo/shared-ui').then(m => m.EventsPageComponent),
   },
+  {
+    path: 'video',
+    loadComponent: () =>
+      import('@angular-monorepo/shared-ui').then(m => m.VideosPageComponent),
+  },
 ]

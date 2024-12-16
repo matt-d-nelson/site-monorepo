@@ -1,0 +1,22 @@
+<div class="videos-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
+  <div class="flex justify-between mb-3">
+    <h1 class="text-3xl">video</h1>
+    <!-- *ngIf="userIsAdmin()" -->
+    <core-ui-button
+      [type]="BUTTON_TYPES().OUTLINE"
+      label="Add Video"
+      (onClick)="addVideoClick()"
+      class="flex justify-self-end"
+    ></core-ui-button>
+  </div>
+
+  <div *ngFor="let video of videos()">
+    <p>test</p>
+  </div>
+</div>
+
+<shared-ui-form-dialog
+  [(open)]="formDialogOpen"
+  [dialogConfig]="activeDialogConfig()"
+  [loading]="dialogLoading()"
+></shared-ui-form-dialog>

@@ -1,17 +1,17 @@
-import { ENV } from '@angular-monorepo/environments';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { BehaviorSubject, finalize } from 'rxjs';
+import { ENV } from '@angular-monorepo/environments'
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { NgxSpinnerService } from 'ngx-spinner'
+import { BehaviorSubject, finalize } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class VideosServiceService {
+export class VideosService {
   constructor(
     private http: HttpClient,
     private spinnerService: NgxSpinnerService
-  ) { }
+  ) {}
 
   _videosCache = new BehaviorSubject<any[]>([])
   videos$ = this._videosCache.asObservable()

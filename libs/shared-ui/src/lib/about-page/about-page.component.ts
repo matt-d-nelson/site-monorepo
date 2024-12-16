@@ -37,6 +37,14 @@ import { finalize } from 'rxjs'
   styleUrl: './about-page.component.scss',
 })
 export class AboutPageComponent implements OnInit {
+  constructor(
+    private aboutService: AboutService,
+    private orgService: OrgService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
+
   BUTTON_TYPES = signal(BUTTON_TYPES)
   CORE_COLORS = signal(CORE_COLORS)
   orgId = signal<string>('')
@@ -51,14 +59,6 @@ export class AboutPageComponent implements OnInit {
 
   bios = signal<any[]>([])
   primaryBio = signal<any>(null)
-
-  constructor(
-    private aboutService: AboutService,
-    private orgService: OrgService,
-    private confirmationDialogService: ConfirmationDialogService,
-    private authService: AuthService,
-    private toastService: ToastService
-  ) {}
 
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {
