@@ -22,6 +22,7 @@ import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
 import { ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
+import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'shared-ui-about-page',
@@ -32,11 +33,20 @@ import { finalize } from 'rxjs'
     FormDialogComponent,
     ButtonComponent,
     LazyImgComponent,
+    NgScrollbarModule,
   ],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.scss',
 })
 export class AboutPageComponent implements OnInit {
+  constructor(
+    private aboutService: AboutService,
+    private orgService: OrgService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
+
   BUTTON_TYPES = signal(BUTTON_TYPES)
   CORE_COLORS = signal(CORE_COLORS)
   orgId = signal<string>('')
@@ -51,14 +61,6 @@ export class AboutPageComponent implements OnInit {
 
   bios = signal<any[]>([])
   primaryBio = signal<any>(null)
-
-  constructor(
-    private aboutService: AboutService,
-    private orgService: OrgService,
-    private confirmationDialogService: ConfirmationDialogService,
-    private authService: AuthService,
-    private toastService: ToastService
-  ) {}
 
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {

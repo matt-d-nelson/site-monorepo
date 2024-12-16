@@ -1,0 +1,63 @@
+<div class="page-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
+  <div class="flex justify-between mb-3">
+    <h1 class="text-3xl">video</h1>
+    <core-ui-button
+      *ngIf="userIsAdmin()"
+      [type]="BUTTON_TYPES().OUTLINE"
+      label="Add Video"
+      (onClick)="addVideoClick()"
+      class="flex justify-self-end"
+    ></core-ui-button>
+  </div>
+
+  <div *ngFor="let video of videos(); let i = index" class="my-10">
+    <div
+      class="max-w-2xl p-4 mx-auto rounded-2xl"
+      [ngClass]="{
+        'video-wrapper-primary': i % 2 === 0,
+        'video-wrapper-secondary': i % 2 !== 0
+      }"
+    >
+      <div class="flex justify-between items-center py-1 text-xl border-b-2">
+        <h2 class="px-2">{{ video.name }}</h2>
+        <div class="flex" *ngIf="userIsAdmin()">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            label="Delete"
+            (onClick)="deleteVideoClick(video)"
+          ></core-ui-button>
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            label="Edit"
+            (onClick)="editVideoClick(video)"
+            class="ml-2"
+          ></core-ui-button>
+        </div>
+      </div>
+
+      <div class="border-b-2 py-4 px-2">
+        <div class="aspect-[16/9] rounded-2xl overflow-hidden">
+          <iframe
+            class="w-full h-full"
+            [src]="getSafeVideoUrl(video.link)"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      <div class="h-40 md:h-56 overflow-hidden px-2">
+        <ng-scrollbar>
+          <p class="text-xs md:text-base m-2">{{ video.description }}</p>
+        </ng-scrollbar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<shared-ui-form-dialog
+  [(open)]="formDialogOpen"
+  [dialogConfig]="activeDialogConfig()"
+  [loading]="dialogLoading()"
+></shared-ui-form-dialog>

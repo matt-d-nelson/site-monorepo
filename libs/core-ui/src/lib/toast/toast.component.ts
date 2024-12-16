@@ -11,19 +11,24 @@ import { CommonModule } from '@angular/common'
   styleUrl: './toast.component.scss',
 })
 export class ToastComponent implements OnInit {
+  constructor(private toastService: ToastService) {}
+
+  private timeoutId: ReturnType<typeof setTimeout> | null = null
   activeToast = signal<ToastMessage | null>(null)
   entering = signal<boolean>(false)
   leaving = signal<boolean>(false)
 
-  constructor(private toastService: ToastService) {}
-
   ngOnInit(): void {
     this.toastService.toast$.subscribe((toastMessage: ToastMessage | null) => {
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId)
+      }
+
       this.activeToast.set(toastMessage)
       this.entering.set(true)
       this.leaving.set(false)
 
-      setTimeout(() => {
+      this.timeoutId = setTimeout(() => {
         this.entering.set(false), this.leaving.set(true)
       }, 9000)
     })

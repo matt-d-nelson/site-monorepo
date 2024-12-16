@@ -8,13 +8,13 @@ import { BehaviorSubject, finalize } from 'rxjs'
   providedIn: 'root',
 })
 export class EventsService {
-  _eventsCache = new BehaviorSubject<any[]>([])
-  events$ = this._eventsCache.asObservable()
-
   constructor(
     private http: HttpClient,
     private spinnerService: NgxSpinnerService
   ) {}
+
+  _eventsCache = new BehaviorSubject<any[]>([])
+  events$ = this._eventsCache.asObservable()
 
   createEvent(orgId: string, body: {}) {
     return this.http.post(`${ENV.API_URL}/api/events/${orgId}`, body)
