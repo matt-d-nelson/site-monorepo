@@ -1,0 +1,13 @@
+<div class="page-wrapper min-h-full max-h-fit p-5 pb-20 md:px-32">
+  <div class="flex justify-between mb-4">
+    <h1 class="text-3xl">{{ title() }}</h1>
+    <core-ui-button
+      *ngIf="userIsAdmin()"
+      [type]="BUTTON_TYPES().OUTLINE"
+      [label]="addLabel()"
+      (onClick)="onAdd.emit()"
+      class="flex justify-self-end"
+    ></core-ui-button>
+  </div>
+  <ng-content></ng-content>
+</div>

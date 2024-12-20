@@ -2,6 +2,7 @@ import {
   ButtonComponent,
   ImgInputComponent,
   LazyImgComponent,
+  PageWrapperComponent,
 } from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
@@ -34,6 +35,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     ButtonComponent,
     LazyImgComponent,
     NgScrollbarModule,
+    PageWrapperComponent,
   ],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.scss',

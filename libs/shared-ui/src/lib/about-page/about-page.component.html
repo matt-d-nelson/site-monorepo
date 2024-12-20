@@ -1,14 +1,9 @@
-<div class="about-wrapper p-5 pb-20 min-h-full max-h-fit md:px-32">
-  <div class="flex justify-between mb-3">
-    <h1 class="text-3xl">about</h1>
-    <core-ui-button
-      *ngIf="userIsAdmin()"
-      [type]="BUTTON_TYPES().OUTLINE"
-      label="Add Bio"
-      (onClick)="addBioClick()"
-      class="flex justify-self-end"
-    ></core-ui-button>
-  </div>
+<core-ui-page-wrapper
+  title="about"
+  addLabel="Add Bio"
+  [userIsAdmin]="userIsAdmin()"
+  (onAdd)="addBioClick()"
+>
   <!-- primary bio -->
   <div *ngIf="primaryBio()">
     <div class="primaryBio-wrapper p-4 mb-3 max-w-xl">
@@ -72,13 +67,15 @@
         </div>
         <div class="h-40 overflow-hidden px-2">
           <ng-scrollbar>
-            <p class="text-xs md:text-base whitespace-pre-wrap">{{ bio.biography }}</p>
+            <p class="text-xs md:text-base whitespace-pre-wrap">
+              {{ bio.biography }}
+            </p>
           </ng-scrollbar>
         </div>
       </div>
     </div>
   </div>
-</div>
+</core-ui-page-wrapper>
 
 <shared-ui-form-dialog
   [(open)]="formDialogOpen"
