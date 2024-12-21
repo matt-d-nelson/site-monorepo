@@ -40,16 +40,13 @@ export class AlbumsService {
     )
   }
 
-  deleteAlbum(orgId: string, albumId: string, imageId: string) {
-    this.spinnerService.show()
-    return this.http
-      .delete(`${ENV.API_URL}/api/albums/${orgId}`, {
-        params: {
-          imageId: imageId,
-          albumId: albumId,
-        },
-      })
-      .pipe(finalize(() => this.spinnerService.hide()))
+  deleteAlbum(orgId: string, albumId: string, imageId?: string) {
+    return this.http.delete(`${ENV.API_URL}/api/albums/${orgId}`, {
+      params: {
+        imageId: imageId || '',
+        albumId: albumId,
+      },
+    })
   }
 
   getAlbumTracks(albumId: string) {

@@ -1,3 +1,86 @@
-<!-- <core-ui-page-wrapper>
-    <p>albums-page works!</p>
-</core-ui-page-wrapper> -->
+<core-ui-page-wrapper
+  title="music"
+  addLabel="Add Album"
+  [userIsAdmin]="userIsAdmin()"
+  (onAdd)="initAlbumDraft()"
+>
+  <p>albums-page works!</p>
+</core-ui-page-wrapper>
+<dialog #albumFormDialog class="p-6 dialog-body md:min-w-96 overflow-hidden">
+  <div class="">
+    <h1 class="mb-3 text-xl border-b-2">Add Album</h1>
+    <form [formGroup]="albumForm" class="grid gap-2">
+      <core-ui-img-input
+        class="mb-2"
+        [control]="albumForm.get('coverArt')"
+        [parentForm]="albumForm"
+      >
+      </core-ui-img-input>
+      <core-ui-input
+        label="Title"
+        type="text"
+        [control]="albumForm.get('name')"
+        [parentForm]="albumForm"
+      >
+      </core-ui-input>
+      <core-ui-input
+        label="Release Date"
+        type="date"
+        [control]="albumForm.get('releaseDate')"
+        [parentForm]="albumForm"
+      >
+      </core-ui-input>
+      <core-ui-input
+        label="Description"
+        type="textarea"
+        [control]="albumForm.get('description')"
+        [parentForm]="albumForm"
+      >
+      </core-ui-input>
+    </form>
+    <h2 class="mb-3 text-xl border-b-2">Add Tracks</h2>
+    <div>
+      <!-- added tracks here -->
+    </div>
+    <form [formGroup]="trackForm" class="grid gap-2">
+      <!-- audio file input here -->
+      <core-ui-input
+        label="Title"
+        type="text"
+        [control]="trackForm.get('name')"
+        [parentForm]="trackForm"
+      >
+      </core-ui-input>
+      <core-ui-input
+        label="Track Number"
+        type="number"
+        [control]="trackForm.get('trackPlacement')"
+        [parentForm]="trackForm"
+      >
+      </core-ui-input>
+      <core-ui-input
+        label="Lyrics"
+        type="textarea"
+        [control]="trackForm.get('lyrics')"
+        [parentForm]="trackForm"
+      >
+      </core-ui-input>
+    </form>
+    <div class="flex justify-end">
+      <core-ui-button
+        label="Cancel"
+        (onClick)="cancelAlbumDraft()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [color]="CORE_COLORS().DANGER"
+        [loading]="dialogLoading()"
+      ></core-ui-button>
+      <core-ui-button
+        label="Publish Album"
+        (onClick)="publishAlbumDraft()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [loading]="dialogLoading()"
+        class="ml-3"
+      ></core-ui-button>
+    </div>
+  </div>
+</dialog>

@@ -4,6 +4,7 @@
       {{ label() }}:
     </label>
     <div class="col-span-3">
+      <!-- TODO: might want to make an enum for these -->
       <div [ngSwitch]="type()">
         <input
           *ngSwitchCase="'text'"
@@ -22,6 +23,13 @@
         <input
           *ngSwitchCase="'date'"
           type="date"
+          [id]="label()"
+          [formControl]="control()"
+          class="input-main input-cal w-full"
+        />
+        <input
+          *ngSwitchCase="'number'"
+          type="number"
           [id]="label()"
           [formControl]="control()"
           class="input-main input-cal w-full"
