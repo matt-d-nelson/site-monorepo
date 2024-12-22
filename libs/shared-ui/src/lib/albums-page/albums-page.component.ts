@@ -82,6 +82,17 @@ export class AlbumsPageComponent implements OnInit {
     })
   }
 
+  openAlbumFormDialog() {
+    this.dialog.nativeElement.showModal()
+  }
+
+  closeAlbumFormDialog() {
+    this.dialog.nativeElement.close('cancelled')
+    this.albumForm.reset()
+    this.trackForm.reset()
+    this.draftAlbumId.set(null)
+  }
+
   getAndSortAlbums(orgId: string) {
     this.albumsService.getAlbums(orgId)
     this.albumsService.albums$.subscribe((albums: any) => {
@@ -116,9 +127,7 @@ export class AlbumsPageComponent implements OnInit {
       return
     }
 
-    // confirm cancel
-    this.closeAlbumFormDialog()
-    this.spinnerService.show()
+    this.dialogLoading.set(true)
     // loop through tracks to delete and fork join the whole thang
     const successMsg: ToastMessage = {
       type: 'success',
@@ -130,12 +139,14 @@ export class AlbumsPageComponent implements OnInit {
     }
     this.albumsService
       .deleteAlbum(this.orgId(), draftId)
-      .pipe(finalize(() => this.spinnerService.hide()))
       .subscribe({
         next: () => {
+          this.dialogLoading.set(false)
+          this.closeAlbumFormDialog()
           this.toastService.showToast(successMsg)
         },
         error: () => {
+          this.dialogLoading.set(false)
           this.toastService.showToast(errorMsg)
         },
       })
@@ -143,13 +154,5 @@ export class AlbumsPageComponent implements OnInit {
 
   publishAlbumDraft() {
     console.log('sup')
-  }
-
-  openAlbumFormDialog() {
-    this.dialog.nativeElement.showModal()
-  }
-
-  closeAlbumFormDialog() {
-    this.dialog.nativeElement.close()
   }
 }
