@@ -6,7 +6,10 @@
 >
   <p>albums-page works!</p>
 </core-ui-page-wrapper>
-<dialog #albumFormDialog class="p-6 dialog-body h-full overflow-hidden md:min-w-96">
+<dialog
+  #albumFormDialog
+  class="p-6 dialog-body h-full overflow-hidden md:min-w-96"
+>
   <div class="flex flex-col h-full">
     <h1 class="mb-3 text-xl border-b-2">Add Album</h1>
     <ng-scrollbar class="h-full my-2">
@@ -44,7 +47,15 @@
         <!-- added tracks here -->
       </div>
       <form [formGroup]="trackForm" class="grid gap-2">
-        <!-- audio file input here -->
+        <!-- audio file input -->
+        <core-ui-file-input
+          label="Audio file"
+          type="file"
+          [control]="trackForm.get('audioFile')"
+          [parentForm]="trackForm"
+          [loading]="dialogLoading()"
+          [acceptedFiles]="['wav', 'mp3']"
+        ></core-ui-file-input>
         <core-ui-input
           label="Title"
           type="text"
@@ -70,7 +81,7 @@
       <div class="flex justify-end">
         <core-ui-button
           label="Add Track"
-          (onClick)="publishAlbumDraft()"
+          (onClick)="createTrack()"
           [type]="BUTTON_TYPES().OUTLINE"
           [loading]="dialogLoading()"
           class="ml-3"

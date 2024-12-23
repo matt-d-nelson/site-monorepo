@@ -1,5 +1,6 @@
 import {
   ButtonComponent,
+  FileInputComponent,
   ImgInputComponent,
   InputComponent,
   PageWrapperComponent,
@@ -25,6 +26,7 @@ import { NgScrollbar } from 'ngx-scrollbar'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { finalize } from 'rxjs'
 
+// TODO: This component could be broken up
 @Component({
   selector: 'shared-ui-albums-page',
   standalone: true,
@@ -36,6 +38,7 @@ import { finalize } from 'rxjs'
     ReactiveFormsModule,
     ImgInputComponent,
     NgScrollbar,
+    FileInputComponent,
   ],
   templateUrl: './albums-page.component.html',
   styleUrl: './albums-page.component.scss',
@@ -60,6 +63,7 @@ export class AlbumsPageComponent implements OnInit {
   @ViewChild('albumFormDialog', { static: true })
   dialog!: ElementRef<HTMLDialogElement>
   dialogLoading = signal<boolean>(false)
+  // Albums
   draftAlbumId = signal<string | null>(null)
   albumForm = new FormGroup({
     coverArt: new FormControl<File | null>(null, [Validators.required]),
@@ -67,6 +71,8 @@ export class AlbumsPageComponent implements OnInit {
     releaseDate: new FormControl('', [Validators.required]),
     description: new FormControl(''),
   })
+  // Tracks
+  draftAlbumTracks = signal([])
   trackForm = new FormGroup({
     trackPlacement: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
@@ -101,6 +107,8 @@ export class AlbumsPageComponent implements OnInit {
     })
   }
 
+  // -------------------- Albums -------------------- //
+
   initAlbumDraft() {
     this.spinnerService.show()
     this.albumsService
@@ -121,14 +129,6 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   cancelAlbumDraft() {
-    // TS is nervous
-    const draftId = this.draftAlbumId()
-    if (draftId === null) {
-      return
-    }
-
-    this.dialogLoading.set(true)
-    // loop through tracks to delete and fork join the whole thang
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Album creation canceled`,
@@ -137,22 +137,66 @@ export class AlbumsPageComponent implements OnInit {
       type: 'error',
       message: `Whoops, try again`,
     }
-    this.albumsService
-      .deleteAlbum(this.orgId(), draftId)
-      .subscribe({
-        next: () => {
-          this.dialogLoading.set(false)
-          this.closeAlbumFormDialog()
-          this.toastService.showToast(successMsg)
-        },
-        error: () => {
-          this.dialogLoading.set(false)
-          this.toastService.showToast(errorMsg)
-        },
-      })
+
+    // TS is nervous
+    const draftId = this.draftAlbumId()
+    if (!draftId) {
+      this.toastService.showToast(errorMsg)
+      return
+    }
+    this.dialogLoading.set(true)
+    // loop through tracks to delete and fork join the whole thang
+
+    this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
+      next: () => {
+        this.dialogLoading.set(false)
+        this.closeAlbumFormDialog()
+        this.toastService.showToast(successMsg)
+      },
+      error: () => {
+        this.dialogLoading.set(false)
+        this.toastService.showToast(errorMsg)
+      },
+    })
   }
 
   publishAlbumDraft() {
     console.log('sup')
+  }
+
+  // -------------------- Tracks -------------------- //
+  createTrack() {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `Track Created`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error creating track`,
+    }
+
+    const draftId = this.draftAlbumId()
+    if (!draftId) {
+      this.toastService.showToast(errorMsg)
+      return
+    }
+
+    if (!this.trackForm.valid) {
+      this.trackForm.markAllAsTouched()
+      return
+    }
+
+    this.dialogLoading.set(true)
+  }
+
+  deleteTrack() {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `Track deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting track`,
+    }
   }
 }
