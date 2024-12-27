@@ -68,7 +68,7 @@ export class AlbumsPageComponent implements OnInit {
   // Albums
   draftAlbumId = signal<string | null>(null)
   albumForm = new FormGroup({
-    coverArt: new FormControl<File | null>(null, [Validators.required]),
+    coverArt: new FormControl<Blob | null>(null, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     releaseDate: new FormControl('', [Validators.required]),
     description: new FormControl(''),
@@ -79,7 +79,7 @@ export class AlbumsPageComponent implements OnInit {
     trackPlacement: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lyrics: new FormControl(''),
-    file: new FormControl<any>(null, [Validators.required]),
+    file: new FormControl<File | null>(null, [Validators.required]),
   })
 
   ngOnInit(): void {
@@ -95,6 +95,7 @@ export class AlbumsPageComponent implements OnInit {
     this.albumsService.albums$.subscribe((albums: any) => {
       console.log(albums)
       // sort albums by isDraft
+      // disable create button if draft exists
     })
   }
 
@@ -112,27 +113,22 @@ export class AlbumsPageComponent implements OnInit {
   // -------------------- Albums -------------------- //
 
   initAlbumDraft() {
-    //TEMP
-    this.draftAlbumId.set('8')
-    this.openAlbumFormDialog()
-    this.refreshDraftAlbumTracks('8')
-
-    // this.spinnerService.show()
-    // this.albumsService
-    //   .createAlbumDraft(this.orgId())
-    //   .pipe(finalize(() => this.spinnerService.hide()))
-    //   .subscribe({
-    //     next: (draftAlbum: any) => {
-    //       this.draftAlbumId.set(draftAlbum.id)
-    //       this.openAlbumFormDialog()
-    //     },
-    //     error: () => {
-    //       this.toastService.showToast({
-    //         type: 'error',
-    //         message: 'Whoops, try again',
-    //       })
-    //     },
-    //   })
+    this.spinnerService.show()
+    this.albumsService
+      .createAlbumDraft(this.orgId())
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe({
+        next: (draftAlbum: any) => {
+          this.draftAlbumId.set(draftAlbum.id)
+          this.openAlbumFormDialog()
+        },
+        error: () => {
+          this.toastService.showToast({
+            type: 'error',
+            message: 'Whoops, try again',
+          })
+        },
+      })
   }
 
   cancelAlbumDraft() {
@@ -150,23 +146,64 @@ export class AlbumsPageComponent implements OnInit {
       this.toastService.showToast(errorMsg)
       return
     }
-    // this.dialogLoading.set(true)
+    this.dialogLoading.set(true)
 
-    // this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
-    //   next: () => {
-    //     this.dialogLoading.set(false)
-    //     this.closeAlbumFormDialog()
-    //     this.toastService.showToast(successMsg)
-    //   },
-    //   error: () => {
-    //     this.dialogLoading.set(false)
-    //     this.toastService.showToast(errorMsg)
-    //   },
-    // })
+    this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
+      next: () => {
+        this.dialogLoading.set(false)
+        this.closeAlbumFormDialog()
+        this.toastService.showToast(successMsg)
+      },
+      error: () => {
+        this.dialogLoading.set(false)
+        this.toastService.showToast(errorMsg)
+      },
+    })
   }
 
   publishAlbumDraft() {
-    console.log('sup')
+    console.log(this.albumForm.valid)
+    if (!this.albumForm.valid) {
+      this.albumForm.markAllAsTouched()
+      return
+    }
+
+    const data = new FormData()
+    const albumData = this.albumForm.value
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${albumData.name} was created`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error creating album`,
+    }
+
+    const drafID = this.draftAlbumId()
+    if (!drafID) {
+      this.toastService.showToast(errorMsg)
+      return
+    }
+
+    albumData?.name && data.append('name', albumData.name)
+    albumData?.releaseDate && data.append('name', albumData.releaseDate)
+    albumData?.description && data.append('description', albumData.description)
+    albumData?.coverArt && data.append('image', albumData.coverArt)
+
+    this.dialogLoading.set(true)
+    this.albumsService.publishAlbumDraft(this.orgId(), drafID, data).subscribe({
+      next: () => {
+        this.dialogLoading.set(false)
+        this.toastService.showToast(successMsg)
+        this.albumsService.getAlbums(this.orgId())
+        this.closeAlbumFormDialog()
+      },
+      error: () => {
+        this.toastService.showToast(errorMsg)
+        this.dialogLoading.set(false)
+      },
+    })
   }
 
   // -------------------- Tracks -------------------- //

@@ -139,8 +139,7 @@ export class AboutPageComponent implements OnInit {
     data.append('name', bioForm.get('name').value)
     data.append('biography', bioForm.get('biography').value)
     data.append('isPrimary', bioForm.get('isPrimary').value)
-    const imageFile = bioForm.get('image')
-    data.append('image', imageFile.value, imageFile.name)
+    data.append('image', bioForm.get('image').value)
 
     const successMsg: ToastMessage = {
       type: 'success',
