@@ -28,18 +28,22 @@ export class FileInputComponent {
   acceptedFiles = input.required<string[]>()
 
   onFileSelected(event: any) {
-    const fileName = event?.target?.files[0]?.name
-    if (!fileName) {
+    const file = event?.target?.files[0]
+    if (!file) {
       this.fileName.set('No file selected')
+      this.control().setValue(null)
     }
 
+    const fileName = file.name
     const type = fileName.split('.').pop().toLowerCase()
     this.fileName.set(fileName)
     this.control().markAllAsTouched()
     if (this.acceptedFiles().some(ext => ext === type)) {
+      this.control().setValue(file)
       this.control().setErrors(null)
       return
     }
+    this.control().setValue(null)
     this.control().setErrors({ invalidFileType: true })
   }
 }

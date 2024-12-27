@@ -11,81 +11,94 @@
   class="p-6 dialog-body h-full overflow-hidden md:min-w-96"
 >
   <div class="flex flex-col h-full">
-    <h1 class="mb-3 text-xl border-b-2">Add Album</h1>
-    <ng-scrollbar class="h-full my-2">
-      <form [formGroup]="albumForm" class="grid gap-2">
-        <core-ui-img-input
-          class="mb-2"
-          [control]="albumForm.get('coverArt')"
-          [parentForm]="albumForm"
-        >
-        </core-ui-img-input>
-        <core-ui-input
-          label="Title"
-          type="text"
-          [control]="albumForm.get('name')"
-          [parentForm]="albumForm"
-        >
-        </core-ui-input>
-        <core-ui-input
-          label="Release Date"
-          type="date"
-          [control]="albumForm.get('releaseDate')"
-          [parentForm]="albumForm"
-        >
-        </core-ui-input>
-        <core-ui-input
-          label="Description"
-          type="textarea"
-          [control]="albumForm.get('description')"
-          [parentForm]="albumForm"
-        >
-        </core-ui-input>
-      </form>
-      <h2 class="mb-3 text-xl border-b-2">Add Tracks</h2>
-      <div>
-        <!-- added tracks here -->
-      </div>
-      <form [formGroup]="trackForm" class="grid gap-2">
-        <!-- audio file input -->
-        <core-ui-file-input
-          label="Audio file"
-          type="file"
-          [control]="trackForm.get('audioFile')"
-          [parentForm]="trackForm"
-          [loading]="dialogLoading()"
-          [acceptedFiles]="['wav', 'mp3']"
-        ></core-ui-file-input>
-        <core-ui-input
-          label="Title"
-          type="text"
-          [control]="trackForm.get('name')"
-          [parentForm]="trackForm"
-        >
-        </core-ui-input>
-        <core-ui-input
-          label="Track Number"
-          type="number"
-          [control]="trackForm.get('trackPlacement')"
-          [parentForm]="trackForm"
-        >
-        </core-ui-input>
-        <core-ui-input
-          label="Lyrics"
-          type="textarea"
-          [control]="trackForm.get('lyrics')"
-          [parentForm]="trackForm"
-        >
-        </core-ui-input>
-      </form>
-      <div class="flex justify-end">
-        <core-ui-button
-          label="Add Track"
-          (onClick)="createTrack()"
-          [type]="BUTTON_TYPES().OUTLINE"
-          [loading]="dialogLoading()"
-          class="ml-3"
-        ></core-ui-button>
+    <h1 class="text-xl border-b-2">Add Album</h1>
+    <ng-scrollbar class="h-full">
+      <div class="p-4">
+        <form [formGroup]="albumForm" class="grid gap-2">
+          <core-ui-img-input
+            class="mb-2"
+            [control]="albumForm.get('coverArt')"
+            [parentForm]="albumForm"
+          >
+          </core-ui-img-input>
+          <core-ui-input
+            label="Title"
+            type="text"
+            [control]="albumForm.get('name')"
+            [parentForm]="albumForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Release Date"
+            type="date"
+            [control]="albumForm.get('releaseDate')"
+            [parentForm]="albumForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Description"
+            type="textarea"
+            [control]="albumForm.get('description')"
+            [parentForm]="albumForm"
+          >
+          </core-ui-input>
+        </form>
+        <h2 class="mb-3 text-xl border-b-2">Add Tracks</h2>
+        <!-- added tracks -->
+        <div class="m-2 flex" *ngFor="let track of draftAlbumTracks()">
+          <div class="track-wrapper flex items-center w-full px-4 mr-2">
+            <p class="mr-2">{{ track.trackPlacement }}:</p>
+            <p>{{ track.name }}</p>
+          </div>
+          <core-ui-button
+            label="Delete"
+            (onClick)="deleteTrack(track)"
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            [loading]="dialogLoading()"
+          ></core-ui-button>
+        </div>
+        <form [formGroup]="trackForm" class="grid gap-2">
+          <!-- audio file input -->
+          <core-ui-file-input
+            label="Audio file"
+            type="file"
+            [control]="trackForm.get('file')"
+            [parentForm]="trackForm"
+            [loading]="dialogLoading()"
+            [acceptedFiles]="['wav', 'mp3']"
+          ></core-ui-file-input>
+          <core-ui-input
+            label="Title"
+            type="text"
+            [control]="trackForm.get('name')"
+            [parentForm]="trackForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Track Number"
+            type="number"
+            [control]="trackForm.get('trackPlacement')"
+            [parentForm]="trackForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Lyrics"
+            type="textarea"
+            [control]="trackForm.get('lyrics')"
+            [parentForm]="trackForm"
+          >
+          </core-ui-input>
+        </form>
+        <div class="flex justify-end">
+          <core-ui-button
+            label="Add Track"
+            (onClick)="createTrack()"
+            [type]="BUTTON_TYPES().OUTLINE"
+            [loading]="dialogLoading()"
+            class="ml-3"
+          ></core-ui-button>
+        </div>
       </div>
     </ng-scrollbar>
     <div class="flex justify-end pt-2 border-t-2">

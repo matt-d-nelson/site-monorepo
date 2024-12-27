@@ -14,6 +14,7 @@ import {
   OrgService,
   ToastService,
 } from '@angular-monorepo/shared-services'
+import { CommonModule } from '@angular/common'
 import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core'
 import {
   FormControl,
@@ -31,6 +32,7 @@ import { finalize } from 'rxjs'
   selector: 'shared-ui-albums-page',
   standalone: true,
   imports: [
+    CommonModule,
     PageWrapperComponent,
     ButtonComponent,
     InputComponent,
@@ -72,12 +74,12 @@ export class AlbumsPageComponent implements OnInit {
     description: new FormControl(''),
   })
   // Tracks
-  draftAlbumTracks = signal([])
+  draftAlbumTracks = signal<any[]>([])
   trackForm = new FormGroup({
     trackPlacement: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lyrics: new FormControl(''),
-    audioFile: new FormControl<File | null>(null, [Validators.required]),
+    file: new FormControl<any>(null, [Validators.required]),
   })
 
   ngOnInit(): void {
@@ -88,17 +90,6 @@ export class AlbumsPageComponent implements OnInit {
     })
   }
 
-  openAlbumFormDialog() {
-    this.dialog.nativeElement.showModal()
-  }
-
-  closeAlbumFormDialog() {
-    this.dialog.nativeElement.close('cancelled')
-    this.albumForm.reset()
-    this.trackForm.reset()
-    this.draftAlbumId.set(null)
-  }
-
   getAndSortAlbums(orgId: string) {
     this.albumsService.getAlbums(orgId)
     this.albumsService.albums$.subscribe((albums: any) => {
@@ -107,25 +98,41 @@ export class AlbumsPageComponent implements OnInit {
     })
   }
 
+  openAlbumFormDialog() {
+    this.dialog.nativeElement.showModal()
+  }
+
+  closeAlbumFormDialog() {
+    this.dialog.nativeElement.close()
+    this.albumForm.reset()
+    this.trackForm.reset()
+    this.draftAlbumId.set(null)
+  }
+
   // -------------------- Albums -------------------- //
 
   initAlbumDraft() {
-    this.spinnerService.show()
-    this.albumsService
-      .createAlbumDraft(this.orgId())
-      .pipe(finalize(() => this.spinnerService.hide()))
-      .subscribe({
-        next: (draftAlbum: any) => {
-          this.draftAlbumId.set(draftAlbum.id)
-          this.openAlbumFormDialog()
-        },
-        error: () => {
-          this.toastService.showToast({
-            type: 'error',
-            message: 'Whoops, try again',
-          })
-        },
-      })
+    //TEMP
+    this.draftAlbumId.set('8')
+    this.openAlbumFormDialog()
+    this.refreshDraftAlbumTracks('8')
+
+    // this.spinnerService.show()
+    // this.albumsService
+    //   .createAlbumDraft(this.orgId())
+    //   .pipe(finalize(() => this.spinnerService.hide()))
+    //   .subscribe({
+    //     next: (draftAlbum: any) => {
+    //       this.draftAlbumId.set(draftAlbum.id)
+    //       this.openAlbumFormDialog()
+    //     },
+    //     error: () => {
+    //       this.toastService.showToast({
+    //         type: 'error',
+    //         message: 'Whoops, try again',
+    //       })
+    //     },
+    //   })
   }
 
   cancelAlbumDraft() {
@@ -138,26 +145,24 @@ export class AlbumsPageComponent implements OnInit {
       message: `Whoops, try again`,
     }
 
-    // TS is nervous
     const draftId = this.draftAlbumId()
     if (!draftId) {
       this.toastService.showToast(errorMsg)
       return
     }
-    this.dialogLoading.set(true)
-    // loop through tracks to delete and fork join the whole thang
+    // this.dialogLoading.set(true)
 
-    this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
-      next: () => {
-        this.dialogLoading.set(false)
-        this.closeAlbumFormDialog()
-        this.toastService.showToast(successMsg)
-      },
-      error: () => {
-        this.dialogLoading.set(false)
-        this.toastService.showToast(errorMsg)
-      },
-    })
+    // this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
+    //   next: () => {
+    //     this.dialogLoading.set(false)
+    //     this.closeAlbumFormDialog()
+    //     this.toastService.showToast(successMsg)
+    //   },
+    //   error: () => {
+    //     this.dialogLoading.set(false)
+    //     this.toastService.showToast(errorMsg)
+    //   },
+    // })
   }
 
   publishAlbumDraft() {
@@ -166,6 +171,7 @@ export class AlbumsPageComponent implements OnInit {
 
   // -------------------- Tracks -------------------- //
   createTrack() {
+    //TODO: I like the idea of just adding these to a config
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Track Created`,
@@ -180,16 +186,46 @@ export class AlbumsPageComponent implements OnInit {
       this.toastService.showToast(errorMsg)
       return
     }
-
     if (!this.trackForm.valid) {
       this.trackForm.markAllAsTouched()
       return
     }
 
+    const trackValues = this.trackForm.value
+    const data = new FormData()
+    trackValues.name && data.append('name', trackValues.name)
+    trackValues.lyrics && data.append('lyrics', trackValues.lyrics)
+    trackValues.trackPlacement &&
+      data.append('trackPlacement', trackValues.trackPlacement)
+    trackValues.file && data.append('audio', trackValues.file)
+
     this.dialogLoading.set(true)
+    this.albumsService.createAlbumTrack(this.orgId(), draftId, data).subscribe({
+      next: () => {
+        this.dialogLoading.set(false)
+        this.toastService.showToast(successMsg)
+        this.trackForm.reset()
+        this.refreshDraftAlbumTracks(draftId)
+      },
+      error: () => {
+        this.dialogLoading.set(false)
+        this.toastService.showToast(errorMsg)
+      },
+    })
   }
 
-  deleteTrack() {
+  refreshDraftAlbumTracks(draftId: string) {
+    this.dialogLoading.set(true)
+    this.albumsService.getAlbumTracks(draftId).subscribe({
+      next: (res: any) => {
+        this.dialogLoading.set(false)
+        this.draftAlbumTracks.set(res)
+      },
+    })
+  }
+
+  deleteTrack(track: any) {
+    console.log('wtf', track)
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Track deleted`,
@@ -198,5 +234,21 @@ export class AlbumsPageComponent implements OnInit {
       type: 'error',
       message: `Error deleting track`,
     }
+
+    this.dialogLoading.set(true)
+    this.albumsService
+      .deleteAlbumTrack(this.orgId(), track.id, track.audioId)
+      .subscribe({
+        next: () => {
+          this.dialogLoading.set(false)
+          this.toastService.showToast(successMsg)
+          const draftId = this.draftAlbumId()
+          if (draftId) this.refreshDraftAlbumTracks(draftId)
+        },
+        error: () => {
+          this.dialogLoading.set(false)
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 }

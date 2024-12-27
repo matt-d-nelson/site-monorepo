@@ -50,7 +50,7 @@ export class AlbumsService {
   }
 
   getAlbumTracks(albumId: string) {
-    return this.http.get(`${ENV.API_URL}/api/albums/tracks${albumId}`)
+    return this.http.get(`${ENV.API_URL}/api/albums/tracks/${albumId}`)
   }
 
   createAlbumTrack(orgId: string, albumId: string, trackData: {}) {

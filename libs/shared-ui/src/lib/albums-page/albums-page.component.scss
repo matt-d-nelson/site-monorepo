@@ -5,6 +5,11 @@
   color: rgb(var(--text));
 }
 
+.track-wrapper {
+  background-color: rgba(var(--primary), 0.5);
+  border-radius: 4px;
+}
+
 .error-msg {
   color: rgb(var(--danger));
 }
