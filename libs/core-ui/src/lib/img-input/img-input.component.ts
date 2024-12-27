@@ -26,6 +26,7 @@ export class ImgInputComponent {
 
   parentForm = input.required<FormGroup>()
   control = input.required<any>()
+  roundCropper = input(false)
 
   imageChangedEvent = signal<any>('')
 

@@ -170,6 +170,16 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   // -------------------- Tracks -------------------- //
+  refreshDraftAlbumTracks(draftId: string) {
+    this.dialogLoading.set(true)
+    this.albumsService.getAlbumTracks(draftId).subscribe({
+      next: (res: any) => {
+        this.dialogLoading.set(false)
+        this.draftAlbumTracks.set(res)
+      },
+    })
+  }
+
   createTrack() {
     //TODO: I like the idea of just adding these to a config
     const successMsg: ToastMessage = {
@@ -210,16 +220,6 @@ export class AlbumsPageComponent implements OnInit {
       error: () => {
         this.dialogLoading.set(false)
         this.toastService.showToast(errorMsg)
-      },
-    })
-  }
-
-  refreshDraftAlbumTracks(draftId: string) {
-    this.dialogLoading.set(true)
-    this.albumsService.getAlbumTracks(draftId).subscribe({
-      next: (res: any) => {
-        this.dialogLoading.set(false)
-        this.draftAlbumTracks.set(res)
       },
     })
   }
