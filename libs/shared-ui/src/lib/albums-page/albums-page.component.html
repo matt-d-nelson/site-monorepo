@@ -4,8 +4,29 @@
   [userIsAdmin]="userIsAdmin()"
   (onAdd)="initAlbumDraft()"
 >
-  <p>albums-page works!</p>
+<!-- draft albums -->
+<div *ngIf="userIsAdmin()">
+    <div *ngFor="let draft of draftAlbums()">
+        <ng-container
+            [ngTemplateOutlet]="albumCard"
+            [ngTemplateOutletContext]="{album: draft}"
+        >
+        </ng-container>
+    </div>
+</div>
+<div *ngFor="let album of publishedAlbums()">
+    <ng-container
+        [ngTemplateOutlet]="albumCard"
+        [ngTemplateOutletContext]="{album: album}"
+    >
+    </ng-container>
+</div>
 </core-ui-page-wrapper>
+
+<!-- album template -->
+ <ng-template #albumCard let-album="album">
+    <h2>{{ album?.name ?? 'unnamed draft' }}</h2>
+ </ng-template>
 
 <!-- add album dialog -->
 <!-- TODO: create a dialog component to share with form dialog -->

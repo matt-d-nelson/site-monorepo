@@ -27,7 +27,6 @@ import { NgScrollbar } from 'ngx-scrollbar'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { finalize } from 'rxjs'
 
-// TODO: This component could be broken up
 @Component({
   selector: 'shared-ui-albums-page',
   standalone: true,
@@ -60,12 +59,14 @@ export class AlbumsPageComponent implements OnInit {
 
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
+  publishedAlbums = signal<any[]>([])
+  draftAlbums = signal<any[]>([])
 
   // form management
   @ViewChild('albumFormDialog', { static: true })
   dialog!: ElementRef<HTMLDialogElement>
   dialogLoading = signal<boolean>(false)
-  // Albums
+  // albums
   draftAlbumId = signal<string | null>(null)
   albumForm = new FormGroup({
     coverArt: new FormControl<Blob | null>(null, [Validators.required]),
@@ -73,7 +74,7 @@ export class AlbumsPageComponent implements OnInit {
     releaseDate: new FormControl('', [Validators.required]),
     description: new FormControl(''),
   })
-  // Tracks
+  // tracks
   draftAlbumTracks = signal<any[]>([])
   trackForm = new FormGroup({
     trackPlacement: new FormControl('', [Validators.required]),
@@ -94,8 +95,9 @@ export class AlbumsPageComponent implements OnInit {
     this.albumsService.getAlbums(orgId)
     this.albumsService.albums$.subscribe((albums: any) => {
       console.log(albums)
-      // sort albums by isDraft
-      // disable create button if draft exists
+      albums.forEach((album: any) => {
+        album.isDraft ? this.draftAlbums().push(album) : this.publishedAlbums().push(album)
+      })
     })
   }
 
@@ -113,6 +115,13 @@ export class AlbumsPageComponent implements OnInit {
   // -------------------- Albums -------------------- //
 
   initAlbumDraft() {
+    if(this.draftAlbums().length > 0) {
+      this.toastService.showToast({
+        type: 'error',
+        message: 'Please publish or delete existing album draft before adding another'
+      })
+      return
+    }
     this.spinnerService.show()
     this.albumsService
       .createAlbumDraft(this.orgId())
@@ -162,12 +171,11 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   publishAlbumDraft() {
-    console.log(this.albumForm.valid)
-    if (!this.albumForm.valid) {
+    if(!this.albumForm.valid) {
       this.albumForm.markAllAsTouched()
-      return
+      return      
     }
-
+    
     const data = new FormData()
     const albumData = this.albumForm.value
 
@@ -187,10 +195,10 @@ export class AlbumsPageComponent implements OnInit {
     }
 
     albumData?.name && data.append('name', albumData.name)
-    albumData?.releaseDate && data.append('name', albumData.releaseDate)
+    albumData?.releaseDate && data.append('releaseDate', albumData.releaseDate)
     albumData?.description && data.append('description', albumData.description)
     albumData?.coverArt && data.append('image', albumData.coverArt)
-
+    
     this.dialogLoading.set(true)
     this.albumsService.publishAlbumDraft(this.orgId(), drafID, data).subscribe({
       next: () => {
@@ -202,7 +210,7 @@ export class AlbumsPageComponent implements OnInit {
       error: () => {
         this.toastService.showToast(errorMsg)
         this.dialogLoading.set(false)
-      },
+      }
     })
   }
 
@@ -218,7 +226,6 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   createTrack() {
-    //TODO: I like the idea of just adding these to a config
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Track Created`,
