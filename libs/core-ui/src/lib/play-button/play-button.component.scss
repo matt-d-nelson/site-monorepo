@@ -1,9 +1,33 @@
-.play {
+.play-pause-icon {
+  width: 2rem;
+  cursor: pointer;
+
+  .background {
+    fill: rgba(var(--background), 0.5);
+    rx: 6;
+    ry: 6;
+  }
+
+  path {
+    stroke-linecap: round;
+    transition: d 0.3s ease;
+  }
+
+  &.play {
     stroke: rgb(var(--primary));
     transition: stroke 0.3s ease-in-out;
-}
 
-.pause {
+    path {
+      d: path('M3,3 L9,6 M9,6 L3,9');
+    }
+  }
+
+  &.pause {
     stroke: rgb(var(--secondary));
     transition: stroke 0.3s ease-in-out;
+
+    path {
+      d: path('M4,3 L4,9 M8,3 L8,9');
+    }
+  }
 }

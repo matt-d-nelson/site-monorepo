@@ -58,7 +58,9 @@
             : 'M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7;M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7'
         "
         fill="freeze"
-        [attr.begin]="dropdownVisible() ? 'nav_start.begin' : 'nav_reverse.begin'"
+        [attr.begin]="
+          dropdownVisible() ? 'nav_start.begin' : 'nav_reverse.begin'
+        "
       />
     </path>
     <rect width="10" height="10" stroke="none">

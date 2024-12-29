@@ -20,12 +20,11 @@ export class PlayButtonComponent {
   onClick = output<Event>()
 
   playing = signal<boolean>(false)
-  
+
   togglePlaying() {
     this.playing.set(!this.playing())
     this.onClick.emit(new Event('click'))
   }
 
   // TODO: I think these will tap into the audio service and manage their state from there
-
 }

@@ -25,33 +25,47 @@
 
 <!-- album template -->
 <ng-template #albumCard let-album="album">
-  <div class="album-wrapper max-w-2xl p-4 mx-auto rounded-2xl my-10">
-    <div class="grid grid-cols-2 gap-2">
+  <div class="album-wrapper p-4 mx-auto rounded-2xl my-10">
+    <div class="grid grid-cols-2 gap-4">
       <div class="aspect-square overflow-hidden rounded-2xl">
         <core-ui-lazy-img [source]="album?.coverArtUrl"></core-ui-lazy-img>
       </div>
-      <div class="flex flex-col">
-        <div class="border-b-2 text-xl">
-          <h2 class="px-2">{{ album?.name ?? 'unnamed draft' }}</h2>
-        </div>
-        <p class="grow">{{ album?.description }}</p>
-        <div *ngIf="userIsAdmin()" class="flex justify-end">
-          <core-ui-button
+      <div class="flex flex-col aspect-square overflow-hidden">
+        <div class="border-b-2 flex justify-between items-center py-1">
+          <h2 class="px-2 text-xl">{{ album?.name ?? 'unnamed draft' }}</h2>
+          <div *ngIf="userIsAdmin()" class="flex justify-end">
+            <core-ui-button
+              [type]="BUTTON_TYPES().OUTLINE"
+              [color]="CORE_COLORS().DANGER"
+              label="Delete"
+              (onClick)="deleteAlbumClick(album)"
+            ></core-ui-button>
+            <!-- <core-ui-button
             [type]="BUTTON_TYPES().OUTLINE"
-            [color]="CORE_COLORS().DANGER"
-            label="Delete"
-            (onClick)="deleteAlbumClick(album)"
-          ></core-ui-button>
-        <!-- <core-ui-button
-          [type]="BUTTON_TYPES().OUTLINE"
-          label="Edit"
-          (onClick)="editEventClick(event)"
-          class="ml-2"
-        ></core-ui-button> -->
+            label="Edit"
+            (onClick)="editEventClick(event)"
+            class="ml-2"
+          ></core-ui-button> -->
+          </div>
+        </div>
+        <div class="grow overflow-hidden">
+          <ng-scrollbar>
+            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">
+              {{ album?.description }}
+            </p>
+          </ng-scrollbar>
+        </div>
+      </div>
+      <div class="col-span-2 border-t-2">
+        <div *ngFor="let track of album?.tracks">
+          <div class="flex items-center">
+            <core-ui-play-button [id]="track.id"></core-ui-play-button>
+            <p class="mr-2">{{ track?.trackPlacement }}.</p>
+            <p>{{ track?.name }}</p>
+          </div>
         </div>
       </div>
     </div>
-    <!-- <core-ui-play-button [id]="album.id" ></core-ui-play-button> -->
   </div>
 </ng-template>
 

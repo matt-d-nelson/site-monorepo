@@ -43,7 +43,7 @@ import { finalize } from 'rxjs'
     NgScrollbar,
     FileInputComponent,
     PlayButtonComponent,
-    LazyImgComponent
+    LazyImgComponent,
   ],
   templateUrl: './albums-page.component.html',
   styleUrl: './albums-page.component.scss',
@@ -234,26 +234,28 @@ export class AlbumsPageComponent implements OnInit {
       message: `Error deleting album`,
     }
 
-
     this.confirmationDialogService
       .openDialog({
-        title:'Delete Album',
-        message: `Are you sure you want to delete ${albumTitle}?`
-      }).subscribe((confirmed: boolean) => {
+        title: 'Delete Album',
+        message: `Are you sure you want to delete ${albumTitle}?`,
+      })
+      .subscribe((confirmed: boolean) => {
         if (!confirmed) return
         this.spinnerService.show()
-        this.albumsService.deleteAlbum(this.orgId(), album.id).subscribe({
-          next: () => {
-            this.spinnerService.hide()
-            this.toastService.showToast(successMsg)
-            this.albumsService.getAlbums(this.orgId())
-          },
-          error: () => {
-            this.spinnerService.hide()
-            this.toastService.showToast(errorMsg)
-          },
-        })
-    })
+        this.albumsService
+          .deleteAlbum(this.orgId(), album.id, album?.coverArtId)
+          .subscribe({
+            next: () => {
+              this.spinnerService.hide()
+              this.toastService.showToast(successMsg)
+              this.albumsService.getAlbums(this.orgId())
+            },
+            error: () => {
+              this.spinnerService.hide()
+              this.toastService.showToast(errorMsg)
+            },
+          })
+      })
   }
 
   // -------------------- Tracks -------------------- //
@@ -311,7 +313,6 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   deleteTrack(track: any) {
-    console.log('wtf', track)
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Track deleted`,
