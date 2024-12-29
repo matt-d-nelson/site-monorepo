@@ -4,6 +4,7 @@ import {
   ImgInputComponent,
   InputComponent,
   PageWrapperComponent,
+  PlayButtonComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { ToastMessage } from '@angular-monorepo/shared-models'
@@ -40,6 +41,7 @@ import { finalize } from 'rxjs'
     ImgInputComponent,
     NgScrollbar,
     FileInputComponent,
+    PlayButtonComponent,
   ],
   templateUrl: './albums-page.component.html',
   styleUrl: './albums-page.component.scss',
@@ -96,7 +98,9 @@ export class AlbumsPageComponent implements OnInit {
     this.albumsService.albums$.subscribe((albums: any) => {
       console.log(albums)
       albums.forEach((album: any) => {
-        album.isDraft ? this.draftAlbums().push(album) : this.publishedAlbums().push(album)
+        album.isDraft
+          ? this.draftAlbums().push(album)
+          : this.publishedAlbums().push(album)
       })
     })
   }
@@ -115,10 +119,11 @@ export class AlbumsPageComponent implements OnInit {
   // -------------------- Albums -------------------- //
 
   initAlbumDraft() {
-    if(this.draftAlbums().length > 0) {
+    if (this.draftAlbums().length > 0) {
       this.toastService.showToast({
         type: 'error',
-        message: 'Please publish or delete existing album draft before adding another'
+        message:
+          'Please publish or delete existing album draft before adding another',
       })
       return
     }
@@ -171,11 +176,11 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   publishAlbumDraft() {
-    if(!this.albumForm.valid) {
+    if (!this.albumForm.valid) {
       this.albumForm.markAllAsTouched()
-      return      
+      return
     }
-    
+
     const data = new FormData()
     const albumData = this.albumForm.value
 
@@ -198,7 +203,7 @@ export class AlbumsPageComponent implements OnInit {
     albumData?.releaseDate && data.append('releaseDate', albumData.releaseDate)
     albumData?.description && data.append('description', albumData.description)
     albumData?.coverArt && data.append('image', albumData.coverArt)
-    
+
     this.dialogLoading.set(true)
     this.albumsService.publishAlbumDraft(this.orgId(), drafID, data).subscribe({
       next: () => {
@@ -210,7 +215,7 @@ export class AlbumsPageComponent implements OnInit {
       error: () => {
         this.toastService.showToast(errorMsg)
         this.dialogLoading.set(false)
-      }
+      },
     })
   }
 

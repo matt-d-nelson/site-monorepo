@@ -1,0 +1,9 @@
+.play {
+    stroke: rgb(var(--primary));
+    transition: stroke 0.3s ease-in-out;
+}
+
+.pause {
+    stroke: rgb(var(--secondary));
+    transition: stroke 0.3s ease-in-out;
+}
