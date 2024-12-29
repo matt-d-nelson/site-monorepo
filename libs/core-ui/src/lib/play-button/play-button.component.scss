@@ -1,5 +1,4 @@
 .play-pause-icon {
-  width: 2rem;
   cursor: pointer;
 
   .background {
@@ -18,7 +17,7 @@
     transition: stroke 0.3s ease-in-out;
 
     path {
-      d: path('M3,3 L9,6 M9,6 L3,9');
+      d: path('M4,2.5 L9,6 M9,6 L4,9.5');
     }
   }
 
