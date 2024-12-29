@@ -25,8 +25,34 @@
 
 <!-- album template -->
 <ng-template #albumCard let-album="album">
-  <h2>{{ album?.name ?? 'unnamed draft' }}</h2>
-  <core-ui-play-button [id]="album.id"></core-ui-play-button>
+  <div class="album-wrapper max-w-2xl p-4 mx-auto rounded-2xl my-10">
+    <div class="grid grid-cols-2 gap-2">
+      <div class="aspect-square overflow-hidden rounded-2xl">
+        <core-ui-lazy-img [source]="album?.coverArtUrl"></core-ui-lazy-img>
+      </div>
+      <div class="flex flex-col">
+        <div class="border-b-2 text-xl">
+          <h2 class="px-2">{{ album?.name ?? 'unnamed draft' }}</h2>
+        </div>
+        <p class="grow">{{ album?.description }}</p>
+        <div *ngIf="userIsAdmin()" class="flex justify-end">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            label="Delete"
+            (onClick)="deleteAlbumClick(album)"
+          ></core-ui-button>
+        <!-- <core-ui-button
+          [type]="BUTTON_TYPES().OUTLINE"
+          label="Edit"
+          (onClick)="editEventClick(event)"
+          class="ml-2"
+        ></core-ui-button> -->
+        </div>
+      </div>
+    </div>
+    <!-- <core-ui-play-button [id]="album.id" ></core-ui-play-button> -->
+  </div>
 </ng-template>
 
 <!-- add album dialog -->
@@ -72,7 +98,7 @@
         <h2 class="mb-3 text-xl border-b-2">Tracks</h2>
         <div class="mx-2">
           <div class="flex my-2" *ngFor="let track of draftAlbumTracks()">
-            <div class="track-wrapper flex items-center w-full px-4 mr-2">
+            <div class="draft-track-wrapper flex items-center w-full px-4 mr-2">
               <p class="mr-2">{{ track.trackPlacement }}:</p>
               <p>{{ track.name }}</p>
             </div>

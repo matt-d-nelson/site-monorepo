@@ -3,6 +3,7 @@ import {
   FileInputComponent,
   ImgInputComponent,
   InputComponent,
+  LazyImgComponent,
   PageWrapperComponent,
   PlayButtonComponent,
 } from '@angular-monorepo/core-ui'
@@ -42,6 +43,7 @@ import { finalize } from 'rxjs'
     NgScrollbar,
     FileInputComponent,
     PlayButtonComponent,
+    LazyImgComponent
   ],
   templateUrl: './albums-page.component.html',
   styleUrl: './albums-page.component.scss',
@@ -89,13 +91,15 @@ export class AlbumsPageComponent implements OnInit {
     this.orgService.currentOrgId$.subscribe(orgId => {
       this.orgId.set(orgId)
       this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
-      this.getAndSortAlbums(orgId)
+      this.albumsService.getAlbums(orgId)
+      this.initSortAlbumsSub()
     })
   }
 
-  getAndSortAlbums(orgId: string) {
-    this.albumsService.getAlbums(orgId)
+  initSortAlbumsSub() {
     this.albumsService.albums$.subscribe((albums: any) => {
+      this.draftAlbums.set([])
+      this.publishedAlbums.set([])
       console.log(albums)
       albums.forEach((album: any) => {
         album.isDraft
@@ -216,6 +220,39 @@ export class AlbumsPageComponent implements OnInit {
         this.toastService.showToast(errorMsg)
         this.dialogLoading.set(false)
       },
+    })
+  }
+
+  deleteAlbumClick(album: any) {
+    const albumTitle = album?.name || 'unnamed draft'
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${albumTitle} was deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting album`,
+    }
+
+
+    this.confirmationDialogService
+      .openDialog({
+        title:'Delete Album',
+        message: `Are you sure you want to delete ${albumTitle}?`
+      }).subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.spinnerService.show()
+        this.albumsService.deleteAlbum(this.orgId(), album.id).subscribe({
+          next: () => {
+            this.spinnerService.hide()
+            this.toastService.showToast(successMsg)
+            this.albumsService.getAlbums(this.orgId())
+          },
+          error: () => {
+            this.spinnerService.hide()
+            this.toastService.showToast(errorMsg)
+          },
+        })
     })
   }
 
