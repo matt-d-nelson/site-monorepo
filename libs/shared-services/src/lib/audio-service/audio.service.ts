@@ -67,23 +67,19 @@ export class AudioService {
   }
 
   play(track: any) {
+    this._isPlaying.next(true)
     if (!this._currentTrack.value || this._currentTrack.value.id !== track.id) {
       this.audio.src = track.audioUrl
       this._currentTrack.next(track)
     }
-    this.audio
-      .play()
-      .then(() => {
-        this._isPlaying.next(true)
-      })
-      .catch(error => {
-        console.error(error)
-        this._isPlaying.next(false)
-      })
+    this.audio.play().catch(error => {
+      console.error(error)
+      this._isPlaying.next(false)
+    })
   }
 
   pause() {
-    this.audio.pause()
     this._isPlaying.next(false)
+    this.audio.pause()
   }
 }

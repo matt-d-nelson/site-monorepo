@@ -16,7 +16,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.homeImg.set(orgTheme.staticImages.homePage)
+      this.homeImg.set(orgTheme.staticResouces.homePage)
     })
   }
 }

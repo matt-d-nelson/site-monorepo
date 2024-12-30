@@ -78,7 +78,7 @@ export class EventsPageComponent implements OnInit {
       this.getAndSortEvents(orgId)
     })
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.bannerImg.set(orgTheme.staticImages.eventsPage)
+      this.bannerImg.set(orgTheme.staticResouces.eventsPage)
     })
   }
 

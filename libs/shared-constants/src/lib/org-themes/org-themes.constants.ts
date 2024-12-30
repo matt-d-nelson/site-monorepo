@@ -97,11 +97,21 @@ const OrgComponentColors = {
         },
       ],
     },
+    footer: {
+      color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      homeTrack: {
+        id: -1,
+        name: 'Sweet Dreams',
+        audioUrl:
+          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1735591883/monorepo/12356/static/Telestela_-_SpeakSiren_-_03_-_Sweet_Dreams_urnvdb.wav',
+        trackPlacement: 1,
+      },
+    },
   },
   [ORGIDS.MATT]: {},
 }
 
-const OrgStaticImages = {
+const OrgStaticResouces = {
   [ORGIDS.TELESTELA]: {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
@@ -116,11 +126,11 @@ export const OrgThemes = {
   [ORGIDS.TELESTELA]: {
     baseColors: OrgBaseColors[ORGIDS.TELESTELA],
     componentColors: OrgComponentColors[ORGIDS.TELESTELA],
-    staticImages: OrgStaticImages[ORGIDS.TELESTELA],
+    staticResouces: OrgStaticResouces[ORGIDS.TELESTELA],
   },
   [ORGIDS.MATT]: {
     baseColors: OrgBaseColors[ORGIDS.MATT],
     componentColors: OrgComponentColors[ORGIDS.MATT],
-    staticImages: OrgStaticImages[ORGIDS.MATT],
+    staticResouces: OrgStaticResouces[ORGIDS.MATT],
   },
 }
