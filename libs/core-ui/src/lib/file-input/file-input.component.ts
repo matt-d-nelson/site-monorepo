@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, input, signal } from '@angular/core'
+import { Component, input, OnInit, signal } from '@angular/core'
 import {
   ControlContainer,
   FormGroup,
@@ -18,7 +18,7 @@ import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
   templateUrl: './file-input.component.html',
   styleUrl: './file-input.component.scss',
 })
-export class FileInputComponent {
+export class FileInputComponent implements OnInit {
   BUTTON_TYPES = signal(BUTTON_TYPES)
   fileName = signal('No file selected')
   label = input.required<string>()
@@ -26,6 +26,14 @@ export class FileInputComponent {
   control = input.required<any>()
   loading = input.required<boolean>()
   acceptedFiles = input.required<string[]>()
+
+  ngOnInit(): void {
+    this.control().valueChanges.subscribe((value: any) => {
+      if (!value) {
+        this.fileName.set('No file selected')
+      }
+    })
+  }
 
   onFileSelected(event: any) {
     const file = event?.target?.files[0]

@@ -1,5 +1,5 @@
 import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
-import { Component, input, signal } from '@angular/core'
+import { Component, input, OnInit, signal } from '@angular/core'
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper'
 import { ButtonComponent } from '../button/button.component'
 import {
@@ -21,7 +21,7 @@ import {
   templateUrl: './img-input.component.html',
   styleUrl: './img-input.component.scss',
 })
-export class ImgInputComponent {
+export class ImgInputComponent implements OnInit {
   BUTTON_TYPES = signal(BUTTON_TYPES)
 
   parentForm = input.required<FormGroup>()
@@ -29,6 +29,14 @@ export class ImgInputComponent {
   roundCropper = input(false)
 
   imageChangedEvent = signal<any>('')
+
+  ngOnInit(): void {
+    this.control().valueChanges.subscribe((value: any) => {
+      if (!value) {
+        this.imageChangedEvent.set('')
+      }
+    })
+  }
 
   handleFileChange(event: any) {
     this.imageChangedEvent.set(event)

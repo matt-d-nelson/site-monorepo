@@ -176,19 +176,27 @@ export class AlbumsPageComponent implements OnInit {
       this.toastService.showToast(errorMsg)
       return
     }
-    this.dialogLoading.set(true)
 
-    this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
-      next: () => {
-        this.dialogLoading.set(false)
-        this.closeAlbumFormDialog()
-        this.toastService.showToast(successMsg)
-      },
-      error: () => {
-        this.dialogLoading.set(false)
-        this.toastService.showToast(errorMsg)
-      },
-    })
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Album',
+        message: `Are you sure you want to cancel? Progress will not be saved`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.dialogLoading.set(true)
+        this.albumsService.deleteAlbum(this.orgId(), draftId).subscribe({
+          next: () => {
+            this.dialogLoading.set(false)
+            this.closeAlbumFormDialog()
+            this.toastService.showToast(successMsg)
+          },
+          error: () => {
+            this.dialogLoading.set(false)
+            this.toastService.showToast(errorMsg)
+          },
+        })
+      })
   }
 
   publishAlbumDraft() {
@@ -197,42 +205,54 @@ export class AlbumsPageComponent implements OnInit {
       return
     }
 
-    const data = new FormData()
-    const albumData = this.albumForm.value
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Publish Album',
+        message: `Are you sure you want to publish this album?`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        const data = new FormData()
+        const albumData = this.albumForm.value
 
-    const successMsg: ToastMessage = {
-      type: 'success',
-      message: `${albumData.name} was created`,
-    }
-    const errorMsg: ToastMessage = {
-      type: 'error',
-      message: `Error creating album`,
-    }
+        const successMsg: ToastMessage = {
+          type: 'success',
+          message: `${albumData.name} was created`,
+        }
+        const errorMsg: ToastMessage = {
+          type: 'error',
+          message: `Error creating album`,
+        }
 
-    const drafID = this.draftAlbumId()
-    if (!drafID) {
-      this.toastService.showToast(errorMsg)
-      return
-    }
+        const drafID = this.draftAlbumId()
+        if (!drafID) {
+          this.toastService.showToast(errorMsg)
+          return
+        }
 
-    albumData?.name && data.append('name', albumData.name)
-    albumData?.releaseDate && data.append('releaseDate', albumData.releaseDate)
-    albumData?.description && data.append('description', albumData.description)
-    albumData?.coverArt && data.append('image', albumData.coverArt)
+        albumData?.name && data.append('name', albumData.name)
+        albumData?.releaseDate &&
+          data.append('releaseDate', albumData.releaseDate)
+        albumData?.description &&
+          data.append('description', albumData.description)
+        albumData?.coverArt && data.append('image', albumData.coverArt)
 
-    this.dialogLoading.set(true)
-    this.albumsService.publishAlbumDraft(this.orgId(), drafID, data).subscribe({
-      next: () => {
-        this.dialogLoading.set(false)
-        this.toastService.showToast(successMsg)
-        this.albumsService.getAlbums(this.orgId())
-        this.closeAlbumFormDialog()
-      },
-      error: () => {
-        this.toastService.showToast(errorMsg)
-        this.dialogLoading.set(false)
-      },
-    })
+        this.dialogLoading.set(true)
+        this.albumsService
+          .publishAlbumDraft(this.orgId(), drafID, data)
+          .subscribe({
+            next: () => {
+              this.dialogLoading.set(false)
+              this.toastService.showToast(successMsg)
+              this.albumsService.getAlbums(this.orgId())
+              this.closeAlbumFormDialog()
+            },
+            error: () => {
+              this.toastService.showToast(errorMsg)
+              this.dialogLoading.set(false)
+            },
+          })
+      })
   }
 
   deleteAlbumClick(album: any) {
