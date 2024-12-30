@@ -2,6 +2,12 @@
   background-color: rgba(var(--primary), 0.5);
 }
 
+.lyrics-btn {
+  &:hover {
+    color: rgb(var(--secondary));
+  }
+}
+
 .dialog-body {
   background-color: rgba(var(--background), 0.85);
   border: 3px solid rgb(var(--background));

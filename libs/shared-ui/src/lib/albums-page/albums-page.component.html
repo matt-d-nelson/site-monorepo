@@ -26,13 +26,18 @@
 <!-- album template -->
 <ng-template #albumCard let-album="album">
   <div class="album-wrapper p-4 mx-auto rounded-2xl my-10">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="aspect-square overflow-hidden rounded-2xl">
+    <div class="grid grid-cols-2 gap-1 md:gap-4">
+      <div
+        class="aspect-square overflow-hidden rounded-2xl col-span-2 md:col-span-1"
+      >
         <core-ui-lazy-img [source]="album?.coverArtUrl"></core-ui-lazy-img>
       </div>
-      <div class="flex flex-col aspect-square overflow-hidden">
+      <div
+        class="flex flex-col aspect-[4/3] md:aspect-square overflow-hidden col-span-2 md:col-span-1"
+      >
         <div class="border-b-2 flex justify-between items-center py-1">
           <h2 class="px-2 text-xl">{{ album?.name ?? 'unnamed draft' }}</h2>
+          <p class="text-xs px-2">{{ album?.releaseDate }}</p>
           <div *ngIf="userIsAdmin()" class="flex justify-end">
             <core-ui-button
               [type]="BUTTON_TYPES().OUTLINE"
@@ -58,22 +63,38 @@
       </div>
       <div class="col-span-2 border-t-2">
         <div *ngFor="let track of album?.tracks">
-          <div class="flex items-center">
+          <div class="flex items-center my-2 mr-3">
             <core-ui-play-button
               [id]="track.id"
               [track]="track"
               [album]="album"
             ></core-ui-play-button>
             <div class="grow">
-              <div class="flex">
+              <div class="flex items-center">
                 <p class="mr-2">{{ track?.trackPlacement }}.</p>
-                <p>{{ track?.name }}</p>
+                <p class="grow">{{ track?.name }}</p>
+                <core-ui-button
+                  *ngIf="track?.lyrics"
+                  class="text-xl lyrics-btn"
+                  label="✎•••"
+                  (click)="toggleLyrics(track.id)"
+                ></core-ui-button>
               </div>
               <core-ui-audio-progress
                 [trackId]="track.id"
               ></core-ui-audio-progress>
             </div>
           </div>
+          <p
+            class="pl-14 pr-4 text-xs md:text-base whitespace-pre-wrap overflow-hidden transition-all duration-300"
+            [ngStyle]="{
+              'max-height': expandedLyrics().has(track.id) ? '1000px' : '0',
+              opacity: expandedLyrics().has(track.id) ? '1' : '0',
+              margin: expandedLyrics().has(track.id) ? '1rem 0' : '0'
+            }"
+          >
+            {{ track?.lyrics }}
+          </p>
         </div>
       </div>
     </div>
@@ -81,7 +102,6 @@
 </ng-template>
 
 <!-- add album dialog -->
-<!-- TODO: create a dialog component to share with form dialog -->
 <dialog
   #albumFormDialog
   class="p-6 dialog-body h-full overflow-hidden md:min-w-96"

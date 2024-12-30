@@ -67,6 +67,7 @@ export class AlbumsPageComponent implements OnInit {
   userIsAdmin = signal<boolean>(false)
   publishedAlbums = signal<any[]>([])
   draftAlbums = signal<any[]>([])
+  expandedLyrics = signal<Set<string>>(new Set())
 
   // form management
   @ViewChild('albumFormDialog', { static: true })
@@ -96,6 +97,14 @@ export class AlbumsPageComponent implements OnInit {
       this.albumsService.getAlbums(orgId)
       this.initSortAlbumsSub()
     })
+  }
+
+  toggleLyrics(trackId: string) {
+    if (this.expandedLyrics().has(trackId)) {
+      this.expandedLyrics().delete(trackId)
+    } else {
+      this.expandedLyrics().add(trackId)
+    }
   }
 
   initSortAlbumsSub() {
