@@ -1,0 +1,8 @@
+<div class="relative">
+  <div class="progress-bar-bkg"></div>
+  <div
+    *ngIf="playing()"
+    class="progress-bar absolute top-0 left-0"
+    [ngStyle]="{ width: progress() + '%' }"
+  ></div>
+</div>

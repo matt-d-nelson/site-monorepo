@@ -64,8 +64,15 @@
               [track]="track"
               [album]="album"
             ></core-ui-play-button>
-            <p class="mr-2">{{ track?.trackPlacement }}.</p>
-            <p>{{ track?.name }}</p>
+            <div class="grow">
+              <div class="flex">
+                <p class="mr-2">{{ track?.trackPlacement }}.</p>
+                <p>{{ track?.name }}</p>
+              </div>
+              <core-ui-audio-progress
+                [trackId]="track.id"
+              ></core-ui-audio-progress>
+            </div>
           </div>
         </div>
       </div>

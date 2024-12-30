@@ -39,8 +39,7 @@ export class AudioService {
     this._progress.next({
       currentTime: this.audio.currentTime,
       duration: this.audio.duration || 0,
-      percentage:
-        Math.floor(this.audio.currentTime / (this.audio.duration || 1)) * 100,
+      percentage: (this.audio.currentTime / (this.audio.duration || 1)) * 100,
     })
   }
 

@@ -1,4 +1,5 @@
 import {
+  AudioProgressComponent,
   ButtonComponent,
   FileInputComponent,
   ImgInputComponent,
@@ -44,6 +45,7 @@ import { finalize } from 'rxjs'
     FileInputComponent,
     PlayButtonComponent,
     LazyImgComponent,
+    AudioProgressComponent,
   ],
   templateUrl: './albums-page.component.html',
   styleUrl: './albums-page.component.scss',
