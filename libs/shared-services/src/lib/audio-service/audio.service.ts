@@ -22,8 +22,7 @@ export class AudioService {
   constructor() {
     this.audio = new Audio()
     this.audio.addEventListener('ended', () => {
-      // move to next idx of albumTracks
-      this._isPlaying.next(false)
+      this.handleTrackEnded()
     })
     this.audio.addEventListener('loadedmetadata', () => {
       this.updateProgress()
@@ -45,12 +44,34 @@ export class AudioService {
     })
   }
 
+  handleTrackEnded() {
+    const album = this._currentAlbum.value
+    if (!album) {
+      this._currentTrack.next(null)
+      this._isPlaying.next(false)
+    }
+    const currentTrackIdx = album.tracks.findIndex((track: any) => {
+      return track?.id === this._currentTrack.value?.id
+    })
+    const nextTrack = album.tracks[currentTrackIdx + 1]
+    if (nextTrack && currentTrackIdx !== -1) {
+      this.play(nextTrack)
+    } else {
+      this._currentTrack.next(null)
+      this._currentAlbum.next(null)
+      this._isPlaying.next(false)
+    }
+  }
+
+  setCurrentAlbum(album: any) {
+    this._currentAlbum.next(album)
+  }
+
   play(track: any) {
     if (!this._currentTrack.value || this._currentTrack.value.id !== track.id) {
       this.audio.src = track.audioUrl
       this._currentTrack.next(track)
     }
-
     this.audio
       .play()
       .then(() => {

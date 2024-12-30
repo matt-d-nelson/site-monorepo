@@ -118,6 +118,7 @@ export class AlbumsPageComponent implements OnInit {
     this.albumForm.reset()
     this.trackForm.reset()
     this.draftAlbumId.set(null)
+    this.draftAlbumTracks.set([])
   }
 
   // -------------------- Albums -------------------- //

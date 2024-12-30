@@ -59,7 +59,11 @@
       <div class="col-span-2 border-t-2">
         <div *ngFor="let track of album?.tracks">
           <div class="flex items-center">
-            <core-ui-play-button [id]="track.id"></core-ui-play-button>
+            <core-ui-play-button
+              [id]="track.id"
+              [track]="track"
+              [album]="album"
+            ></core-ui-play-button>
             <p class="mr-2">{{ track?.trackPlacement }}.</p>
             <p>{{ track?.name }}</p>
           </div>

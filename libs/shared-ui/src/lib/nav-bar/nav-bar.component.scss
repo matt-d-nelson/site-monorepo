@@ -1,6 +1,6 @@
 .menu-icon {
   cursor: pointer;
-  
+
   path {
     fill: none;
     stroke-width: 0.6;
@@ -12,7 +12,7 @@
       d: path('M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7');
     }
   }
-  
+
   &.open {
     path {
       d: path('M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7');
@@ -23,7 +23,7 @@
 .nav-bar {
   height: 3rem;
   position: relative;
-  
+
   &-content {
     height: 3rem;
   }
