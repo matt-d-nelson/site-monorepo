@@ -1,6 +1,6 @@
 .dialog-body {
-  background-color: rgba(var(--background), 0.75);
-  border: 3px solid rgb(var(--background));
+  background-color: rgb(var(--background));
+  border: 3px solid rgb(var(--primary));
   border-radius: 4px;
   color: rgb(var(--text));
 }

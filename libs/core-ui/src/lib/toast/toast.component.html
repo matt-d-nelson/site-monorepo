@@ -1,6 +1,6 @@
 <div
   *ngIf="activeToast()"
-  class="toast fixed top-0 right-0 max-w-60 text-center p-3 m-3 shadow-xl"
+  class="toast fixed top-0 left-32 max-w-60 text-center p-3 m-3 shadow-xl"
   [ngClass]="{
     'toast-success': activeToast()?.type === 'success',
     'toast-error': activeToast()?.type === 'error',

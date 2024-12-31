@@ -1,0 +1,32 @@
+<div class="w-full grid grid-cols-4 gap-2">
+  <div class="justify-self-end self-center">
+    <core-ui-button
+      [type]="BUTTON_TYPES().OUTLINE"
+      [label]="label()"
+      (onClick)="fileInput.click()"
+    ></core-ui-button>
+    <input
+      #fileInput
+      type="file"
+      [id]="label()"
+      class="hidden"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+  <div class="col-span-3 self-center">
+    <p>{{ fileName() }}</p>
+  </div>
+  <div class="col-start-2 col-span-3">
+    <div
+      *ngIf="control()?.invalid && (control().dirty || control().touched)"
+      class="ml-2 text-xs"
+    >
+      <small class="error-msg" *ngIf="control().hasError('required')"
+        >{{ label() }} is required.</small
+      >
+      <small *ngIf="control().hasError('invalidFileType')" class="error-msg">
+        Invalid file type. Accepted types: {{ acceptedFiles().join(', ') }}
+      </small>
+    </div>
+  </div>
+</div>

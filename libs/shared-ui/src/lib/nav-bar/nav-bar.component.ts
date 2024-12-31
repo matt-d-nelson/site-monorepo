@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
       this.dropdownConfig.set(orgTheme.componentColors.nav.config)
       this.navColor.set(orgTheme.componentColors.nav.color)
       this.svgColor.set(orgTheme.componentColors.nav.svgColor)
-      this.logoImg.set(orgTheme.staticImages.logo)
+      this.logoImg.set(orgTheme.staticResouces.logo)
     })
   }
 

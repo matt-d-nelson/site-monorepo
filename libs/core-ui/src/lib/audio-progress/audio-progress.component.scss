@@ -1,0 +1,13 @@
+.progress-bar-bkg {
+  height: 4px;
+  background-color: rgb(var(--primary));
+  border-radius: 4px;
+}
+
+.progress-bar {
+  width: 0;
+  border-radius: 4px;
+  height: 5px;
+  background-color: rgb(var(--secondary));
+  transition: width 0.1s linear;
+}

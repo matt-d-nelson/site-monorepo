@@ -1,5 +1,6 @@
 import {
   AppContainerComponent,
+  AudioFooterComponent,
   BackgroundWaveComponent,
   NavBarComponent,
 } from '@angular-monorepo/shared-ui'
@@ -15,6 +16,7 @@ import { HexToRGB } from '@angular-monorepo/shared-utilities'
     AppContainerComponent,
     BackgroundWaveComponent,
     NavBarComponent,
+    AudioFooterComponent,
     CommonModule,
   ],
   selector: 'app-root',

@@ -1,4 +1,7 @@
-import { ButtonComponent } from '@angular-monorepo/core-ui'
+import {
+  ButtonComponent,
+  PageWrapperComponent,
+} from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
@@ -29,6 +32,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     FormDialogComponent,
     ButtonComponent,
     NgScrollbarModule,
+    PageWrapperComponent,
   ],
   templateUrl: './videos-page.component.html',
   styleUrl: './videos-page.component.scss',

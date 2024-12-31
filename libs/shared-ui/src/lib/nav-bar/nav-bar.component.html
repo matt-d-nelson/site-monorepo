@@ -8,7 +8,7 @@
     ></core-ui-button>
   </div>
 </div>
-<!-- TODO: adjust overflow scroll so that the nav bar doesn't need this magic number -->
+
 <div
   class="nav-dropdown p-4 md:max-w-5xl"
   [ngClass]="{ 'nav-visible': dropdownVisible() }"
@@ -39,30 +39,17 @@
 <!-- menu svg -->
 <ng-template #menuIcon>
   <svg
-    class="w-9"
+    class="menu-icon w-9"
+    [ngClass]="{
+      open: dropdownVisible()
+    }"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 10 10"
     [attr.stroke]="svgColor()"
     stroke-width=".6"
     fill="rgba(0,0,0,0)"
     stroke-linecap="round"
-    style="cursor: pointer"
   >
-    <path d="M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7">
-      <animate
-        dur="0.2s"
-        attributeName="d"
-        [attr.values]="
-          dropdownVisible()
-            ? 'M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7;M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7'
-            : 'M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7;M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7'
-        "
-        fill="freeze"
-        [attr.begin]="dropdownVisible() ? 'start.begin' : 'reverse.begin'"
-      />
-    </path>
-    <rect width="10" height="10" stroke="none">
-      <animate dur="2s" id="reverse" attributeName="width" begin="click" />
-    </rect>
+    <path />
   </svg>
 </ng-template>

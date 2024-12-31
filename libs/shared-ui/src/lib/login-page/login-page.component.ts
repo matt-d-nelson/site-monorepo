@@ -1,5 +1,8 @@
 import { Component, signal } from '@angular/core'
-import { ButtonComponent } from '@angular-monorepo/core-ui'
+import {
+  ButtonComponent,
+  PageWrapperComponent,
+} from '@angular-monorepo/core-ui'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
@@ -10,7 +13,7 @@ import {
 } from './login-page.config'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { ToastMessage } from '@angular-monorepo/shared-models'
-import { delay, finalize } from 'rxjs'
+import { finalize } from 'rxjs'
 
 @Component({
   selector: 'shared-ui-login-page',
@@ -21,6 +24,7 @@ import { delay, finalize } from 'rxjs'
     ReactiveFormsModule,
     CommonModule,
     FormDialogComponent,
+    PageWrapperComponent,
   ],
   providers: [AuthService],
   templateUrl: './login-page.component.html',

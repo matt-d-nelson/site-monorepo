@@ -2,6 +2,7 @@ import {
   ButtonComponent,
   ImgInputComponent,
   LazyImgComponent,
+  PageWrapperComponent,
 } from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
@@ -34,6 +35,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     ButtonComponent,
     LazyImgComponent,
     NgScrollbarModule,
+    PageWrapperComponent,
   ],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.scss',
@@ -137,8 +139,7 @@ export class AboutPageComponent implements OnInit {
     data.append('name', bioForm.get('name').value)
     data.append('biography', bioForm.get('biography').value)
     data.append('isPrimary', bioForm.get('isPrimary').value)
-    const imageFile = bioForm.get('image')
-    data.append('image', imageFile.value, imageFile.name)
+    data.append('image', bioForm.get('image').value)
 
     const successMsg: ToastMessage = {
       type: 'success',

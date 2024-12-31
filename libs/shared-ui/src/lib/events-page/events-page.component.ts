@@ -9,7 +9,11 @@ import {
 import { CommonModule } from '@angular/common'
 import { Component, computed, OnInit, signal } from '@angular/core'
 import { FormDialogComponent } from '../form-dialog/form-dialog.component'
-import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui'
+import {
+  ButtonComponent,
+  LazyImgComponent,
+  PageWrapperComponent,
+} from '@angular-monorepo/core-ui'
 import {
   CreateEventDialogConfig,
   UpdateEventDialogConfig,
@@ -27,6 +31,7 @@ import { isEmpty } from 'lodash'
     FormDialogComponent,
     ButtonComponent,
     LazyImgComponent,
+    PageWrapperComponent,
   ],
   templateUrl: './events-page.component.html',
   styleUrl: './events-page.component.scss',
@@ -73,7 +78,7 @@ export class EventsPageComponent implements OnInit {
       this.getAndSortEvents(orgId)
     })
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
-      this.bannerImg.set(orgTheme.staticImages.eventsPage)
+      this.bannerImg.set(orgTheme.staticResouces.eventsPage)
     })
   }
 

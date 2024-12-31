@@ -1,15 +1,9 @@
-<!-- TODO: create a container class with template outlet for this -->
-<div class="events-wrapper min-h-full max-h-fit p-5 pb-20 md:px-32">
-  <div class="flex justify-between mb-3">
-    <h1 class="text-3xl">events</h1>
-    <core-ui-button
-      *ngIf="userIsAdmin()"
-      [type]="BUTTON_TYPES().OUTLINE"
-      label="Add Event"
-      (onClick)="addEventClick()"
-      class="flex justify-self-end"
-    ></core-ui-button>
-  </div>
+<core-ui-page-wrapper
+  title="events"
+  addLabel="Add Event"
+  [userIsAdmin]="userIsAdmin()"
+  (onAdd)="addEventClick()"
+>
   <div class="mx-auto mb-1 max-w-xl rounded-2xl overflow-hidden aspect-[4/3]">
     <core-ui-lazy-img [source]="bannerImg()"></core-ui-lazy-img>
   </div>
@@ -53,7 +47,7 @@
       </div>
     </div>
   </div>
-</div>
+</core-ui-page-wrapper>
 
 <shared-ui-form-dialog
   [(open)]="formDialogOpen"
