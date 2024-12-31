@@ -111,7 +111,6 @@ export class AlbumsPageComponent implements OnInit {
     this.albumsService.albums$.subscribe((albums: any) => {
       this.draftAlbums.set([])
       this.publishedAlbums.set([])
-      console.log(albums)
       albums.forEach((album: any) => {
         album.isDraft
           ? this.draftAlbums().push(album)

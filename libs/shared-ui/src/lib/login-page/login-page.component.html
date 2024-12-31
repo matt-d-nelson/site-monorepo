@@ -1,18 +1,20 @@
-<div class="flex justify-center mt-6">
-  <core-ui-button
-    [type]="BUTTON_TYPES().OUTLINE"
-    class="m-1"
-    label="Login"
-    (onClick)="loginUser()"
-  ></core-ui-button>
-  <core-ui-button
-    [type]="BUTTON_TYPES().OUTLINE"
-    [color]="CORE_COLORS().SECONDARY"
-    class="m-1"
-    label="Register"
-    (onClick)="registerUser()"
-  ></core-ui-button>
-</div>
+<core-ui-page-wrapper title="admin">
+  <div class="flex justify-center">
+    <core-ui-button
+      [type]="BUTTON_TYPES().OUTLINE"
+      class="m-1"
+      label="Login"
+      (onClick)="loginUser()"
+    ></core-ui-button>
+    <core-ui-button
+      [type]="BUTTON_TYPES().OUTLINE"
+      [color]="CORE_COLORS().SECONDARY"
+      class="m-1"
+      label="Register"
+      (onClick)="registerUser()"
+    ></core-ui-button>
+  </div>
+</core-ui-page-wrapper>
 
 <shared-ui-form-dialog
   [(open)]="formDialogOpen"
