@@ -1,9 +1,9 @@
-import {
-  ButtonComponent,
-  PageWrapperComponent,
-} from '@angular-monorepo/core-ui'
+import { ButtonComponent } from '@angular-monorepo/core-ui'
 import { Component, OnInit, signal } from '@angular/core'
-import { FormDialogComponent } from '../form-dialog/form-dialog.component'
+import {
+  FormDialogComponent,
+  PageWrapperComponent,
+} from '@angular-monorepo/shared-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import {
   AuthService,

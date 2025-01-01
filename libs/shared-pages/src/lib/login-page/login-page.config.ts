@@ -1,4 +1,7 @@
-import { FORM_DIALOG_INPUT_TYPES, FormDialogConfig } from '@angular-monorepo/shared-models'
+import {
+  FORM_DIALOG_INPUT_TYPES,
+  FormDialogConfig,
+} from '@angular-monorepo/shared-models'
 import {
   AbstractControl,
   FormControl,

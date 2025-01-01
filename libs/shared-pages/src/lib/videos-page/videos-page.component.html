@@ -6,7 +6,7 @@
 >
   <div *ngFor="let video of videos(); let i = index" class="my-10">
     <div
-      class="max-w-2xl p-4 mx-auto rounded-2xl"
+      class="p-4 mx-auto rounded-2xl"
       [ngClass]="{
         'video-wrapper-primary': i % 2 === 0,
         'video-wrapper-secondary': i % 2 !== 0

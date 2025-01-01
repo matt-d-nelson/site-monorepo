@@ -8,12 +8,11 @@ import {
 } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { Component, computed, OnInit, signal } from '@angular/core'
-import { FormDialogComponent } from '../form-dialog/form-dialog.component'
 import {
-  ButtonComponent,
-  LazyImgComponent,
+  FormDialogComponent,
   PageWrapperComponent,
-} from '@angular-monorepo/core-ui'
+} from '@angular-monorepo/shared-ui'
+import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui'
 import {
   CreateEventDialogConfig,
   UpdateEventDialogConfig,

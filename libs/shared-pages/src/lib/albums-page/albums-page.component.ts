@@ -5,7 +5,6 @@ import {
   ImgInputComponent,
   InputComponent,
   LazyImgComponent,
-  PageWrapperComponent,
   PlayButtonComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
@@ -17,6 +16,7 @@ import {
   OrgService,
   ToastService,
 } from '@angular-monorepo/shared-services'
+import { PageWrapperComponent } from '@angular-monorepo/shared-ui'
 import { CommonModule } from '@angular/common'
 import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core'
 import {

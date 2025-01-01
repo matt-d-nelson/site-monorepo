@@ -9,31 +9,31 @@ export const appRoutes: Route[] = [
   {
     path: 'home',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.HomePageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.HomePageComponent),
   },
   {
     path: 'about',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.AboutPageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.AboutPageComponent),
   },
   {
     path: 'login',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.LoginPageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.LoginPageComponent),
   },
   {
     path: 'events',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.EventsPageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.EventsPageComponent),
   },
   {
     path: 'video',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.VideosPageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.VideosPageComponent),
   },
   {
     path: 'music',
     loadComponent: () =>
-      import('@angular-monorepo/shared-ui').then(m => m.AlbumsPageComponent),
+      import('@angular-monorepo/shared-pages').then(m => m.AlbumsPageComponent),
   },
 ]

@@ -21,6 +21,7 @@
         "libs/shared-constants/src/index.ts"
       ],
       "@angular-monorepo/shared-models": ["libs/shared-models/src/index.ts"],
+      "@angular-monorepo/shared-pages": ["libs/shared-pages/src/index.ts"],
       "@angular-monorepo/shared-services": [
         "libs/shared-services/src/index.ts"
       ],

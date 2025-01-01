@@ -1,7 +1,7 @@
 import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
 import { Component, input, output, signal } from '@angular/core'
-import { ButtonComponent } from '../button/button.component'
+import { ButtonComponent } from '@angular-monorepo/core-ui'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({

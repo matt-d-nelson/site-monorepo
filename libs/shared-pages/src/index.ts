@@ -1,0 +1,6 @@
+export * from './lib/home-page/home-page.component'
+export * from './lib/login-page/login-page.component'
+export * from './lib/about-page/about-page.component'
+export * from './lib/events-page/events-page.component'
+export * from './lib/videos-page/videos-page.component'
+export * from './lib/albums-page/albums-page.component'

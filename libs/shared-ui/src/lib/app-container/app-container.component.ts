@@ -8,7 +8,7 @@ import {
 } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component'
-import { ToastComponent } from '@angular-monorepo/core-ui'
+import { ToastComponent } from '../toast/toast.component'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { OrgService } from '@angular-monorepo/shared-services'
 import { NgScrollbarModule } from 'ngx-scrollbar'
