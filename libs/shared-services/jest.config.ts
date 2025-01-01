@@ -1,6 +1,6 @@
 export default {
   displayName: 'shared-services',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../coverage/shared-services',
   transform: {

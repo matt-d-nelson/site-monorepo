@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   constructor(private orgService: OrgService, private router: Router) {}
 
   dropdownVisible = signal<boolean>(false)
-  dropdownConfig = signal<any>({})
+  dropdownConfig = signal<any>([])
   navColor = signal<string>('')
   svgColor = signal<string>('')
   logoImg = signal<string>('')
