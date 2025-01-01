@@ -23,7 +23,7 @@ import {
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
-import { ToastMessage } from '@angular-monorepo/shared-models'
+import { AboutData, FormDialogConfig, ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
@@ -58,13 +58,13 @@ export class AboutPageComponent implements OnInit {
 
   formDialogOpen = signal<boolean>(false)
   dialogLoading = signal<boolean>(false)
-  createBioDialogConfig = signal<any>(CreateAboutDialogConfig(this))
-  updateBioDialogConfig = signal<any>(UpdateAboutDialogConfig(this))
+  createBioDialogConfig = signal<FormDialogConfig>(CreateAboutDialogConfig(this))
+  updateBioDialogConfig = signal<FormDialogConfig>(UpdateAboutDialogConfig(this))
   previousBioValue = signal<any>(null)
-  activeDialogConfig = signal<any>(this.createBioDialogConfig())
+  activeDialogConfig = signal<FormDialogConfig>(this.createBioDialogConfig())
 
-  bios = signal<any[]>([])
-  primaryBio = signal<any>(null)
+  bios = signal<AboutData[]>([])
+  primaryBio = signal<AboutData | null>(null)
 
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {
@@ -77,8 +77,8 @@ export class AboutPageComponent implements OnInit {
   getAndFilterBios(orgId: string) {
     this.aboutService.getBios(orgId)
     this.aboutService.bios$.subscribe(bios => {
-      this.primaryBio.set(bios.find((bio: any) => bio.isPrimary))
-      this.bios.set(bios.filter((bio: any) => !bio.isPrimary))
+      this.primaryBio.set(bios.find((bio: AboutData) => bio.isPrimary) || null)
+      this.bios.set(bios.filter((bio: AboutData) => !bio.isPrimary))
     })
   }
 
@@ -87,7 +87,8 @@ export class AboutPageComponent implements OnInit {
     this.formDialogOpen.set(true)
   }
 
-  editBioClick(bio: any) {
+  editBioClick(bio: AboutData | null) {
+    if(!bio) return
     this.activeDialogConfig.set(this.updateBioDialogConfig())
     const previousBio = {
       ...bio,
@@ -98,7 +99,8 @@ export class AboutPageComponent implements OnInit {
     this.formDialogOpen.set(true)
   }
 
-  deleteBioClick(bio: any) {
+  deleteBioClick(bio: AboutData | null) {
+    if(!bio) return
     const successMsg: ToastMessage = {
       type: 'success',
       message: `${bio.name} was deleted`,
@@ -136,16 +138,17 @@ export class AboutPageComponent implements OnInit {
       bioForm.markAllAsTouched()
       return
     }
-    //FormData is necesary to attach image file in the way the BE can understand
+    //FormData is necesary for image encoding
+    const bioData = bioForm.value
     const data = new FormData()
-    data.append('name', bioForm.get('name').value)
-    data.append('biography', bioForm.get('biography').value)
-    data.append('isPrimary', bioForm.get('isPrimary').value)
-    data.append('image', bioForm.get('image').value)
+    data.append('name', bioData.name)
+    data.append('biography', bioData.biography)
+    data.append('isPrimary', bioData.isPrimary)
+    data.append('image', bioData.image)
 
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `${bioForm.get('name').value}'s bio was created`,
+      message: `${bioData.name}'s bio was created`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
@@ -174,9 +177,10 @@ export class AboutPageComponent implements OnInit {
       return
     }
 
+    const newBioValues = bioUpdateForm.value
     const bioDif = GetObjectDifference(
       this.previousBioValue(),
-      bioUpdateForm.value
+      newBioValues
     )
     if (isEmpty(bioDif)) {
       this.toastService.showToast({
@@ -193,13 +197,13 @@ export class AboutPageComponent implements OnInit {
       data.append('isPrimary', bioDif.isPrimary)
     }
     if (bioDif.image) {
-      data.append('imageId', bioUpdateForm.get('imageId').value)
+      data.append('imageId', newBioValues.imageId)
       data.append('image', bioDif.image, bioDif.image.name)
     }
 
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `${bioUpdateForm.get('name').value}'s bio was updated`,
+      message: `${newBioValues.name}'s bio was updated`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
@@ -207,7 +211,7 @@ export class AboutPageComponent implements OnInit {
     }
     this.dialogLoading.set(true)
     this.aboutService
-      .updateBio(this.orgId(), bioUpdateForm.get('id').value, data)
+      .updateBio(this.orgId(), newBioValues.id, data)
       .pipe(finalize(() => this.dialogLoading.set(false)))
       .subscribe({
         next: () => {

@@ -8,11 +8,11 @@
   <div *ngIf="primaryBio()">
     <div class="primaryBio-wrapper p-4 mb-3 max-w-xl">
       <div class="rounded-full overflow-hidden aspect-square">
-        <core-ui-lazy-img [source]="primaryBio().imageUrl"></core-ui-lazy-img>
+        <core-ui-lazy-img [source]="primaryBio()?.imageUrl || ''"></core-ui-lazy-img>
       </div>
       <div>
         <div class="flex justify-between items-center py-1 border-b-2">
-          <h2 class="text-xl px-2">{{ primaryBio().name }}</h2>
+          <h2 class="text-xl px-2">{{ primaryBio()?.name }}</h2>
           <div class="flex" *ngIf="userIsAdmin()">
             <core-ui-button
               [type]="BUTTON_TYPES().OUTLINE"
@@ -30,7 +30,7 @@
         </div>
         <div class="h-40 overflow-hidden">
           <ng-scrollbar>
-            <p class="text-xs p-2 md:text-base">{{ primaryBio().biography }}</p>
+            <p class="text-xs p-2 md:text-base">{{ primaryBio()?.biography }}</p>
           </ng-scrollbar>
         </div>
       </div>

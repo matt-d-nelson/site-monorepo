@@ -1,8 +1,9 @@
 import { ENV } from '@angular-monorepo/environments'
+import { AboutData } from '@angular-monorepo/shared-models'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
-import { BehaviorSubject, finalize, Observable, tap } from 'rxjs'
+import { BehaviorSubject, finalize, Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AboutService {
     private spinnerService: NgxSpinnerService
   ) {}
 
-  _bioCache = new BehaviorSubject<any[]>([])
+  _bioCache = new BehaviorSubject<AboutData[]>([])
   bios$ = this._bioCache.asObservable()
 
   createBio(orgId: string, body: {}): Observable<any> {
@@ -23,9 +24,9 @@ export class AboutService {
   getBios(orgId: string) {
     this.spinnerService.show()
     this.http
-      .get(`${ENV.API_URL}/api/about/${orgId}`)
+      .get<AboutData[]>(`${ENV.API_URL}/api/about/${orgId}`)
       .pipe(finalize(() => this.spinnerService.hide()))
-      .subscribe((bios: any) => {
+      .subscribe((bios: AboutData[]) => {
         this._bioCache.next(bios)
       })
   }
