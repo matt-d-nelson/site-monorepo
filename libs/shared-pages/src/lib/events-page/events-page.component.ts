@@ -17,7 +17,7 @@ import {
   CreateEventDialogConfig,
   UpdateEventDialogConfig,
 } from './events-page.config'
-import { ToastMessage } from '@angular-monorepo/shared-models'
+import { EventRes, ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
@@ -50,8 +50,8 @@ export class EventsPageComponent implements OnInit {
   bannerImg = signal<string>('')
   userIsAdmin = signal<boolean>(false)
 
-  upcomingEvents = signal<any>([]) //TODO: type
-  pastEvents = signal<any>([])
+  upcomingEvents = signal<EventRes[]>([])
+  pastEvents = signal<EventRes[]>([])
   sectionsConfig = computed(() => [
     {
       title: 'Upcoming',
@@ -85,10 +85,10 @@ export class EventsPageComponent implements OnInit {
     this.eventsService.getEvents(orgId)
     this.eventsService.events$.subscribe(events => {
       const today = new Date().setHours(0, 0, 0, 0)
-      const pastTemp: any = []
-      const upcomingTemp: any = []
+      const pastTemp: EventRes[] = []
+      const upcomingTemp: EventRes[] = []
 
-      events.forEach((event: any) => {
+      events.forEach((event: EventRes) => {
         const eventDate = new Date(event.date).setHours(0, 0, 0, 0)
         if (eventDate < today) {
           pastTemp.push(event)
@@ -106,14 +106,14 @@ export class EventsPageComponent implements OnInit {
     this.formDialogOpen.set(true)
   }
 
-  editEventClick(event: any) {
+  editEventClick(event: EventRes) {
     this.activeDialogConfig.set(this.updateEventDialogConfig())
     this.activeDialogConfig().form.patchValue(event)
     this.previousEventValue.set(event)
     this.formDialogOpen.set(true)
   }
 
-  deleteEventClick(event: any) {
+  deleteEventClick(event: EventRes) {
     const successMsg: ToastMessage = {
       type: 'success',
       message: `${event.name} was deleted`,
