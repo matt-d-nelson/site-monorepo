@@ -1,13 +1,18 @@
-<div class="page-wrapper min-h-[calc(100vh-6rem)] max-h-fit p-5 md:px-32">
-  <div class="flex justify-between mb-4">
-    <h1 class="text-3xl">{{ title() }}</h1>
-    <core-ui-button
-      *ngIf="userIsAdmin()"
-      [type]="BUTTON_TYPES().OUTLINE"
-      [label]="addLabel()"
-      (onClick)="onAdd.emit()"
-      class="flex justify-self-end"
-    ></core-ui-button>
+<ng-scrollbar>
+<!-- lil magic - ng-scrollbar interrupts hight calculations/ 6rem is nav + footer height -->
+  <div class="page-wrapper min-h-[calc(100vh-6rem)] p-5 md:px-32">
+    <div class="flex justify-between mb-4">
+      <h1 class="text-3xl">{{ title() }}</h1>
+      <core-ui-button
+        *ngIf="userIsAdmin()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [label]="addLabel()"
+        (onClick)="onAdd.emit()"
+        class="flex justify-self-end"
+      ></core-ui-button>
+    </div>
+    <div>
+      <ng-content></ng-content>
+    </div>
   </div>
-    <ng-content ></ng-content>
-</div>
+</ng-scrollbar>

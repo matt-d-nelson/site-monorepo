@@ -2,11 +2,12 @@ import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
 import { CommonModule } from '@angular/common'
 import { Component, input, output, signal } from '@angular/core'
 import { ButtonComponent } from '../button/button.component'
+import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'core-ui-page-wrapper',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, NgScrollbarModule],
   templateUrl: './page-wrapper.component.html',
   styleUrl: './page-wrapper.component.scss',
 })
