@@ -1,4 +1,5 @@
 import { ENV } from '@angular-monorepo/environments'
+import { Album } from '@angular-monorepo/shared-models'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
@@ -13,15 +14,15 @@ export class AlbumsService {
     private spinnerService: NgxSpinnerService
   ) {}
 
-  _albumsCache = new BehaviorSubject<any[]>([])
+  _albumsCache = new BehaviorSubject<Album[]>([])
   albums$ = this._albumsCache.asObservable()
 
   getAlbums(orgId: string) {
     this.spinnerService.show()
     this.http
-      .get(`${ENV.API_URL}/api/albums/${orgId}`)
+      .get<Album[]>(`${ENV.API_URL}/api/albums/${orgId}`)
       .pipe(finalize(() => this.spinnerService.hide()))
-      .subscribe((albums: any) => {
+      .subscribe((albums: Album[]) => {
         this._albumsCache.next(albums)
       })
   }

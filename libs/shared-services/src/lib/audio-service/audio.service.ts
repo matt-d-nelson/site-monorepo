@@ -1,3 +1,4 @@
+import { Album, AlbumTrack } from '@angular-monorepo/shared-models'
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
@@ -6,9 +7,9 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class AudioService {
   private audio: HTMLAudioElement
-  private _currentAlbum = new BehaviorSubject<any>(null)
+  private _currentAlbum = new BehaviorSubject<Album | null>(null)
   currentAlbum$ = this._currentAlbum.asObservable()
-  private _currentTrack = new BehaviorSubject<any | null>(null)
+  private _currentTrack = new BehaviorSubject<AlbumTrack | null>(null)
   currentTrack$ = this._currentTrack.asObservable()
   private _isPlaying = new BehaviorSubject<boolean>(false)
   isPlaying$ = this._isPlaying.asObservable()
@@ -48,11 +49,17 @@ export class AudioService {
     if (!album) {
       this._currentTrack.next(null)
       this._isPlaying.next(false)
+      return
     }
-    const currentTrackIdx = album.tracks.findIndex((track: any) => {
+    const currentTrackIdx = album?.tracks.findIndex((track: any) => {
       return track?.id === this._currentTrack.value?.id
     })
-    const nextTrack = album.tracks[currentTrackIdx + 1]
+    if(!currentTrackIdx) {
+      this._currentTrack.next(null)
+      this._isPlaying.next(false)
+      return
+    }
+    const nextTrack = album?.tracks[currentTrackIdx + 1]
     if (nextTrack && currentTrackIdx !== -1) {
       this.play(nextTrack)
     } else {
@@ -62,11 +69,11 @@ export class AudioService {
     }
   }
 
-  setCurrentAlbum(album: any) {
+  setCurrentAlbum(album: Album) {
     this._currentAlbum.next(album)
   }
 
-  play(track: any) {
+  play(track: AlbumTrack) {
     this._isPlaying.next(true)
     if (!this._currentTrack.value || this._currentTrack.value.id !== track.id) {
       this.audio.src = track.audioUrl

@@ -8,7 +8,7 @@ import {
   PlayButtonComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
-import { ToastMessage } from '@angular-monorepo/shared-models'
+import { Album, AlbumTrack, ToastMessage } from '@angular-monorepo/shared-models'
 import {
   AlbumsService,
   AuthService,
@@ -65,8 +65,8 @@ export class AlbumsPageComponent implements OnInit {
 
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
-  publishedAlbums = signal<any[]>([])
-  draftAlbums = signal<any[]>([])
+  publishedAlbums = signal<Album[]>([])
+  draftAlbums = signal<Album[]>([])
   expandedLyrics = signal<Set<string>>(new Set())
 
   // form management
@@ -108,10 +108,10 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   initSortAlbumsSub() {
-    this.albumsService.albums$.subscribe((albums: any) => {
+    this.albumsService.albums$.subscribe((albums) => {
       this.draftAlbums.set([])
       this.publishedAlbums.set([])
-      albums.forEach((album: any) => {
+      albums.forEach((album: Album) => {
         album.isDraft
           ? this.draftAlbums().push(album)
           : this.publishedAlbums().push(album)
@@ -254,7 +254,7 @@ export class AlbumsPageComponent implements OnInit {
       })
   }
 
-  deleteAlbumClick(album: any) {
+  deleteAlbumClick(album: Album) {
     const albumTitle = album?.name || 'unnamed draft'
     const successMsg: ToastMessage = {
       type: 'success',
@@ -343,7 +343,7 @@ export class AlbumsPageComponent implements OnInit {
     })
   }
 
-  deleteTrack(track: any) {
+  deleteTrack(track: AlbumTrack) {
     const successMsg: ToastMessage = {
       type: 'success',
       message: `Track deleted`,

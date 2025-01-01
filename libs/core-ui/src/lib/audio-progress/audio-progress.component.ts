@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs'
 export class AudioProgressComponent implements OnChanges, OnInit {
   constructor(private audioService: AudioService) {}
 
-  trackId = input.required<any>()
+  trackId = input.required<string>()
   playing = signal<boolean>(false)
   progress = signal<number>(0)
   private subscription?: Subscription

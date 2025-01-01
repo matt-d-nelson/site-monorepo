@@ -4,6 +4,7 @@ import { ButtonComponent } from '../button/button.component'
 import { CommonModule } from '@angular/common'
 import { AudioService } from '@angular-monorepo/shared-services'
 import { combineLatest, Subscription } from 'rxjs'
+import { Album, AlbumTrack } from '@angular-monorepo/shared-models'
 
 @Component({
   selector: 'core-ui-play-button',
@@ -19,8 +20,8 @@ export class PlayButtonComponent implements OnChanges, OnDestroy {
   color = input<CORE_COLORS>(CORE_COLORS.PRIMARY)
   // svg needs unique animation id
   id = input.required<string>()
-  track = input.required<any>()
-  album = input()
+  track = input.required<AlbumTrack>()
+  album = input<Album | null>(null)
   playing = signal<boolean>(false)
   private subscription?: Subscription
 
@@ -43,7 +44,7 @@ export class PlayButtonComponent implements OnChanges, OnDestroy {
     if (!this.playing()) {
       this.audioService.play(this.track())
       if (this.album()) {
-        this.audioService.setCurrentAlbum(this.album())
+        this.audioService.setCurrentAlbum(this.album() as Album)
       }
     } else {
       this.audioService.pause()
