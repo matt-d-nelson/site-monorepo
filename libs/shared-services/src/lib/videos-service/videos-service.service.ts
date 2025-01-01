@@ -1,6 +1,7 @@
 import { ENV } from '@angular-monorepo/environments'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Video } from '@angular-monorepo/shared-models'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { BehaviorSubject, finalize } from 'rxjs'
 
@@ -13,7 +14,7 @@ export class VideosService {
     private spinnerService: NgxSpinnerService
   ) {}
 
-  _videosCache = new BehaviorSubject<any[]>([])
+  _videosCache = new BehaviorSubject<Video[]>([])
   videos$ = this._videosCache.asObservable()
 
   createVideo(orgId: string, body: {}) {
@@ -23,9 +24,9 @@ export class VideosService {
   getVideos(orgId: string) {
     this.spinnerService.show()
     this.http
-      .get(`${ENV.API_URL}/api/videos/${orgId}`)
+      .get<Video[]>(`${ENV.API_URL}/api/videos/${orgId}`)
       .pipe(finalize(() => this.spinnerService.hide()))
-      .subscribe((videos: any) => {
+      .subscribe((videos: Video[]) => {
         this._videosCache.next(videos)
       })
   }
@@ -41,7 +42,7 @@ export class VideosService {
       .pipe(finalize(() => this.spinnerService.hide()))
   }
 
-  updateVideo(orgId: string, videoId: string, updatedData: any) {
+  updateVideo(orgId: string, videoId: string, updatedData: Partial<Video>) {
     return this.http.patch(
       `${ENV.API_URL}/api/videos/${orgId}/${videoId}`,
       updatedData

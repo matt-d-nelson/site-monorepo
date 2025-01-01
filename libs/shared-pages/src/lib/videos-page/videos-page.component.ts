@@ -15,7 +15,7 @@ import {
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
-import { ToastMessage } from '@angular-monorepo/shared-models'
+import { FormDialogConfig, ToastMessage, Video } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import {
   CreateVideoDialogConfig,
@@ -54,12 +54,12 @@ export class VideosPageComponent implements OnInit {
 
   formDialogOpen = signal<boolean>(false)
   dialogLoading = signal<boolean>(false)
-  createVideoConfig = signal<any>(CreateVideoDialogConfig(this))
-  updateVideoConfig = signal<any>(UpdateVideoDialogConfig(this))
+  createVideoConfig = signal<FormDialogConfig>(CreateVideoDialogConfig(this))
+  updateVideoConfig = signal<FormDialogConfig>(UpdateVideoDialogConfig(this))
   previousVideoValue = signal<any>(null)
-  activeDialogConfig = signal<any>(this.createVideoConfig())
+  activeDialogConfig = signal<FormDialogConfig>(this.createVideoConfig())
 
-  videos = signal<any[]>([])
+  videos = signal<Video[]>([])
 
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {
@@ -81,14 +81,14 @@ export class VideosPageComponent implements OnInit {
     this.formDialogOpen.set(true)
   }
 
-  editVideoClick(video: any) {
+  editVideoClick(video: Video) {
     this.activeDialogConfig.set(this.updateVideoConfig())
     this.activeDialogConfig().form.patchValue(video)
     this.previousVideoValue.set(video)
     this.formDialogOpen.set(true)
   }
 
-  deleteVideoClick(video: any) {
+  deleteVideoClick(video: Video) {
     const successMsg: ToastMessage = {
       type: 'success',
       message: `${video.name} was deleted`,
@@ -126,7 +126,7 @@ export class VideosPageComponent implements OnInit {
     }
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `The ${videoForm.get('name').value} video was created`,
+      message: `The ${videoForm.get('name')?.value} video was created`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
@@ -169,7 +169,7 @@ export class VideosPageComponent implements OnInit {
 
     const successMsg: ToastMessage = {
       type: 'success',
-      message: `${videoUpdateForm.get('name').value} was updated`,
+      message: `${videoUpdateForm.get('name')?.value} was updated`,
     }
     const errorMsg: ToastMessage = {
       type: 'error',
@@ -177,7 +177,7 @@ export class VideosPageComponent implements OnInit {
     }
     this.dialogLoading.set(true)
     this.videosService
-      .updateVideo(this.orgId(), videoUpdateForm.get('id').value, videoDif)
+      .updateVideo(this.orgId(), videoUpdateForm.get('id')?.value, videoDif)
       .pipe(finalize(() => this.dialogLoading.set(false)))
       .subscribe({
         next: () => {
