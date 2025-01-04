@@ -84,7 +84,7 @@
           <p
             class="pl-14 pr-4 text-xs md:text-base whitespace-pre-wrap overflow-hidden transition-all duration-300"
             [ngStyle]="{
-              'max-height': expandedLyrics().has(track.id) ? '1000px' : '0',
+              'max-height': expandedLyrics().has(track.id) ? 'none' : '0',
               opacity: expandedLyrics().has(track.id) ? '1' : '0',
               margin: expandedLyrics().has(track.id) ? '1rem 0' : '0'
             }"
@@ -162,7 +162,7 @@
               [control]="trackForm.get('file')"
               [parentForm]="trackForm"
               [loading]="dialogLoading()"
-              [acceptedFiles]="['wav', 'mp3']"
+              [acceptedFiles]="['wav', 'mp3', 'aiff']"
             ></core-ui-file-input>
             <core-ui-input
               label="Title"
