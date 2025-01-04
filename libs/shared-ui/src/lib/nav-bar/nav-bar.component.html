@@ -1,7 +1,5 @@
-<div class="h-full" [ngStyle]="{ background: navColor() }">
-  <div
-    class="h-full flex justify-end items-center px-4 mx-auto md:max-w-5xl"
-  >
+<div class="h-full relative z-20" [ngStyle]="{ background: navColor() }">
+  <div class="h-full flex justify-end items-center px-4 mx-auto md:max-w-5xl">
     <core-ui-button
       [icon]="menuIcon"
       (onClick)="toggleDropdown()"
@@ -10,7 +8,7 @@
 </div>
 
 <div
-  class="nav-dropdown p-4 md:max-w-5xl"
+  class="nav-dropdown p-4 pt-12 fixed top-0 bottom-0 left-1/2 -translate-x-1/2 w-full md:max-w-5xl"
   [ngClass]="{ 'nav-visible': dropdownVisible() }"
   [ngStyle]="{ background: navColor() }"
 >
