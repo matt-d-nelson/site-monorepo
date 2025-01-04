@@ -3,19 +3,21 @@
   <div class="absolute inset-0 -z-10">
     <ng-container *ngTemplateOutlet="background"></ng-container>
   </div>
-  <div class="relative z-10 flex flex-col h-full">
+  <div class="relative h-full">
     <!-- Header -->
-    <div class="sticky top-0 z-20 h-12">
+    <div class="absolute top-0 h-12 w-full z-10">
       <ng-container *ngTemplateOutlet="header"></ng-container>
     </div>
 
     <!-- Main -->
-    <main class="flex-1 overflow-hidden mx-auto w-full md:max-w-5xl">
+    <main
+      class="absolute top-12 bottom-12 left-1/2 -translate-x-1/2 overflow-hidden w-full md:max-w-5xl"
+    >
       <router-outlet></router-outlet>
     </main>
 
     <!-- Footer -->
-    <div class="sticky bottom-0 z-10 h-12">
+    <div class="absolute bottom-0 h-12 w-full">
       <ng-container *ngTemplateOutlet="footer"></ng-container>
     </div>
   </div>
