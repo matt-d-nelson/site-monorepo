@@ -1,5 +1,9 @@
-.album-wrapper {
+.album-wrapper-primary {
   background-color: rgba(var(--primary), 0.5);
+}
+
+.album-wrapper-secondary {
+  background-color: rgba(var(--secondary), 0.5);
 }
 
 .lyrics-btn {

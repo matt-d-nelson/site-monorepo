@@ -15,18 +15,24 @@
     </div>
   </div>
   <!-- published albums -->
-  <div *ngFor="let album of publishedAlbums()">
+  <div *ngFor="let album of publishedAlbums(); let i = index">
     <ng-container
       [ngTemplateOutlet]="albumCard"
-      [ngTemplateOutletContext]="{ album: album }"
+      [ngTemplateOutletContext]="{ album: album, index: i }"
     >
     </ng-container>
   </div>
 </core-ui-page-wrapper>
 
 <!-- album template -->
-<ng-template #albumCard let-album="album">
-  <div class="album-wrapper p-4 mx-auto rounded-2xl my-10">
+<ng-template #albumCard let-album="album" let-i="index">
+  <div
+    class="p-4 mx-auto rounded-2xl my-10"
+    [ngClass]="{
+      'album-wrapper-primary': i % 2 === 0,
+      'album-wrapper-secondary': i % 2 !== 0
+    }"
+  >
     <div class="grid grid-cols-2 gap-1 md:gap-4">
       <div
         class="aspect-square overflow-hidden rounded-2xl col-span-2 md:col-span-1"
@@ -51,7 +57,9 @@
         </div>
         <div class="grow overflow-hidden">
           <ng-scrollbar>
-            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{ album?.description }}</p>
+            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">
+              {{ album?.description }}
+            </p>
           </ng-scrollbar>
         </div>
       </div>
@@ -86,7 +94,9 @@
               opacity: expandedLyrics().has(track.id) ? '1' : '0',
               margin: expandedLyrics().has(track.id) ? '1rem 0' : '0'
             }"
-          >{{ track?.lyrics }}</p>
+          >
+            {{ track?.lyrics }}
+          </p>
         </div>
       </div>
     </div>
