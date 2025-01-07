@@ -57,9 +57,9 @@
         </div>
         <div class="grow overflow-hidden">
           <ng-scrollbar>
-            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">
-              {{ album?.description }}
-            </p>
+            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
+              album?.description
+            }}</p>
           </ng-scrollbar>
         </div>
       </div>
@@ -94,9 +94,8 @@
               opacity: expandedLyrics().has(track.id) ? '1' : '0',
               margin: expandedLyrics().has(track.id) ? '1rem 0' : '0'
             }"
+            >{{ track?.lyrics }}</p
           >
-            {{ track?.lyrics }}
-          </p>
         </div>
       </div>
     </div>

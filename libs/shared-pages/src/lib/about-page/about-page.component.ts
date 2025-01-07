@@ -23,7 +23,11 @@ import {
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
-import { AboutData, FormDialogConfig, ToastMessage } from '@angular-monorepo/shared-models'
+import {
+  AboutData,
+  FormDialogConfig,
+  ToastMessage,
+} from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
@@ -58,8 +62,12 @@ export class AboutPageComponent implements OnInit {
 
   formDialogOpen = signal<boolean>(false)
   dialogLoading = signal<boolean>(false)
-  createBioDialogConfig = signal<FormDialogConfig>(CreateAboutDialogConfig(this))
-  updateBioDialogConfig = signal<FormDialogConfig>(UpdateAboutDialogConfig(this))
+  createBioDialogConfig = signal<FormDialogConfig>(
+    CreateAboutDialogConfig(this)
+  )
+  updateBioDialogConfig = signal<FormDialogConfig>(
+    UpdateAboutDialogConfig(this)
+  )
   previousBioValue = signal<any>(null)
   activeDialogConfig = signal<FormDialogConfig>(this.createBioDialogConfig())
 
@@ -88,7 +96,7 @@ export class AboutPageComponent implements OnInit {
   }
 
   editBioClick(bio: AboutData | null) {
-    if(!bio) return
+    if (!bio) return
     this.activeDialogConfig.set(this.updateBioDialogConfig())
     const previousBio = {
       ...bio,
@@ -100,7 +108,7 @@ export class AboutPageComponent implements OnInit {
   }
 
   deleteBioClick(bio: AboutData | null) {
-    if(!bio) return
+    if (!bio) return
     const successMsg: ToastMessage = {
       type: 'success',
       message: `${bio.name} was deleted`,
@@ -178,10 +186,7 @@ export class AboutPageComponent implements OnInit {
     }
 
     const newBioValues = bioUpdateForm.value
-    const bioDif = GetObjectDifference(
-      this.previousBioValue(),
-      newBioValues
-    )
+    const bioDif = GetObjectDifference(this.previousBioValue(), newBioValues)
     if (isEmpty(bioDif)) {
       this.toastService.showToast({
         type: 'error',
