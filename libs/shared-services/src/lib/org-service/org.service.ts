@@ -6,8 +6,6 @@ import { BehaviorSubject } from 'rxjs'
   providedIn: 'root',
 })
 export class OrgService {
-  constructor() {}
-
   private _currentOrgId = new BehaviorSubject<ORGIDS>(ORGIDS.NONE)
   currentOrgId$ = this._currentOrgId.asObservable()
 
