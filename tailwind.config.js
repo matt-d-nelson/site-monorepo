@@ -8,6 +8,9 @@ module.exports = {
         '4/1': '4 / 1',
         '16/9': '16 / 9',
       },
+      borderColor: {
+        DEFAULT: '--text',
+      },
     },
   },
   plugins: [],

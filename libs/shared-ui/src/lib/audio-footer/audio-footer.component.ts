@@ -20,11 +20,13 @@ export class AudioFooterComponent implements OnInit {
   ) {}
 
   footerColor = signal<string>('')
+  textColor = signal<string>('')
   homeTrack = signal<any>(null)
 
   ngOnInit(): void {
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.footerColor.set(orgTheme.componentColors.footer.color)
+      this.textColor.set(orgTheme.componentColors.footer.textColor)
       this.homeTrack.set(orgTheme.componentColors.footer.homeTrack)
     })
     this.audioService.currentTrack$.subscribe(track => {
