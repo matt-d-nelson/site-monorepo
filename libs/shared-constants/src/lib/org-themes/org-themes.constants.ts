@@ -15,7 +15,24 @@ const OrgBaseColors = {
     black: '#2b2b2b',
     offBlack: '#323232',
   },
-  [ORGIDS.MATT]: {},
+  [ORGIDS.MATT]: {
+    black: '#030303',
+    black2: '#200f1c',
+    black3: '#34172c',
+    black4: '#512445',
+    black5: '#6d305d',
+    black6: '#81396f',
+    darkPink: '#9d4686',
+    pink: '#ec78d1',
+    gold: '#d1b166',
+    orange: '#ffac6b',
+    yellow: '#ffd360',
+    purple: '#9179e3',
+    salmon: '#ff6fa7',
+    white: '#eaeaea',
+    offWhite: '#e3e3e3',
+    offBlack: '#191919',
+  },
 }
 
 const OrgComponentColors = {
@@ -100,16 +117,107 @@ const OrgComponentColors = {
     },
     footer: {
       color: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      textColor: OrgBaseColors[ORGIDS.MATT].offWhite,
       homeTrack: {
         id: -1,
         name: 'Sweet Dreams',
         audioUrl:
-          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1735591883/monorepo/12356/static/Telestela_-_SpeakSiren_-_03_-_Sweet_Dreams_urnvdb.wav',
+          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1736798417/monorepo/12356/static/cto9vzsxxu5x6vzcfsn4.mp3',
         trackPlacement: 1,
       },
     },
   },
-  [ORGIDS.MATT]: {},
+  [ORGIDS.MATT]: {
+    core: {
+      [CORE_COLORS.PRIMARY]: OrgBaseColors[ORGIDS.MATT].pink,
+      [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.MATT].gold,
+      [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.MATT].yellow,
+      [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.MATT].salmon,
+      background: OrgBaseColors[ORGIDS.MATT].offWhite,
+      footer: OrgBaseColors[ORGIDS.MATT].black,
+      text: OrgBaseColors[ORGIDS.MATT].black,
+    },
+    backgroundWave: {
+      waveColors: {
+        w1: OrgBaseColors[ORGIDS.MATT].black,
+        w2: OrgBaseColors[ORGIDS.MATT].black2,
+        w3: OrgBaseColors[ORGIDS.MATT].black3,
+        w4: OrgBaseColors[ORGIDS.MATT].black4,
+        w5: OrgBaseColors[ORGIDS.MATT].black5,
+        w6: OrgBaseColors[ORGIDS.MATT].black6,
+        w7: OrgBaseColors[ORGIDS.MATT].darkPink,
+        w8: OrgBaseColors[ORGIDS.MATT].pink,
+      },
+      background: OrgBaseColors[ORGIDS.MATT].white,
+    },
+    nav: {
+      color: OrgBaseColors[ORGIDS.MATT].offWhite,
+      svgColor: OrgBaseColors[ORGIDS.MATT].black,
+      config: [
+        {
+          header: 'navigate',
+          links: [
+            {
+              title: 'home',
+              nav: '/home',
+              color: OrgBaseColors[ORGIDS.MATT].pink,
+            },
+            {
+              title: 'about',
+              nav: '/about',
+              color: OrgBaseColors[ORGIDS.MATT].darkPink,
+            },
+            {
+              title: 'code',
+              nav: '/code',
+              color: OrgBaseColors[ORGIDS.MATT].gold,
+            },
+            {
+              title: 'music',
+              nav: '/music',
+              color: OrgBaseColors[ORGIDS.MATT].black6,
+            },
+            {
+              title: 'video',
+              nav: '/video',
+              color: OrgBaseColors[ORGIDS.MATT].black5,
+            },
+          ],
+        },
+        {
+          header: 'connect',
+          links: [
+            {
+              title: 'linkedIn',
+              externalNav: 'https://www.linkedin.com/in/matthew-dav-nelson/',
+              color: OrgBaseColors[ORGIDS.MATT].black4,
+            },
+            {
+              title: 'github',
+              externalNav: 'https://github.com/matt-d-nelson',
+              color: OrgBaseColors[ORGIDS.MATT].black3,
+            },
+            {
+              title: 'email',
+              externalNav: 'mailto:matt.dav.nelson@gmail.com',
+              color: OrgBaseColors[ORGIDS.MATT].black2,
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      color: OrgBaseColors[ORGIDS.MATT].black,
+      textColor: OrgBaseColors[ORGIDS.MATT].white,
+      homeTrack: {
+        id: -1,
+        name: 'Pictures',
+        audioUrl:
+          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1736809344/monorepo/67890/static/msahjoa1iwi6fbuqgzm6.mp3',
+        trackPlacement: 1,
+      },
+    },
+  },
 }
 
 const OrgStaticResouces = {
@@ -120,7 +228,11 @@ const OrgStaticResouces = {
     eventsPage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
   },
-  [ORGIDS.MATT]: {},
+  [ORGIDS.MATT]: {
+    homePage:
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1736452146/monorepo/67890/static/bvwnlsr5arwn1u66py1k.png',
+    logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1736785750/monorepo/67890/static/zg93ibktdes1jjdizdqp.png',
+  },
 }
 
 export const OrgThemes = {

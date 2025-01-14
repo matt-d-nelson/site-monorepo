@@ -45,6 +45,17 @@
     },
     "e2e-ci--**/*": {
       "dependsOn": ["^build"]
+    },
+    "@nx/prettier:prettier": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.prettierrc.json",
+        "{workspaceRoot}/.prettierignore"
+      ],
+      "options": {
+        "config": ".prettierrc"
+      }
     }
   },
   "plugins": [

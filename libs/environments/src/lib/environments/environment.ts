@@ -1,6 +1,6 @@
-import { ENVIRONMENT } from "./environment.model";
+import { ENVIRONMENT } from './environment.model'
 
 export const ENV: ENVIRONMENT = {
-    PROD: false,
-    API_URL: 'http://localhost:3000'
+  PROD: false,
+  API_URL: 'http://localhost:3000',
 }

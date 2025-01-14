@@ -12,7 +12,7 @@
   [ngClass]="{ 'nav-visible': dropdownVisible() }"
   [ngStyle]="{ background: navColor() }"
 >
-  <div class="aspect-[4/1]">
+  <div class="aspect-[4/1] rounded-2xl overflow-hidden m-3">
     <core-ui-lazy-img [source]="logoImg()"></core-ui-lazy-img>
   </div>
   <div *ngFor="let config of dropdownConfig()" class="px-4">

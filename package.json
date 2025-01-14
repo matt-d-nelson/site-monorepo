@@ -7,8 +7,8 @@
     "format": "npx nx format:write",
     "telestela:dev": "npx nx run telestela:build:development; npx nx run telestela:serve:development",
     "telestela:prod": "npx nx run telestela:build:production; npx nx run telestela:serve:production",
-    "start:dev": "npm run telestela:dev",
-    "start": "npm run telestela:prod",
+    "matt:dev": "npx nx run matt-dav-nelson:build:development; npx nx run matt-dav-nelson:serve:development",
+    "matt:prod": "npx nx run matt-dav-nelson:build:production; npx nx run matt-dav-nelson:serve:production",
     "test": "npx nx run-many --target=test --all --skip-nx-cache"
   },
   "private": true,
