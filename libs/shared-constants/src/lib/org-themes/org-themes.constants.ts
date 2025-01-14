@@ -24,6 +24,7 @@ const OrgBaseColors = {
     black6: '#81396f',
     darkPink: '#9d4686',
     pink: '#ec78d1',
+    gold: '#d1b166',
     orange: '#ffac6b',
     yellow: '#ffd360',
     purple: '#9179e3',
@@ -129,7 +130,7 @@ const OrgComponentColors = {
   [ORGIDS.MATT]: {
     core: {
       [CORE_COLORS.PRIMARY]: OrgBaseColors[ORGIDS.MATT].pink,
-      [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.MATT].orange,
+      [CORE_COLORS.SECONDARY]: OrgBaseColors[ORGIDS.MATT].gold,
       [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.MATT].yellow,
       [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.MATT].salmon,
       background: OrgBaseColors[ORGIDS.MATT].offWhite,
@@ -164,22 +165,22 @@ const OrgComponentColors = {
             {
               title: 'about',
               nav: '/about',
-              color: OrgBaseColors[ORGIDS.MATT].black4,
+              color: OrgBaseColors[ORGIDS.MATT].darkPink,
             },
             {
               title: 'code',
               nav: '/code',
-              color: OrgBaseColors[ORGIDS.MATT].orange,
+              color: OrgBaseColors[ORGIDS.MATT].gold,
             },
             {
               title: 'music',
               nav: '/music',
-              color: OrgBaseColors[ORGIDS.MATT].darkPink,
+              color: OrgBaseColors[ORGIDS.MATT].black6,
             },
             {
               title: 'video',
               nav: '/video',
-              color: OrgBaseColors[ORGIDS.MATT].purple,
+              color: OrgBaseColors[ORGIDS.MATT].black5,
             },
           ],
         },
@@ -189,17 +190,17 @@ const OrgComponentColors = {
             {
               title: 'linkedIn',
               externalNav: 'https://www.linkedin.com/in/matthew-dav-nelson/',
-              color: OrgBaseColors[ORGIDS.MATT].salmon,
+              color: OrgBaseColors[ORGIDS.MATT].black4,
             },
             {
               title: 'github',
               externalNav: 'https://github.com/matt-d-nelson',
-              color: OrgBaseColors[ORGIDS.MATT].yellow,
+              color: OrgBaseColors[ORGIDS.MATT].black3,
             },
             {
               title: 'email',
               externalNav: 'mailto:matt.dav.nelson@gmail.com',
-              color: OrgBaseColors[ORGIDS.MATT].black5,
+              color: OrgBaseColors[ORGIDS.MATT].black2,
             },
           ],
         },
@@ -210,9 +211,9 @@ const OrgComponentColors = {
       textColor: OrgBaseColors[ORGIDS.MATT].white,
       homeTrack: {
         id: -1,
-        name: 'Sweet Dreams',
+        name: 'Pictures',
         audioUrl:
-          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1736798417/monorepo/12356/static/cto9vzsxxu5x6vzcfsn4.mp3',
+          'https://res.cloudinary.com/dllkd6o9h/video/upload/v1736809344/monorepo/67890/static/msahjoa1iwi6fbuqgzm6.mp3',
         trackPlacement: 1,
       },
     },
