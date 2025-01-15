@@ -15,7 +15,11 @@ import {
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
-import { FormDialogConfig, ToastMessage, Video } from '@angular-monorepo/shared-models'
+import {
+  FormDialogConfig,
+  ToastMessage,
+  Video,
+} from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import {
   CreateVideoDialogConfig,
@@ -25,7 +29,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
-  selector: 'shared-ui-videos-page',
+  selector: 'shared-pages-videos-page',
   standalone: true,
   imports: [
     CommonModule,

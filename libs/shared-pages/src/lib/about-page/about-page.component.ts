@@ -32,7 +32,7 @@ import { finalize } from 'rxjs'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
-  selector: 'shared-ui-about-page',
+  selector: 'shared-pages-about-page',
   standalone: true,
   imports: [
     CommonModule,
