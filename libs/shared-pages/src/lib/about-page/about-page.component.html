@@ -38,6 +38,20 @@
           </ng-scrollbar>
         </div>
       </div>
+      <div class="flex justify-end border-t-2 pt-2" *ngIf="themePdfs()">
+        <core-ui-button
+          [type]="BUTTON_TYPES().OUTLINE"
+          [color]="CORE_COLORS().SECONDARY"
+          label="Resume"
+          (onClick)="openPdfDialog('resume')"
+        ></core-ui-button>
+        <core-ui-button
+          [type]="BUTTON_TYPES().OUTLINE"
+          label="CV"
+          (onClick)="openPdfDialog('coverLetter')"
+          class="ml-2"
+        ></core-ui-button>
+      </div>
     </div>
     <div *ngIf="bios().length > 0" class="border-b-2 my-4 text-xl">
       <h3 class="px-2">members</h3>
@@ -86,3 +100,8 @@
   [dialogConfig]="activeDialogConfig()"
   [loading]="dialogLoading()"
 ></shared-ui-form-dialog>
+
+<shared-ui-pdf-dialog
+  [(open)]="pdfDialogOpen"
+  [pdf]="activePdf()"
+></shared-ui-pdf-dialog>
