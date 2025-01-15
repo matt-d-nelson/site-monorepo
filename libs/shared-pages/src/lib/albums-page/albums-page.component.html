@@ -37,7 +37,10 @@
       <div
         class="aspect-square overflow-hidden rounded-2xl col-span-2 md:col-span-1"
       >
-        <core-ui-lazy-img [source]="album?.coverArtUrl"></core-ui-lazy-img>
+        <core-ui-lazy-img
+          [source]="album?.coverArtUrl"
+          [lazy]="true"
+        ></core-ui-lazy-img>
       </div>
       <div
         class="flex flex-col aspect-[4/3] md:aspect-square overflow-hidden col-span-2 md:col-span-1"
