@@ -28,7 +28,7 @@ export class PdfDialogComponent {
   open = input(false)
   openChange = output<boolean>()
 
-  pdf = input.required<string>()
+  config = input.required<any>()
 
   constructor() {
     effect(() => {
@@ -47,5 +47,16 @@ export class PdfDialogComponent {
 
   updateDialogState() {
     this.open() ? this.openModal() : this.closeModal()
+  }
+
+  async downloadPdf() {
+    const response = await fetch(this.config().url)
+    const blob = await response.blob()
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = this.config().fileName
+    link.click()
+    window.URL.revokeObjectURL(url)
   }
 }
