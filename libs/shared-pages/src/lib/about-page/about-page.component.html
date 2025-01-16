@@ -11,9 +11,6 @@
         <core-ui-lazy-img
           [source]="primaryBio()?.imageUrl || ''"
         ></core-ui-lazy-img>
-        <core-ui-lazy-img
-          [source]="primaryBio()?.imageUrl || ''"
-        ></core-ui-lazy-img>
       </div>
       <div>
         <div class="flex justify-between items-center py-1 border-b-2">
@@ -88,9 +85,6 @@
         </div>
         <div class="h-40 overflow-hidden">
           <ng-scrollbar>
-            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
-              bio.biography
-            }}</p>
             <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
               bio.biography
             }}</p>
