@@ -7,6 +7,7 @@ import { Component, OnInit, signal } from '@angular/core'
 import {
   FormDialogComponent,
   PageWrapperComponent,
+  PdfDialogComponent,
 } from '@angular-monorepo/shared-ui'
 import {
   CreateAboutDialogConfig,
@@ -32,7 +33,7 @@ import { finalize } from 'rxjs'
 import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
-  selector: 'shared-ui-about-page',
+  selector: 'shared-pages-about-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -42,6 +43,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     LazyImgComponent,
     NgScrollbarModule,
     PageWrapperComponent,
+    PdfDialogComponent,
   ],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.scss',
@@ -59,6 +61,10 @@ export class AboutPageComponent implements OnInit {
   CORE_COLORS = signal(CORE_COLORS)
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
+
+  pdfDialogOpen = signal<boolean>(false)
+  themePdfs = signal<any>(null)
+  activePdf = signal<string>('')
 
   formDialogOpen = signal<boolean>(false)
   dialogLoading = signal<boolean>(false)
@@ -79,6 +85,10 @@ export class AboutPageComponent implements OnInit {
       this.orgId.set(orgId)
       this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
       this.getAndFilterBios(orgId)
+    })
+    this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
+      orgTheme?.staticResouces?.aboutPage &&
+        this.themePdfs.set(orgTheme.staticResouces.aboutPage)
     })
   }
 
@@ -228,5 +238,10 @@ export class AboutPageComponent implements OnInit {
           this.toastService.showToast(errorMsg)
         },
       })
+  }
+
+  openPdfDialog(pdf: 'resume' | 'coverLetter') {
+    this.activePdf.set(this.themePdfs()[pdf])
+    this.pdfDialogOpen.set(true)
   }
 }

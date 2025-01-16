@@ -16,7 +16,7 @@ import { ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 
 @Component({
-  selector: 'shared-ui-login-page',
+  selector: 'shared-pages-login-page',
   standalone: true,
   imports: [
     ButtonComponent,

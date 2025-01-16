@@ -11,6 +11,9 @@
         <core-ui-lazy-img
           [source]="primaryBio()?.imageUrl || ''"
         ></core-ui-lazy-img>
+        <core-ui-lazy-img
+          [source]="primaryBio()?.imageUrl || ''"
+        ></core-ui-lazy-img>
       </div>
       <div>
         <div class="flex justify-between items-center py-1 border-b-2">
@@ -32,11 +35,25 @@
         </div>
         <div class="h-40 overflow-hidden">
           <ng-scrollbar>
-            <p class="text-xs p-2 md:text-base">{{
+            <p class="text-xs p-2 md:text-base whitespace-pre-wrap">{{
               primaryBio()?.biography
             }}</p>
           </ng-scrollbar>
         </div>
+      </div>
+      <div class="flex justify-end border-t-2 pt-2" *ngIf="themePdfs()">
+        <core-ui-button
+          [type]="BUTTON_TYPES().OUTLINE"
+          [color]="CORE_COLORS().SECONDARY"
+          label="Resume"
+          (onClick)="openPdfDialog('resume')"
+        ></core-ui-button>
+        <core-ui-button
+          [type]="BUTTON_TYPES().OUTLINE"
+          label="CV"
+          (onClick)="openPdfDialog('coverLetter')"
+          class="ml-2"
+        ></core-ui-button>
       </div>
     </div>
     <div *ngIf="bios().length > 0" class="border-b-2 my-4 text-xl">
@@ -74,6 +91,9 @@
             <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
               bio.biography
             }}</p>
+            <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
+              bio.biography
+            }}</p>
           </ng-scrollbar>
         </div>
       </div>
@@ -86,3 +106,8 @@
   [dialogConfig]="activeDialogConfig()"
   [loading]="dialogLoading()"
 ></shared-ui-form-dialog>
+
+<shared-ui-pdf-dialog
+  [(open)]="pdfDialogOpen"
+  [config]="activePdf()"
+></shared-ui-pdf-dialog>

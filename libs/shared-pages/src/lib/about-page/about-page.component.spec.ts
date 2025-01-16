@@ -32,7 +32,7 @@ describe('AboutPageComponent', () => {
         {
           provide: OrgService,
           useValue: createSpyFromClass(OrgService, {
-            observablePropsToSpyOn: ['currentOrgId$'],
+            observablePropsToSpyOn: ['currentOrgId$', 'currentOrgTheme$'],
           }),
         },
         { provide: AuthService, useValue: createSpyFromClass(AuthService) },

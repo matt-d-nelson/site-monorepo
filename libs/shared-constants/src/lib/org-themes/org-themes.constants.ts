@@ -220,7 +220,7 @@ const OrgComponentColors = {
   },
 }
 
-const OrgStaticResouces = {
+const OrgStaticResouces: any = {
   [ORGIDS.TELESTELA]: {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
@@ -232,6 +232,18 @@ const OrgStaticResouces = {
     homePage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1736452146/monorepo/67890/static/bvwnlsr5arwn1u66py1k.png',
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1736785750/monorepo/67890/static/zg93ibktdes1jjdizdqp.png',
+    aboutPage: {
+      resume: {
+        title: 'Resume',
+        fileName: 'Matthew-Nelson-Resume.pdf',
+        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737058324/monorepo/67890/static/resume.pdf',
+      },
+      coverLetter: {
+        title: 'Cover Letter',
+        fileName: 'Matthew-Nelson-CoverLetter.pdf',
+        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737059106/monorepo/67890/static/coverLetter.pdf',
+      },
+    },
   },
 }
 

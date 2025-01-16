@@ -8,7 +8,11 @@ import {
   PlayButtonComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
-import { Album, AlbumTrack, ToastMessage } from '@angular-monorepo/shared-models'
+import {
+  Album,
+  AlbumTrack,
+  ToastMessage,
+} from '@angular-monorepo/shared-models'
 import {
   AlbumsService,
   AuthService,
@@ -31,7 +35,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { finalize } from 'rxjs'
 
 @Component({
-  selector: 'shared-ui-albums-page',
+  selector: 'shared-pages-albums-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -108,7 +112,7 @@ export class AlbumsPageComponent implements OnInit {
   }
 
   initSortAlbumsSub() {
-    this.albumsService.albums$.subscribe((albums) => {
+    this.albumsService.albums$.subscribe(albums => {
       this.draftAlbums.set([])
       this.publishedAlbums.set([])
       albums.forEach((album: Album) => {

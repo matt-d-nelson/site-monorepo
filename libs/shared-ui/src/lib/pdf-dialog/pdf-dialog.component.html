@@ -1,0 +1,25 @@
+<dialog #pdfDialog class="w-[40rem] h-full p-6 dialog-body">
+  <div class="flex flex-col h-full">
+    <h1 class="mb-3 text-xl border-b-2">{{ config().title }}</h1>
+    <pdf-viewer
+      [src]="config().url"
+      [autoresize]="true"
+      [original-size]="false"
+      class="w-full flex-1"
+    ></pdf-viewer>
+    <div class="flex justify-end mt-3">
+      <core-ui-button
+        label="Close"
+        (onClick)="closeModal()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [color]="CORE_COLORS().DANGER"
+      ></core-ui-button>
+      <core-ui-button
+        label="Download"
+        (onClick)="downloadPdf().then()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        class="ml-3"
+      ></core-ui-button>
+    </div>
+  </div>
+</dialog>

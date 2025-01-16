@@ -17,7 +17,7 @@ export class AboutService {
   _bioCache = new BehaviorSubject<AboutData[]>([])
   bios$ = this._bioCache.asObservable()
 
-  createBio(orgId: string, body: {}): Observable<any> {
+  createBio(orgId: string, body: any): Observable<any> {
     return this.http.post(`${ENV.API_URL}/api/about/${orgId}`, body)
   }
 
@@ -43,7 +43,7 @@ export class AboutService {
       .pipe(finalize(() => this.spinnerService.hide()))
   }
 
-  updateBio(orgId: string, bioId: string, body: {}): Observable<any> {
+  updateBio(orgId: string, bioId: string, body: any): Observable<any> {
     return this.http.patch(`${ENV.API_URL}/api/about/${orgId}/${bioId}`, body)
   }
 }

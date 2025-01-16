@@ -23,7 +23,7 @@ import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
 import { isEmpty } from 'lodash'
 
 @Component({
-  selector: 'shared-ui-events-page',
+  selector: 'shared-pages-events-page',
   standalone: true,
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@ import { OrgService } from '@angular-monorepo/shared-services'
 import { Component, OnInit, signal } from '@angular/core'
 
 @Component({
-  selector: 'shared-ui-home-page',
+  selector: 'shared-pages-home-page',
   standalone: true,
   imports: [LazyImgComponent],
   templateUrl: './home-page.component.html',

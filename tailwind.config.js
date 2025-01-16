@@ -9,7 +9,7 @@ module.exports = {
         '16/9': '16 / 9',
       },
       borderColor: {
-        DEFAULT: '--text',
+        DEFAULT: 'var(--text)',
       },
     },
   },
