@@ -1,10 +1,14 @@
-import {reduce, isEqual} from 'lodash'
+import { reduce, isEqual } from 'lodash-es'
 
 export function GetObjectDifference(obj1: any, obj2: any) {
-    return reduce(obj2, (result: any, value: any, key: string) => {
-        if (!isEqual(value, obj1[key])) {
-            result[key] = value
-        }
-        return result
-    }, {})
-} 
+  return reduce(
+    obj2,
+    (result: any, value: any, key: string) => {
+      if (!isEqual(value, obj1[key])) {
+        result[key] = value
+      }
+      return result
+    },
+    {}
+  )
+}
