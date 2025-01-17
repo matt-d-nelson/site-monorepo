@@ -22,7 +22,10 @@
             "input": "apps/matt-dav-nelson/public"
           }
         ],
-        "styles": ["apps/matt-dav-nelson//src/styles.scss"],
+        "styles": [
+          "apps/matt-dav-nelson//src/styles.scss",
+          "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+        ],
         "scripts": []
       },
       "configurations": {

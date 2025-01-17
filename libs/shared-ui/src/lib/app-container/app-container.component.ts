@@ -11,7 +11,6 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { ToastComponent } from '../toast/toast.component'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { OrgService } from '@angular-monorepo/shared-services'
-import { NgScrollbarModule } from 'ngx-scrollbar'
 
 @Component({
   selector: 'shared-ui-app-container',
@@ -22,7 +21,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
     ConfirmationDialogComponent,
     ToastComponent,
     NgxSpinnerModule,
-    NgScrollbarModule,
   ],
   templateUrl: './app-container.component.html',
   styleUrl: './app-container.component.scss',
@@ -35,7 +33,6 @@ export class AppContainerComponent implements OnInit {
   constructor(private orgService: OrgService) {}
 
   ngOnInit(): void {
-    // TODO: I'm not a huge fan of this being here
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.spinnerTheme.set({
         ...this.spinnerTheme(),

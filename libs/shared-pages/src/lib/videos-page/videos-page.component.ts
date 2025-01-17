@@ -76,7 +76,7 @@ export class VideosPageComponent implements OnInit {
   getVideos(orgId: string) {
     this.videosService.getVideos(orgId)
     this.videosService.videos$.subscribe(videos => {
-      this.videos.set(videos)
+      this.sanitizeAndSetVideos(videos)
     })
   }
 
@@ -196,7 +196,12 @@ export class VideosPageComponent implements OnInit {
   }
 
   isSafeVideoUrl(url: string): boolean {
-    const allowedDomains = ['youtube.com', 'youtu.be', 'vimeo.com']
+    const allowedDomains = [
+      'youtube.com',
+      'youtu.be',
+      'youtube-nocookie.com',
+      'vimeo.com',
+    ]
 
     try {
       const parsedUrl = new URL(url)
@@ -211,5 +216,13 @@ export class VideosPageComponent implements OnInit {
       return this.sanitizer.bypassSecurityTrustResourceUrl(url)
     }
     return null
+  }
+
+  sanitizeAndSetVideos(videos: Video[]) {
+    const sanitizedVideos: Video[] = videos.map((video: Video) => {
+      video.safeLink = this.getSafeVideoUrl(video.link)
+      return video
+    })
+    this.videos.set(sanitizedVideos)
   }
 }

@@ -17,7 +17,7 @@ export class VideosService {
   _videosCache = new BehaviorSubject<Video[]>([])
   videos$ = this._videosCache.asObservable()
 
-  createVideo(orgId: string, body: {}) {
+  createVideo(orgId: string, body: any) {
     return this.http.post(`${ENV.API_URL}/api/videos/${orgId}`, body)
   }
 
