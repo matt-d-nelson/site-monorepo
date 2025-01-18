@@ -27,6 +27,11 @@ export const appRoutes: Route[] = [
       import('@angular-monorepo/shared-pages').then(m => m.AlbumsPageComponent),
   },
   {
+    path: 'code',
+    loadComponent: () =>
+      import('@angular-monorepo/shared-pages').then(m => m.CodePageComponent),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('@angular-monorepo/shared-pages').then(m => m.LoginPageComponent),
