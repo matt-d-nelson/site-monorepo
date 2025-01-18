@@ -1,5 +1,6 @@
 import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
+import { FormDialogConfig } from '@angular-monorepo/shared-models'
 import {
   AuthService,
   ConfirmationDialogService,
@@ -13,6 +14,10 @@ import {
 import { CommonModule } from '@angular/common'
 import { Component, OnInit, signal } from '@angular/core'
 import { NgScrollbarModule } from 'ngx-scrollbar'
+import {
+  CreateCodeDialogConfig,
+  UpdateCodeDialogConfig,
+} from './code-page.config'
 
 @Component({
   selector: 'shared-pages-code-page',
@@ -41,6 +46,15 @@ export class CodePageComponent implements OnInit {
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
 
+  formDialogOpen = signal<boolean>(false)
+  dialogLoading = signal<boolean>(false)
+  createProjectConfig = signal<FormDialogConfig>(CreateCodeDialogConfig(this))
+  updateProjectConfig = signal<FormDialogConfig>(UpdateCodeDialogConfig(this))
+  previousProjectValue = signal<any>(null)
+  activeDialogConfig = signal<FormDialogConfig>(this.createProjectConfig())
+
+  projects = signal<any[]>([])
+
   ngOnInit(): void {
     this.orgService.currentOrgId$.subscribe(orgId => {
       this.orgId.set(orgId)
@@ -49,6 +63,27 @@ export class CodePageComponent implements OnInit {
   }
 
   addCodeClick() {
-    console.log('hey bitch')
+    this.activeDialogConfig.set(this.createProjectConfig())
+    this.formDialogOpen.set(true)
+  }
+
+  editBioClick(project: any | null) {
+    if (!project) return
+    this.activeDialogConfig.set(this.updateProjectConfig())
+    const previousProject = {
+      ...project,
+      image: project.imageUrl,
+    }
+    this.activeDialogConfig().form.patchValue(previousProject)
+    this.previousProjectValue.set(previousProject)
+    this.formDialogOpen.set(true)
+  }
+
+  createProject() {
+    console.log('yo bitch')
+  }
+
+  updateProject() {
+    console.log('sup bitch')
   }
 }
