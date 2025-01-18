@@ -26,6 +26,8 @@ export interface FormControlConfig {
   control: string
   type: FORM_DIALOG_INPUT_TYPES | string
   options?: RadioOptions[]
+  roundCropper?: boolean
+  aspectRatio?: 'sqr' | 'rect'
 }
 
 export interface FormDialogConfig {

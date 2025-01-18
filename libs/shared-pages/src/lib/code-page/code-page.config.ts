@@ -1,14 +1,17 @@
 import {
   FORM_DIALOG_INPUT_TYPES,
+  FormControlConfig,
   FormDialogConfig,
 } from '@angular-monorepo/shared-models'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
-const codeFormConfig = [
+const codeFormConfig: FormControlConfig[] = [
   {
     label: 'Image',
     control: 'image',
     type: FORM_DIALOG_INPUT_TYPES.IMAGE,
+    roundCropper: false,
+    aspectRatio: 'rect',
   },
   {
     label: 'Name',

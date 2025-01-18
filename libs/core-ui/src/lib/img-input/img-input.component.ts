@@ -2,12 +2,7 @@ import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
 import { Component, input, OnInit, signal } from '@angular/core'
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper'
 import { ButtonComponent } from '../button/button.component'
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms'
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'core-ui-img-input',
@@ -26,7 +21,9 @@ export class ImgInputComponent implements OnInit {
 
   parentForm = input.required<FormGroup>()
   control = input.required<any>()
-  roundCropper = input(false)
+  roundCropper = input<boolean | undefined>(false)
+  aspectRatio = input<'sqr' | 'rect'>('sqr')
+  calculatedAR = signal<number>(1 / 1)
 
   imageChangedEvent = signal<any>('')
 
@@ -36,6 +33,16 @@ export class ImgInputComponent implements OnInit {
         this.imageChangedEvent.set('')
       }
     })
+    this.calculateAR()
+  }
+
+  calculateAR() {
+    if (this.aspectRatio() === 'sqr') {
+      this.calculatedAR.set(1 / 1)
+    }
+    if (this.aspectRatio() === 'rect') {
+      this.calculatedAR.set(4 / 3)
+    }
   }
 
   handleFileChange(event: any) {

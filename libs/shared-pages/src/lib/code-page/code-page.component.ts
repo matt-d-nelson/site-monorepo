@@ -1,8 +1,9 @@
 import { ButtonComponent, LazyImgComponent } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
-import { FormDialogConfig } from '@angular-monorepo/shared-models'
+import { FormDialogConfig, ToastMessage } from '@angular-monorepo/shared-models'
 import {
   AuthService,
+  CodeService,
   ConfirmationDialogService,
   OrgService,
   ToastService,
@@ -18,6 +19,7 @@ import {
   CreateCodeDialogConfig,
   UpdateCodeDialogConfig,
 } from './code-page.config'
+import { finalize } from 'rxjs'
 
 @Component({
   selector: 'shared-pages-code-page',
@@ -35,6 +37,7 @@ import {
 })
 export class CodePageComponent implements OnInit {
   constructor(
+    private codeService: CodeService,
     private orgService: OrgService,
     private confirmationDialogService: ConfirmationDialogService,
     private authService: AuthService,
@@ -62,6 +65,13 @@ export class CodePageComponent implements OnInit {
     })
   }
 
+  getCodeProjects(orgId: string) {
+    this.codeService.getProjects(orgId)
+    this.codeService.projects$.subscribe(projects => {
+      this.projects.set(projects)
+    })
+  }
+
   addCodeClick() {
     this.activeDialogConfig.set(this.createProjectConfig())
     this.formDialogOpen.set(true)
@@ -80,7 +90,44 @@ export class CodePageComponent implements OnInit {
   }
 
   createProject() {
-    console.log('yo bitch')
+    const projForm = this.createProjectConfig().form
+    if (!projForm.valid) {
+      projForm.markAllAsTouched()
+      return
+    }
+
+    const projData = projForm.value
+    const data = new FormData()
+    data.append('name', projData.name)
+    data.append('date', projData.date)
+    data.append('description', projData.description)
+    data.append('repo', projData.repo)
+    data.append('link', projData.link)
+    data.append('image', projData.image)
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${projData.name} was created`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error creating bio`,
+    }
+
+    this.dialogLoading.set(true)
+    this.codeService
+      .createProject(this.orgId(), data)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.toastService.showToast(successMsg)
+          this.codeService.getProjects(this.orgId())
+          this.formDialogOpen.set(false)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 
   updateProject() {
