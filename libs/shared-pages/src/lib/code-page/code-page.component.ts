@@ -62,6 +62,7 @@ export class CodePageComponent implements OnInit {
     this.orgService.currentOrgId$.subscribe(orgId => {
       this.orgId.set(orgId)
       this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
+      this.getCodeProjects(orgId)
     })
   }
 
@@ -69,15 +70,20 @@ export class CodePageComponent implements OnInit {
     this.codeService.getProjects(orgId)
     this.codeService.projects$.subscribe(projects => {
       this.projects.set(projects)
+      console.log(projects)
     })
   }
 
-  addCodeClick() {
+  addProjectClick() {
     this.activeDialogConfig.set(this.createProjectConfig())
     this.formDialogOpen.set(true)
   }
 
-  editBioClick(project: any | null) {
+  deleteProjectClick(project: any | null) {
+    if (!project) return
+  }
+
+  editProjectClick(project: any | null) {
     if (!project) return
     this.activeDialogConfig.set(this.updateProjectConfig())
     const previousProject = {
@@ -132,5 +138,9 @@ export class CodePageComponent implements OnInit {
 
   updateProject() {
     console.log('sup bitch')
+  }
+
+  navigateExternal(link: string) {
+    window.open(link, '_blank')
   }
 }

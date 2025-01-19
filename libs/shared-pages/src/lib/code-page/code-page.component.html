@@ -2,8 +2,65 @@
   title="code"
   addLabel="Add Project"
   [userIsAdmin]="userIsAdmin()"
-  (onAdd)="addCodeClick()"
-></core-ui-page-wrapper>
+  (onAdd)="addProjectClick()"
+>
+  <div *ngFor="let project of projects(); let i = index" class="my-10">
+    <div
+      class="p-4 mx-auto rounded-2xl"
+      [ngClass]="{
+        'project-wrapper-primary': i % 2 === 0,
+        'project-wrapper-secondary': i % 2 !== 0
+      }"
+    >
+      <div class="flex justify-between items-center py-1 border-b-2">
+        <h2 class="px-2 text-xl">{{ project.name }}</h2>
+        <p class="text-xs px-2">{{ project.date }}</p>
+        <div class="flex" *ngIf="userIsAdmin()">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().DANGER"
+            label="Delete"
+            (onClick)="deleteProjectClick(project)"
+          ></core-ui-button>
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            label="Edit"
+            (onClick)="editProjectClick(project)"
+            class="ml-2"
+          ></core-ui-button>
+        </div>
+      </div>
+      <div class="border-b-2 py-2 md:px-16 px-2">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden">
+          <core-ui-lazy-img [source]="project.imageUrl"></core-ui-lazy-img>
+        </div>
+        <div class="flex w-full mt-2">
+          <core-ui-button
+            [type]="BUTTON_TYPES().OUTLINE"
+            [color]="CORE_COLORS().SECONDARY"
+            label="Repo"
+            (onClick)="navigateExternal(project.repo)"
+            class="w-full"
+          ></core-ui-button>
+          <core-ui-button
+            *ngIf="project?.link"
+            [type]="BUTTON_TYPES().OUTLINE"
+            label="Site"
+            (onClick)="navigateExternal(project.link)"
+            class="ml-2 w-full"
+          ></core-ui-button>
+        </div>
+      </div>
+      <div class="h-40 md:h-56 overflow-hidden">
+        <ng-scrollbar>
+          <p class="text-xs md:text-base p-2 whitespace-pre-wrap">{{
+            project.description
+          }}</p>
+        </ng-scrollbar>
+      </div>
+    </div>
+  </div>
+</core-ui-page-wrapper>
 
 <shared-ui-form-dialog
   [(open)]="formDialogOpen"
