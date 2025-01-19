@@ -40,7 +40,7 @@ export class CodeService {
       .delete(`${ENV.API_URL}/api/code-projects/${orgId}`, {
         params: {
           imageId: imageId,
-          bioId: projId,
+          projId: projId,
         },
       })
       .pipe(finalize(() => this.spinnerService.hide()))

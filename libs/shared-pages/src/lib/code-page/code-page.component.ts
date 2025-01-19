@@ -81,6 +81,35 @@ export class CodePageComponent implements OnInit {
 
   deleteProjectClick(project: any | null) {
     if (!project) return
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${project.name} was deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting bio`,
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Bio',
+        message: `Are you sure you want to delete ${project.name}?`,
+        confirmText: 'Delete',
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.codeService
+          .deleteProject(this.orgId(), project.id, project.imageId)
+          .subscribe({
+            next: () => {
+              this.toastService.showToast(successMsg)
+              this.codeService.getProjects(this.orgId())
+            },
+            error: () => {
+              this.toastService.showToast(errorMsg)
+            },
+          })
+      })
   }
 
   editProjectClick(project: any | null) {
