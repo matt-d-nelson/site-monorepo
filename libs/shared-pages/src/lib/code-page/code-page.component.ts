@@ -72,7 +72,6 @@ export class CodePageComponent implements OnInit {
     this.codeService.getProjects(orgId)
     this.codeService.projects$.subscribe(projects => {
       this.projects.set(projects)
-      console.log(projects)
     })
   }
 

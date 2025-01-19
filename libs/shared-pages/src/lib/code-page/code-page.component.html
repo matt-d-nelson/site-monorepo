@@ -43,7 +43,7 @@
             class="w-full"
           ></core-ui-button>
           <core-ui-button
-            *ngIf="project?.link"
+            *ngIf="project!.link && project.link !== 'null'"
             [type]="BUTTON_TYPES().OUTLINE"
             label="Site"
             (onClick)="navigateExternal(project.link)"

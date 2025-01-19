@@ -53,7 +53,7 @@ export function CreateCodeDialogConfig(component: any): FormDialogConfig {
       date: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       repo: new FormControl('', [Validators.required]),
-      link: new FormControl('', [Validators.required]),
+      link: new FormControl(''),
     }),
     formConfig: codeFormConfig,
   }
@@ -72,7 +72,7 @@ export function UpdateCodeDialogConfig(component: any): FormDialogConfig {
       date: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       repo: new FormControl('', [Validators.required]),
-      link: new FormControl('', [Validators.required]),
+      link: new FormControl(''),
       id: new FormControl('', [Validators.required]),
       imageId: new FormControl('', [Validators.required]),
     }),
