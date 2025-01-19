@@ -213,7 +213,7 @@ export class AboutPageComponent implements OnInit {
     }
     if (bioDif.image) {
       data.append('imageId', newBioValues.imageId)
-      data.append('image', bioDif.image, bioDif.image.name)
+      data.append('image', bioDif.image)
     }
 
     const successMsg: ToastMessage = {

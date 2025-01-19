@@ -20,6 +20,8 @@ import {
   UpdateCodeDialogConfig,
 } from './code-page.config'
 import { finalize } from 'rxjs'
+import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
+import { isEmpty } from 'lodash-es'
 
 @Component({
   selector: 'shared-pages-code-page',
@@ -166,7 +168,59 @@ export class CodePageComponent implements OnInit {
   }
 
   updateProject() {
-    console.log('sup bitch')
+    const projectUpdateForm = this.updateProjectConfig().form
+    if (!projectUpdateForm.valid) {
+      projectUpdateForm.markAllAsTouched()
+      return
+    }
+
+    const newProjValues = projectUpdateForm.value
+    const projDif = GetObjectDifference(
+      this.previousProjectValue(),
+      newProjValues
+    )
+    if (isEmpty(projDif)) {
+      this.toastService.showToast({
+        type: 'error',
+        message: 'No updates detected',
+      })
+      return
+    }
+
+    const data = new FormData()
+    projDif.name && data.append('name', projDif.name)
+    projDif.date && data.append('date', projDif.date)
+    projDif.description && data.append('description', projDif.description)
+    projDif.repo && data.append('repo', projDif.repo)
+    projDif.link && data.append('link', projDif.link)
+
+    if (projDif.image) {
+      data.append('imageId', newProjValues.imageId)
+      data.append('image', projDif.image)
+    }
+
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${newProjValues.name} was updated`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error updating project`,
+    }
+    this.dialogLoading.set(true)
+    this.codeService
+      .updateProject(this.orgId(), newProjValues.id, data)
+      .pipe(finalize(() => this.dialogLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.toastService.showToast(successMsg)
+          this.codeService.getProjects(this.orgId())
+          this.formDialogOpen.set(false)
+        },
+        error: () => {
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 
   navigateExternal(link: string) {

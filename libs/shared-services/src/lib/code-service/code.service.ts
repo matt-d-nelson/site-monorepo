@@ -46,7 +46,7 @@ export class CodeService {
       .pipe(finalize(() => this.spinnerService.hide()))
   }
 
-  updateBio(orgId: string, projId: string, body: any): Observable<any> {
+  updateProject(orgId: string, projId: string, body: any): Observable<any> {
     return this.http.patch(
       `${ENV.API_URL}/api/code-projects/${orgId}/${projId}`,
       body
