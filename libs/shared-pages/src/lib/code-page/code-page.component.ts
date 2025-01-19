@@ -140,7 +140,7 @@ export class CodePageComponent implements OnInit {
     data.append('description', projData.description)
     data.append('repo', projData.repo)
     data.append('link', projData.link)
-    data.append('image', projData.image)
+    data.append('image', projData.image, projData.image.name)
 
     const successMsg: ToastMessage = {
       type: 'success',
@@ -196,7 +196,7 @@ export class CodePageComponent implements OnInit {
 
     if (projDif.image) {
       data.append('imageId', newProjValues.imageId)
-      data.append('image', projDif.image)
+      data.append('image', projDif.image, projDif.image.name)
     }
 
     const successMsg: ToastMessage = {

@@ -29,7 +29,7 @@ export class ImgInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.control().valueChanges.subscribe((value: any) => {
-      if (!value) {
+      if (!value || value === '') {
         this.imageChangedEvent.set('')
       }
     })
@@ -51,6 +51,13 @@ export class ImgInputComponent implements OnInit {
 
   handleImageCropped(event: ImageCroppedEvent) {
     if (!event.blob) return
-    this.control()?.setValue(event.blob)
+
+    const originalFile = (this.imageChangedEvent() as any)?.target?.files?.[0]
+    const mimeType = originalFile?.type || 'image/png'
+    const croppedFile = new File([event.blob], originalFile?.name || 'image', {
+      type: mimeType,
+    })
+
+    this.control()?.setValue(croppedFile)
   }
 }

@@ -162,7 +162,7 @@ export class AboutPageComponent implements OnInit {
     data.append('name', bioData.name)
     data.append('biography', bioData.biography)
     data.append('isPrimary', bioData.isPrimary)
-    data.append('image', bioData.image)
+    data.append('image', bioData.image, bioData.image.name)
 
     const successMsg: ToastMessage = {
       type: 'success',
@@ -213,7 +213,7 @@ export class AboutPageComponent implements OnInit {
     }
     if (bioDif.image) {
       data.append('imageId', newBioValues.imageId)
-      data.append('image', bioDif.image)
+      data.append('image', bioDif.image, bioDif.image.name)
     }
 
     const successMsg: ToastMessage = {
