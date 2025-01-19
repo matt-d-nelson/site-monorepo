@@ -2,12 +2,7 @@ import { BUTTON_TYPES } from '@angular-monorepo/shared-constants'
 import { Component, input, OnInit, signal } from '@angular/core'
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper'
 import { ButtonComponent } from '../button/button.component'
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms'
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'core-ui-img-input',
@@ -26,16 +21,28 @@ export class ImgInputComponent implements OnInit {
 
   parentForm = input.required<FormGroup>()
   control = input.required<any>()
-  roundCropper = input(false)
+  roundCropper = input<boolean | undefined>(false)
+  aspectRatio = input<'sqr' | 'rect'>('sqr')
+  calculatedAR = signal<number>(1 / 1)
 
   imageChangedEvent = signal<any>('')
 
   ngOnInit(): void {
     this.control().valueChanges.subscribe((value: any) => {
-      if (!value) {
+      if (!value || value === '') {
         this.imageChangedEvent.set('')
       }
     })
+    this.calculateAR()
+  }
+
+  calculateAR() {
+    if (this.aspectRatio() === 'sqr') {
+      this.calculatedAR.set(1 / 1)
+    }
+    if (this.aspectRatio() === 'rect') {
+      this.calculatedAR.set(4 / 3)
+    }
   }
 
   handleFileChange(event: any) {
@@ -44,6 +51,13 @@ export class ImgInputComponent implements OnInit {
 
   handleImageCropped(event: ImageCroppedEvent) {
     if (!event.blob) return
-    this.control()?.setValue(event.blob)
+
+    const originalFile = (this.imageChangedEvent() as any)?.target?.files?.[0]
+    const mimeType = originalFile?.type || 'image/png'
+    const croppedFile = new File([event.blob], originalFile?.name || 'image', {
+      type: mimeType,
+    })
+
+    this.control()?.setValue(croppedFile)
   }
 }

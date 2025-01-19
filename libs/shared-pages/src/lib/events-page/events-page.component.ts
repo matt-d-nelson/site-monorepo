@@ -20,7 +20,7 @@ import {
 import { EventRes, ToastMessage } from '@angular-monorepo/shared-models'
 import { finalize } from 'rxjs'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
-import { isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash'
 
 @Component({
   selector: 'shared-pages-events-page',

@@ -44,7 +44,8 @@
           *ngSwitchCase="INPUT_TYPES().IMAGE"
           [parentForm]="dialogConfig().form"
           [control]="dialogConfig().form.get(config.control)"
-          [roundCropper]="true"
+          [roundCropper]="config?.roundCropper ?? false"
+          [aspectRatio]="config?.aspectRatio ?? 'sqr'"
         ></core-ui-img-input>
         <!-- radio -->
         <core-ui-radio-input

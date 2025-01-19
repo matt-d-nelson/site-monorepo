@@ -23,7 +23,7 @@ import {
 } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
-import { isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash'
 import {
   AboutData,
   FormDialogConfig,
@@ -162,7 +162,7 @@ export class AboutPageComponent implements OnInit {
     data.append('name', bioData.name)
     data.append('biography', bioData.biography)
     data.append('isPrimary', bioData.isPrimary)
-    data.append('image', bioData.image)
+    data.append('image', bioData.image, bioData.image.name)
 
     const successMsg: ToastMessage = {
       type: 'success',

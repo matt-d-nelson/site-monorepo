@@ -80,7 +80,7 @@ export class AlbumsPageComponent implements OnInit {
   // albums
   draftAlbumId = signal<string | null>(null)
   albumForm = new FormGroup({
-    coverArt: new FormControl<Blob | null>(null, [Validators.required]),
+    coverArt: new FormControl<File | null>(null, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     releaseDate: new FormControl('', [Validators.required]),
     description: new FormControl(''),
@@ -238,7 +238,8 @@ export class AlbumsPageComponent implements OnInit {
           data.append('releaseDate', albumData.releaseDate)
         albumData?.description &&
           data.append('description', albumData.description)
-        albumData?.coverArt && data.append('image', albumData.coverArt)
+        albumData?.coverArt &&
+          data.append('image', albumData.coverArt, albumData.coverArt.name)
 
         this.dialogLoading.set(true)
         this.albumsService
