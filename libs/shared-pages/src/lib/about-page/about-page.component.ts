@@ -23,7 +23,7 @@ import {
 } from '@angular-monorepo/shared-services'
 import { CommonModule } from '@angular/common'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
-import { isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash'
 import {
   AboutData,
   FormDialogConfig,

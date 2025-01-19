@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@angular/router": "~18.2.0",
     "jwt-decode": "^4.0.0",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "ng2-pdf-viewer": "^10.4.0",
     "ngx-image-cropper": "^9.0.0",
     "ngx-scrollbar": "^16.1.1",

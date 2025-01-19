@@ -21,7 +21,7 @@ import {
 } from './code-page.config'
 import { finalize } from 'rxjs'
 import { GetObjectDifference } from '@angular-monorepo/shared-utilities'
-import { isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash'
 
 @Component({
   selector: 'shared-pages-code-page',
