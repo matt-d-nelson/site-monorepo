@@ -43,7 +43,7 @@ const OrgComponentColors = {
       [CORE_COLORS.WARNING]: OrgBaseColors[ORGIDS.TELESTELA].orange,
       [CORE_COLORS.DANGER]: OrgBaseColors[ORGIDS.TELESTELA].red,
       background: OrgBaseColors[ORGIDS.TELESTELA].black,
-      navbars: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
+      footer: OrgBaseColors[ORGIDS.TELESTELA].offBlack,
       text: OrgBaseColors[ORGIDS.TELESTELA].offWhite,
     },
     backgroundWave: {
