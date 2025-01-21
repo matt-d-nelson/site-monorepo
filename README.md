@@ -1,82 +1,68 @@
-# AngularMonorepo
+# Full-Stack Website Generator Project
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+**Backend Repository:** [View on GitHub](https://github.com/matt-d-nelson/site-be)
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+When I began to craft a website to showcase my various projects, I realized that a lot of what I was designing would be reusable for other similar websites. Also, my band needed a website... So, I created both sites as micro-frontends in a Nx monorepo so they could share components. They also share a monolith backend built with Nest.js. Each site has a unique id that is used to index styling data, component configurations, and facilitate CRUD operations for each page. The result is a Saas product where new custom websites can be spun up in a snap.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## What I Learned
 
-## Finish your CI setup
+### Custom Components
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/YhHkGZrKcL)
+I've used bootstrap, materialUI, PrimeNg, and many more styling libs to build sites, but I felt that this project was a great opportunity to try my hand at engineering these from scratch. I'm glad I did, because I learned so much about managing global state with Angular services. Configuring the play/pause buttons to wire directly into an audio state service instead of relying on the html tag for playback was fun to build.
 
+### Deep SVG Manipulation
 
-## Run tasks
+Speaking of those audio buttons, did you know that if you have two svg paths with the same number of stops, you can animate them via css transitions alone? Go ahead and click play/pause and watch it in action. Pretty wild. I loved diving deeper into svg creation and animation. This site's background is also an animating svg...
 
-To run the dev server for your app, use:
+### JSON Configured Components
 
-```sh
-npx nx serve angular-monorepo
-```
+An svg that is json configurable. Not every site should have this rad wavy background, but I knew that at least two would have it. So I made its colors configurable with json that is accessed via each site's unique id. This pattern is used all over the code base. For instance, most of the forms share a form dialog component that is configured with json.
 
-To create a production bundle:
+### Angular 18
 
-```sh
-npx nx build angular-monorepo
-```
+I also took this opportunity to learn and apply all the new Angular tooling. Primarily, signal based change detection. In previous versions, Angular used Zone.js to listen for state changes and then loop through all of the active component state looking for what changed. This wasn't all that performant so Angular introduced signals, fine grained state wrappers that will only trigger change detection in components that hold that state. It gives me hope for Angular's future <3.
 
-To see all available targets to run for a project, run:
+### Nest/TypeOrm
 
-```sh
-npx nx show project angular-monorepo
-```
+Most of my backend projects up to this were a la carte node, but I wanted to try out a more comprehensive framework similar to what I worked with professionally: Django rest. I chose Nest because of my love for Rxjs and I was ok with the result. Sure, there is some magic under the hood with how TypeOrm is managing/querying the database that made me scratch my head, but at the end of the day, it works. I'd use Go with direct db management if I were to start again.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### DevOps
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+How does a person deploy a personal project these days? The free tiers are being wiped out, and my heart wouldn't be able to take seeing one of those "whoops" GCP or AWS bills. I went with the poverty stack of:
 
-## Add new projects
+- Heroku BE (about $5 a month w/ postgres)
+- Netlify FE (free and works great with Nx structure)
+- Cloudinary storage (free up to a certain bandwith)
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+Figuring out how/where to deploy is the most stressful part for me, but I made it out with all my hair.
 
-Use the plugin's generator to create new projects.
+## Closing Thoughts
 
-To generate a new application, use:
+Thanks for checking this out. I hope you can tell that I had a blast creating this project. It is a testament to how I've grown as a developer over the last couple years. Can't wait for the next one ;)
 
-```sh
-npx nx g @nx/angular:app demo
-```
+## Technologies Used
 
-To generate a new library, use:
+### Frontend
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+- Angular
+- Nx
+- Tailwind
+- Scss
+- TypeScript
+- Jest
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### Backend
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Nest.js
+- TypeOrm
+- Postgres
+- TypeScript
+- Jest
+- Passport
+- Jwt
 
+### Platform
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- BE-Heroku
+- FE-Netlify
+- Storage-Cloudinary
