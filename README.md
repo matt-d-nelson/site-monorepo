@@ -1,4 +1,4 @@
-# Full-Stack Website Generator Project
+# Full-Stack Website Generator
 
 **Backend Repository:** [View on GitHub](https://github.com/matt-d-nelson/site-be)
 
