@@ -1,6 +1,13 @@
 # Full-Stack Website Generator
 
-**Backend Repository:** [View on GitHub](https://github.com/matt-d-nelson/site-be)
+**Backend Repository:**
+
+- [View on GitHub](https://github.com/matt-d-nelson/site-be)
+
+**Deployed Applications:**
+
+- [My personal site](https://matt-dav-nelson.com/home)
+- [My band's site](https://telestela.com/home)
 
 When I began to craft a website to showcase my various projects, I realized that a lot of what I was designing would be reusable for other similar websites. Also, my band needed a website... So, I created both sites as micro-frontends in a Nx monorepo so they could share components. They also share a monolith backend built with Nest.js. Each site has a unique id that is used to index styling data, component configurations, and facilitate CRUD operations for each page. The result is a Saas product where new custom websites can be spun up in a snap.
 
