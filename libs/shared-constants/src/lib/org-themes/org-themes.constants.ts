@@ -236,12 +236,12 @@ const OrgStaticResouces: any = {
       resume: {
         title: 'Resume',
         fileName: 'Matthew-Nelson-Resume.pdf',
-        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737058324/monorepo/67890/static/resume.pdf',
+        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737475190/monorepo/67890/static/resume.pdf',
       },
       coverLetter: {
         title: 'Cover Letter',
         fileName: 'Matthew-Nelson-CoverLetter.pdf',
-        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737059106/monorepo/67890/static/coverLetter.pdf',
+        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737486007/monorepo/67890/static/coverLetter.pdf',
       },
     },
   },
