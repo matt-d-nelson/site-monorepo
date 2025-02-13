@@ -1,21 +1,35 @@
 .menu-icon {
   cursor: pointer;
 
-  path {
+  .line {
     fill: none;
     stroke-width: 0.6;
     stroke-linecap: round;
-    transition: d 0.2s ease;
+    transition: transform 0.3s ease;
+    transform-origin: center;
   }
+
   &:not(.open) {
-    path {
-      d: path('M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7');
+    .line-1 {
+      transform: translate(0, 0);
+    }
+    .line-2 {
+      transform: translate(0, 0);
+    }
+    .line-3 {
+      transform: translate(0, 0);
     }
   }
 
   &.open {
-    path {
-      d: path('M3,3L5,5L7,3M5,5L5,5M3,7L5,5L7,7');
+    .line-1 {
+      transform: translate(-1px, 2px) rotate(45deg);
+    }
+    .line-2 {
+      opacity: 0;
+    }
+    .line-3 {
+      transform: translate(-1px, -1px) rotate(-45deg);
     }
   }
 }
