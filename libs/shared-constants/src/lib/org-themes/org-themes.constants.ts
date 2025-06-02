@@ -236,7 +236,7 @@ const OrgStaticResouces: any = {
       resume: {
         title: 'Resume',
         fileName: 'Matthew-Nelson-Resume.pdf',
-        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1737475190/monorepo/67890/static/resume.pdf',
+        url: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1748882240/monorepo/67890/static/zg0gaw16b0dsqjnt6gui.pdf',
       },
       coverLetter: {
         title: 'Cover Letter',
