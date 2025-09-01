@@ -1,14 +1,15 @@
 <div [formGroup]="parentForm()">
-  <label> {{ label() }}: </label>
+  <label *ngIf="label()"> {{ label() }}: </label>
   <div *ngFor="let option of options()" class="ml-2">
     <input
       class="radio-main"
       type="radio"
       [formControl]="control()"
       [value]="option.value"
-      [id]="option.label"
+      [id]="uniqueId"
+      [name]="uniqueId"
     />
-    <label [for]="option.label">
+    <label [for]="uniqueId">
       {{ option.label }}
     </label>
   </div>

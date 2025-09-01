@@ -1,0 +1,137 @@
+<core-ui-page-wrapper
+  title="trivia"
+  addLabel="Add Trivia"
+  [userIsAdmin]="true"
+  (onAdd)="initTriviaDraft()"
+>
+</core-ui-page-wrapper>
+
+<dialog
+  #triviaFormDialog
+  class="p-6 dialog-body h-full overflow-hidden md:min-w-96"
+>
+  <div class="flex flex-col h-full">
+    <h1 class="text-xl border-b-2">Add Trivia Game</h1>
+    <ng-scrollbar class="h-full">
+      <div class="p-4">
+        <!-- parent form -->
+        <form [formGroup]="triviaParentForm" class="grid gap-2">
+          <core-ui-img-input
+            class="mb-2"
+            [control]="triviaParentForm.get('coverImage')"
+            [parentForm]="triviaParentForm"
+          >
+          </core-ui-img-input>
+          <core-ui-input
+            label="Title"
+            type="text"
+            [control]="triviaParentForm.get('name')"
+            [parentForm]="triviaParentForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Event Date"
+            type="date"
+            [control]="triviaParentForm.get('eventDate')"
+            [parentForm]="triviaParentForm"
+          >
+          </core-ui-input>
+        </form>
+        <!-- added questions -->
+        <h2 class="mb-3 text-xl border-b-2">Questions</h2>
+        <div class="mx-2">
+          <div
+            class="flex flex-col my-2"
+            *ngFor="let question of draftTriviaQuestions()"
+          >
+            <div class="flex">
+              <div
+                class="draft-question-wrapper flex items-center w-full px-4 mr-2"
+              >
+                <p class="mr-2">{{ question.questionNumber }}:</p>
+                <p>{{ question.question }}</p>
+              </div>
+              <core-ui-button
+                label="Delete"
+                (onClick)="deleteQuestion(question)"
+                [type]="BUTTON_TYPES().OUTLINE"
+                [color]="CORE_COLORS().DANGER"
+                [loading]="dialogLoading()"
+              ></core-ui-button>
+            </div>
+            <!-- list options -->
+            <div *ngFor="let option of question?.options">
+              <div
+                class="draft-option-wrapper flex items-center px-4 mt-2 ml-6"
+              >
+                <p class="mr-2">{{ option.isCorrect ? '✓' : 'x' }}:</p>
+                <p>{{ option.text }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- add option form -->
+        </div>
+
+        <h2 class="mb-3 text-xl border-b-2">Add Question</h2>
+        <div class="mx-2">
+          <form [formGroup]="questionForm" class="grid gap-2">
+            <core-ui-input
+              label="Question"
+              type="textarea"
+              [control]="questionForm.get('question')"
+              [parentForm]="questionForm"
+            ></core-ui-input>
+            <core-ui-input
+              label="Number"
+              type="number"
+              [control]="questionForm.get('questionNumber')"
+              [parentForm]="questionForm"
+            ></core-ui-input>
+            <h3 class="mb-3 text-l border-b-2 ml-6">Options</h3>
+            <div *ngFor="let option of getOptionsControls(); let i = index">
+              <div class="flex w-full mb-4">
+                <core-ui-input
+                  class="flex-1 mr-2"
+                  [label]="'Option ' + (i + 1)"
+                  type="text"
+                  [control]="getOptionForm(i).get('text')"
+                  [parentForm]="getOptionForm(i)"
+                ></core-ui-input>
+                <core-ui-radio-input
+                  [options]="optionsOption"
+                  [parentForm]="getOptionForm(i)"
+                  [control]="getOptionForm(i).get('isCorrect')"
+                ></core-ui-radio-input>
+              </div>
+            </div>
+          </form>
+          <div class="flex justify-end">
+            <core-ui-button
+              label="Add Question"
+              (onClick)="createQuestion()"
+              [type]="BUTTON_TYPES().OUTLINE"
+              [loading]="dialogLoading()"
+              class="ml-3"
+            ></core-ui-button>
+          </div>
+        </div>
+      </div>
+    </ng-scrollbar>
+    <div class="flex justify-end pt-2 border-t-2">
+      <core-ui-button
+        label="Cancel"
+        (onClick)="cancelTriviaGame()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [color]="CORE_COLORS().DANGER"
+        [loading]="dialogLoading()"
+      ></core-ui-button>
+      <core-ui-button
+        label="Publish Game"
+        (onClick)="publishTriviaGame()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [loading]="dialogLoading()"
+        class="ml-3"
+      ></core-ui-button>
+    </div>
+  </div>
+</dialog>
