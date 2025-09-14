@@ -13,4 +13,12 @@
       {{ option.label }}
     </label>
   </div>
+  <div
+    *ngIf="control()?.invalid && (control().dirty || control().touched)"
+    class="ml-2 text-xs"
+  >
+    <small class="error-msg" *ngIf="control().hasError('required')"
+      >Please select an option</small
+    >
+  </div>
 </div>
