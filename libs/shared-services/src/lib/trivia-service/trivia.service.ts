@@ -80,4 +80,8 @@ export class TriviaService {
       data
     )
   }
+
+  getTriviaLeaderboards(triviaId: string) {
+    return this.http.get(`${ENV.API_URL}/api/trivia/leaderboard/${triviaId}`)
+  }
 }

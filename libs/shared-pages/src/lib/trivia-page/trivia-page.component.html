@@ -4,7 +4,12 @@
   [userIsAdmin]="userIsAdmin()"
   (onAdd)="initTriviaDraft()"
 >
-  <div *ngIf="activeTrivia()">
+  <div class="md:px-20">
+    <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+      <core-ui-lazy-img [source]="bannerImg()"></core-ui-lazy-img>
+    </div>
+  </div>
+  <div *ngIf="activeTrivia()" class="mt-4">
     <div class="border-b-2 flex justify-between align-center">
       <h2 class="px-2 text-xl">
         <span>
@@ -22,7 +27,6 @@
         class="pb-2"
       ></core-ui-button>
     </div>
-
     <div class="my-5">
       <div class="trivia-wrapper-primary p-4 mx-auto rounded-2xl">
         <form [formGroup]="activeTriviaForm" class="grid gap-2">
@@ -63,7 +67,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="mt-4">
     <div class="border-b-2 text-xl">
       <h2 class="px-2">Past Games</h2>
     </div>

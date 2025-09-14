@@ -232,6 +232,8 @@ const OrgStaticResouces: any = {
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
     eventsPage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
+    triviaPage:
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1757883608/monorepo/12356/static/teleween43Trans_eme7rp.png',
   },
   [ORGIDS.MATT]: {
     homePage:

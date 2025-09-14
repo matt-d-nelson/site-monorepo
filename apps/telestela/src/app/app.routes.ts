@@ -41,4 +41,11 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@angular-monorepo/shared-pages').then(m => m.TriviaPageComponent),
   },
+  {
+    path: 'trivia/:id',
+    loadComponent: () =>
+      import('@angular-monorepo/shared-pages').then(
+        m => m.TriviaLeaderboardsPageComponent
+      ),
+  },
 ]

@@ -2,6 +2,7 @@ import {
   ButtonComponent,
   ImgInputComponent,
   InputComponent,
+  LazyImgComponent,
   RadioInputComponent,
 } from '@angular-monorepo/core-ui'
 import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
@@ -42,6 +43,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
     ImgInputComponent,
     RadioInputComponent,
     RouterModule,
+    LazyImgComponent,
   ],
   templateUrl: './trivia-page.component.html',
   styleUrl: './trivia-page.component.scss',
@@ -62,6 +64,7 @@ export class TriviaPageComponent implements OnInit {
 
   orgId = signal<string>('')
   userIsAdmin = signal<boolean>(false)
+  bannerImg = signal('')
 
   draftTriviaId = signal<string | null>(null)
   draftTriviaQuestions = signal<any[]>([])
@@ -121,6 +124,9 @@ export class TriviaPageComponent implements OnInit {
       this.triviaService.getTriviaGames(orgId)
       this.initSortTriviaSub()
     })
+    this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
+      this.bannerImg.set(orgTheme.staticResouces.triviaPage)
+    })
   }
 
   initSortTriviaSub() {
@@ -132,7 +138,6 @@ export class TriviaPageComponent implements OnInit {
         if (game?.isActive) {
           this.activeTrivia.set(game)
           this.createActiveTriviaForm(this.activeTrivia())
-          console.log(game)
         } else {
           this.inactiveTrivia().push(game)
         }
@@ -163,8 +168,6 @@ export class TriviaPageComponent implements OnInit {
         })
       })
     })
-
-    console.log(activeTriviaForm, activeTriviaFormConfig)
 
     this.activeTriviaForm = activeTriviaForm
     this.activeTriviaFormConfig.set(activeTriviaFormConfig)
