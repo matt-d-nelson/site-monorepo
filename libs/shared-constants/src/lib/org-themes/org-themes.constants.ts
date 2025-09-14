@@ -91,6 +91,11 @@ const OrgComponentColors = {
               nav: '/events',
               color: OrgBaseColors[ORGIDS.TELESTELA].pink,
             },
+            {
+              title: 'trivia',
+              nav: '/trivia',
+              color: OrgBaseColors[ORGIDS.TELESTELA].purple,
+            },
           ],
         },
         {

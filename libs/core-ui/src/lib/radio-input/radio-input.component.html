@@ -1,6 +1,6 @@
 <div [formGroup]="parentForm()">
   <label *ngIf="label()"> {{ label() }}: </label>
-  <div *ngFor="let option of options()" class="ml-2">
+  <div *ngFor="let option of options()" class="ml-2 mb-1">
     <input
       class="radio-main"
       type="radio"

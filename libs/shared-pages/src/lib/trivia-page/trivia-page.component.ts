@@ -24,6 +24,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { NgScrollbar } from 'ngx-scrollbar'
 import { NgxSpinnerService } from 'ngx-spinner'
 
@@ -40,6 +41,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
     ReactiveFormsModule,
     ImgInputComponent,
     RadioInputComponent,
+    RouterModule,
   ],
   templateUrl: './trivia-page.component.html',
   styleUrl: './trivia-page.component.scss',
@@ -51,7 +53,8 @@ export class TriviaPageComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private triviaService: TriviaService,
     private toastService: ToastService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    public router: Router
   ) {}
 
   BUTTON_TYPES = signal(BUTTON_TYPES)
@@ -67,7 +70,12 @@ export class TriviaPageComponent implements OnInit {
   activeTrivia = signal<any>(null)
   inactiveTrivia = signal<any[]>([])
 
-  // form management
+  // form management - active trivia
+
+  activeTriviaForm: FormGroup = new FormGroup({})
+  activeTriviaFormConfig = signal<any>({})
+
+  // form management - create dialog
   @ViewChild('triviaFormDialog', { static: true })
   dialog!: ElementRef<HTMLDialogElement>
   dialogLoading = signal<boolean>(false)
@@ -123,11 +131,105 @@ export class TriviaPageComponent implements OnInit {
       games.forEach((game: any) => {
         if (game?.isActive) {
           this.activeTrivia.set(game)
+          this.createActiveTriviaForm(this.activeTrivia())
+          console.log(game)
         } else {
           this.inactiveTrivia().push(game)
         }
       })
     })
+  }
+
+  createActiveTriviaForm(game: any) {
+    const activeTriviaForm = new FormGroup({})
+    activeTriviaForm.addControl(
+      'name',
+      new FormControl('', Validators.required)
+    )
+
+    let activeTriviaFormConfig: any = {}
+
+    game?.questions.forEach((question: any) => {
+      activeTriviaForm.addControl(
+        `${question.id}`,
+        new FormControl(null, Validators.required)
+      )
+      activeTriviaFormConfig[question.id] = []
+
+      question?.options.forEach((option: any) => {
+        activeTriviaFormConfig[question.id].push({
+          label: option.text,
+          value: option.id,
+        })
+      })
+    })
+
+    console.log(activeTriviaForm, activeTriviaFormConfig)
+
+    this.activeTriviaForm = activeTriviaForm
+    this.activeTriviaFormConfig.set(activeTriviaFormConfig)
+  }
+
+  submitTriviaAnswers() {
+    if (!this.activeTriviaForm.valid) {
+      this.activeTriviaForm.markAllAsTouched()
+      return
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Submit Answers',
+        message: `Are you sure you want to submit your answers?`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+
+        const answers = this.activeTriviaForm.value
+        const triviaScore = this.calculateTriviaScore(answers)
+
+        const successMsg: ToastMessage = {
+          type: 'success',
+          message: `${answers?.name}'s score was submitted`,
+        }
+        const errorMsg: ToastMessage = {
+          type: 'error',
+          message: `Error submitting score`,
+        }
+
+        this.spinnerService.show()
+        this.triviaService
+          .submitTriviaAnswers(this.orgId(), this.activeTrivia()?.id, {
+            name: answers?.name,
+            score: triviaScore,
+          })
+          .subscribe({
+            next: (res: any) => {
+              this.spinnerService.hide()
+              this.toastService.showToast(successMsg)
+              this.router.navigate(['/trivia/', res.trivia.id])
+            },
+            error: () => {
+              this.spinnerService.hide()
+              this.toastService.showToast(errorMsg)
+            },
+          })
+      })
+  }
+
+  calculateTriviaScore(answers: any): number {
+    let score = 0
+
+    this.activeTrivia().questions.forEach((question: any) => {
+      const thisAnswer = answers?.[question.id]
+      const opIdx = question?.options.findIndex(
+        (op: any) => op.id === thisAnswer
+      )
+      if (question?.options?.[opIdx]?.isCorrect) {
+        score++
+      }
+    })
+
+    return score
   }
 
   initTriviaDraft() {

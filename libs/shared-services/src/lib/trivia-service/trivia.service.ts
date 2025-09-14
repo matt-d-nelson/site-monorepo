@@ -73,4 +73,11 @@ export class TriviaService {
       },
     })
   }
+
+  submitTriviaAnswers(orgId: string, triviaId: string, data: any) {
+    return this.http.post(
+      `${ENV.API_URL}/api/trivia/submission/${orgId}/${triviaId}`,
+      data
+    )
+  }
 }

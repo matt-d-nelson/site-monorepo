@@ -1,20 +1,68 @@
 <core-ui-page-wrapper
   headerTitle="trivia"
   addLabel="Add Trivia"
-  [userIsAdmin]="true"
+  [userIsAdmin]="userIsAdmin()"
   (onAdd)="initTriviaDraft()"
 >
   <div *ngIf="activeTrivia()">
-    <div class="border-b-2 text-xl">
-      <h2 class="px-2">Active Game:</h2>
+    <div class="border-b-2 flex justify-between align-center">
+      <h2 class="px-2 text-xl">
+        <span>
+          {{ activeTrivia().name }}
+        </span>
+        <span class="font-light opacity-75 text-lg">
+          - {{ activeTrivia()?.eventDate | date : 'MM/dd/yy' }}
+        </span>
+      </h2>
       <core-ui-button
         *ngIf="userIsAdmin()"
         [type]="BUTTON_TYPES().OUTLINE"
         label="Deactivate"
         (onClick)="activateTriviaClick(activeTrivia(), false)"
+        class="pb-2"
       ></core-ui-button>
     </div>
+
+    <div class="my-5">
+      <div class="trivia-wrapper-primary p-4 mx-auto rounded-2xl">
+        <form [formGroup]="activeTriviaForm" class="grid gap-2">
+          <div class="trivia-question-wrapper rounded-2xl px-4 pt-4 pb-2">
+            <core-ui-input
+              label="Name"
+              type="text"
+              [control]="activeTriviaForm.get('name')"
+              [parentForm]="activeTriviaForm"
+            >
+            </core-ui-input>
+          </div>
+          <div
+            *ngFor="let question of activeTrivia()?.questions"
+            class="trivia-question-wrapper rounded-2xl px-4 pt-4"
+          >
+            <span class="border-b w-full flex mb-2"
+              >{{ question?.questionNumber }}: {{ question?.question }}</span
+            >
+            <div class="flex w-full mb-4">
+              <core-ui-radio-input
+                [options]="activeTriviaFormConfig()?.[question.id]"
+                [parentForm]="activeTriviaForm"
+                [control]="activeTriviaForm.get(question.id.toString())"
+              ></core-ui-radio-input>
+            </div>
+          </div>
+        </form>
+        <div class="flex justify-end pt-2">
+          <core-ui-button
+            label="Submit"
+            (onClick)="submitTriviaAnswers()"
+            [type]="BUTTON_TYPES().OUTLINE"
+            [loading]="dialogLoading()"
+          ></core-ui-button>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div>
     <div class="border-b-2 text-xl">
       <h2 class="px-2">Past Games</h2>
@@ -26,13 +74,12 @@
           class="flex justify-between items-center py-1"
         >
           <a
-            class="min-w-fit"
+            class="min-w-fit cursor-pointer"
             [ngClass]="{
               'hover-primary': i % 2 === 0,
               'hover-secondary': i % 2 !== 0
             }"
-            target="_blank"
-            rel="noopener noreferrer"
+            [routerLink]="['/trivia', game.id]"
             >{{ game?.name ? game?.name : 'Unnamed Draft' }}</a
           >
           <div class="w-full mx-3 trivia-line"></div>
