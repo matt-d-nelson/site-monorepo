@@ -14,7 +14,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar'
 export class PageWrapperComponent {
   BUTTON_TYPES = signal(BUTTON_TYPES)
 
-  title = input.required<string>()
+  headerTitle = input.required<string>()
   userIsAdmin = input<boolean>(false)
   addLabel = input<string>('')
   onAdd = output()

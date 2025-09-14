@@ -1,0 +1,48 @@
+.trivia-wrapper-primary {
+  background-color: rgba(var(--primary), 0.5);
+}
+
+.trivia-question-wrapper {
+  background-color: rgba(var(--background), 0.5);
+}
+
+.trivia-line {
+  background-color: rgb(var(--primary));
+  height: 2px;
+}
+
+.hover-primary {
+  transition: color 0.3s ease;
+  &:hover {
+    color: rgb(var(--primary));
+  }
+}
+
+.hover-secondary {
+  transition: color 0.3s ease;
+  &:hover {
+    color: rgb(var(--secondary));
+  }
+}
+
+.dialog-body {
+  background-color: rgba(var(--background), 0.85);
+  border: 3px solid rgb(var(--background));
+  border-radius: 4px;
+  color: rgb(var(--text));
+  width: 40rem;
+}
+
+.draft-question-wrapper {
+  background-color: rgba(var(--primary), 0.5);
+  border-radius: 4px;
+}
+
+.draft-option-wrapper {
+  background-color: rgba(var(--secondary), 0.5);
+  border-radius: 4px;
+}
+
+.error-msg {
+  color: rgb(var(--danger));
+}

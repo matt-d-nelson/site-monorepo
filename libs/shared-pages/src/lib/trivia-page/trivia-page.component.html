@@ -1,0 +1,238 @@
+<core-ui-page-wrapper
+  headerTitle="trivia"
+  addLabel="Add Trivia"
+  [userIsAdmin]="userIsAdmin()"
+  (onAdd)="initTriviaDraft()"
+>
+  <div class="md:px-20">
+    <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+      <core-ui-lazy-img [source]="bannerImg()"></core-ui-lazy-img>
+    </div>
+  </div>
+  <p class="text-xs w-fit mx-auto mb-3"
+    >Enter a name and answer the questions below.</p
+  >
+  <div *ngIf="activeTrivia()">
+    <div class="border-b-2 flex justify-between align-center">
+      <h2 class="px-2 text-xl">
+        <span>
+          {{ activeTrivia().name }}
+        </span>
+        <span class="font-light opacity-75 text-lg">
+          - {{ activeTrivia()?.eventDate | date : 'MM/dd/yy' }}
+        </span>
+      </h2>
+      <core-ui-button
+        *ngIf="userIsAdmin()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        label="Deactivate"
+        (onClick)="activateTriviaClick(activeTrivia(), false)"
+        class="pb-2"
+      ></core-ui-button>
+    </div>
+    <div class="my-5">
+      <div class="trivia-wrapper-primary p-4 mx-auto rounded-2xl">
+        <form [formGroup]="activeTriviaForm" class="grid gap-2">
+          <div class="trivia-question-wrapper rounded-2xl px-4 pt-4 pb-2">
+            <core-ui-input
+              label="Name"
+              type="text"
+              [control]="activeTriviaForm.get('name')"
+              [parentForm]="activeTriviaForm"
+            >
+            </core-ui-input>
+          </div>
+          <div
+            *ngFor="let question of activeTrivia()?.questions"
+            class="trivia-question-wrapper rounded-2xl px-4 pt-4"
+          >
+            <span class="border-b w-full flex mb-2"
+              >{{ question?.questionNumber }}: {{ question?.question }}</span
+            >
+            <div class="flex w-full mb-4">
+              <core-ui-radio-input
+                [options]="activeTriviaFormConfig()?.[question.id]"
+                [parentForm]="activeTriviaForm"
+                [control]="activeTriviaForm.get(question.id.toString())"
+              ></core-ui-radio-input>
+            </div>
+          </div>
+        </form>
+        <div class="flex justify-end pt-2">
+          <core-ui-button
+            label="Submit"
+            (onClick)="submitTriviaAnswers()"
+            [type]="BUTTON_TYPES().OUTLINE"
+            [loading]="dialogLoading()"
+          ></core-ui-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="border-b-2 text-xl">
+      <h2 class="px-2">Past Games</h2>
+    </div>
+    <div class="py-4 px-2 md:px-20">
+      <div *ngFor="let game of inactiveTrivia(); let i = index">
+        <div
+          *ngIf="userIsAdmin() || !game?.isDraft"
+          class="flex justify-between items-center py-1"
+        >
+          <a
+            class="min-w-fit cursor-pointer"
+            [ngClass]="{
+              'hover-primary': i % 2 === 0,
+              'hover-secondary': i % 2 !== 0
+            }"
+            [routerLink]="['/trivia', game.id]"
+            >{{ game?.name ? game?.name : 'Unnamed Draft' }}</a
+          >
+          <div class="w-full mx-3 trivia-line"></div>
+          <p class="min-w-fit">{{
+            game?.eventDate ? (game?.eventDate | date : 'MM/dd/yy') : 'NA'
+          }}</p>
+          <div class="flex ml-2" *ngIf="userIsAdmin()">
+            <core-ui-button
+              *ngIf="!activeTrivia()"
+              [type]="BUTTON_TYPES().OUTLINE"
+              label="Activate"
+              (onClick)="activateTriviaClick(game, true)"
+            ></core-ui-button>
+            <core-ui-button
+              [type]="BUTTON_TYPES().OUTLINE"
+              [color]="CORE_COLORS().DANGER"
+              label="Delete"
+              (onClick)="deleteTriviaClick(game)"
+              class="ml-2"
+            ></core-ui-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</core-ui-page-wrapper>
+
+<dialog
+  #triviaFormDialog
+  class="p-6 dialog-body h-full overflow-hidden md:min-w-96"
+>
+  <div class="flex flex-col h-full">
+    <h1 class="text-xl border-b-2">Add Trivia Game</h1>
+    <ng-scrollbar class="h-full">
+      <div class="p-4">
+        <!-- parent form -->
+        <form [formGroup]="triviaParentForm" class="grid gap-2">
+          <core-ui-input
+            label="Title"
+            type="text"
+            [control]="triviaParentForm.get('name')"
+            [parentForm]="triviaParentForm"
+          >
+          </core-ui-input>
+          <core-ui-input
+            label="Event Date"
+            type="date"
+            [control]="triviaParentForm.get('eventDate')"
+            [parentForm]="triviaParentForm"
+          >
+          </core-ui-input>
+        </form>
+        <!-- added questions -->
+        <h2 class="mb-3 text-xl border-b-2">Questions</h2>
+        <div class="mx-2">
+          <div
+            class="flex flex-col my-2"
+            *ngFor="let question of draftTriviaQuestions()"
+          >
+            <div class="flex">
+              <div
+                class="draft-question-wrapper flex items-center w-full px-4 mr-2"
+              >
+                <p class="mr-2">{{ question.questionNumber }}:</p>
+                <p>{{ question.question }}</p>
+              </div>
+              <core-ui-button
+                label="Delete"
+                (onClick)="deleteQuestion(question)"
+                [type]="BUTTON_TYPES().OUTLINE"
+                [color]="CORE_COLORS().DANGER"
+                [loading]="dialogLoading()"
+              ></core-ui-button>
+            </div>
+            <!-- list options -->
+            <div *ngFor="let option of question?.options">
+              <div
+                class="draft-option-wrapper flex items-center px-4 mt-2 ml-6"
+              >
+                <p class="mr-2">{{ option.isCorrect ? '✓' : 'x' }}:</p>
+                <p>{{ option.text }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- add option form -->
+        </div>
+        <h2 class="mb-3 text-xl border-b-2">Add Question</h2>
+        <div class="mx-2">
+          <form [formGroup]="questionForm" class="grid gap-2">
+            <core-ui-input
+              label="Question"
+              type="textarea"
+              [control]="questionForm.get('question')"
+              [parentForm]="questionForm"
+            ></core-ui-input>
+            <core-ui-input
+              label="Number"
+              type="number"
+              [control]="questionForm.get('questionNumber')"
+              [parentForm]="questionForm"
+            ></core-ui-input>
+            <h3 class="mb-3 text-l border-b-2 ml-6">Options</h3>
+            <div *ngFor="let option of getOptionsControls(); let i = index">
+              <div class="flex w-full mb-4">
+                <core-ui-input
+                  class="flex-1 mr-2"
+                  [label]="'Option ' + (i + 1)"
+                  type="text"
+                  [control]="getOptionForm(i).get('text')"
+                  [parentForm]="getOptionForm(i)"
+                ></core-ui-input>
+                <core-ui-radio-input
+                  [options]="optionsOption"
+                  [parentForm]="getOptionForm(i)"
+                  [control]="getOptionForm(i).get('isCorrect')"
+                ></core-ui-radio-input>
+              </div>
+            </div>
+          </form>
+          <div class="flex justify-end">
+            <core-ui-button
+              label="Add Question"
+              (onClick)="createQuestion()"
+              [type]="BUTTON_TYPES().OUTLINE"
+              [loading]="dialogLoading()"
+              class="ml-3"
+            ></core-ui-button>
+          </div>
+        </div>
+      </div>
+    </ng-scrollbar>
+    <div class="flex justify-end pt-2 border-t-2">
+      <core-ui-button
+        label="Cancel"
+        (onClick)="cancelTriviaGame()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [color]="CORE_COLORS().DANGER"
+        [loading]="dialogLoading()"
+      ></core-ui-button>
+      <core-ui-button
+        label="Publish Game"
+        (onClick)="publishTriviaGame()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        [loading]="dialogLoading()"
+        class="ml-3"
+      ></core-ui-button>
+    </div>
+  </div>
+</dialog>
