@@ -37,17 +37,14 @@ export class TriviaLeaderboardsPageComponent implements OnInit {
 
   refreshResults() {
     this.spinnerService.show()
-    this.triviaService
-      .getTriviaLeaderboards(this.triviaId())
-      .pipe(delay(1000))
-      .subscribe({
-        next: res => {
-          this.spinnerService.hide()
-          this.leaderboardData.set(res)
-        },
-        error: () => {
-          this.spinnerService.hide()
-        },
-      })
+    this.triviaService.getTriviaLeaderboards(this.triviaId()).subscribe({
+      next: res => {
+        this.spinnerService.hide()
+        this.leaderboardData.set(res)
+      },
+      error: () => {
+        this.spinnerService.hide()
+      },
+    })
   }
 }

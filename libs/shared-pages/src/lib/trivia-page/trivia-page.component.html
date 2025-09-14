@@ -9,9 +9,12 @@
       <core-ui-lazy-img [source]="bannerImg()"></core-ui-lazy-img>
     </div>
   </div>
-  <p class="text-xs w-fit mx-auto mb-3"
-    >Enter a name and answer the questions below.</p
-  >
+  <p class="text-xs w-fit mx-auto mb-3">
+    <span *ngIf="activeTrivia()">
+      Enter a name and answer the questions below.
+    </span>
+    <span *ngIf="!activeTrivia()">Come to our next show to play trivia!</span>
+  </p>
   <div *ngIf="activeTrivia()">
     <div class="border-b-2 flex justify-between align-center">
       <h2 class="px-2 text-xl">
