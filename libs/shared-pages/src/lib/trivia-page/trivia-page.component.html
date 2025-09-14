@@ -4,6 +4,60 @@
   [userIsAdmin]="true"
   (onAdd)="initTriviaDraft()"
 >
+  <div *ngIf="activeTrivia()">
+    <div class="border-b-2 text-xl">
+      <h2 class="px-2">Active Game:</h2>
+      <core-ui-button
+        *ngIf="userIsAdmin()"
+        [type]="BUTTON_TYPES().OUTLINE"
+        label="Deactivate"
+        (onClick)="activateTriviaClick(activeTrivia(), false)"
+      ></core-ui-button>
+    </div>
+  </div>
+  <div>
+    <div class="border-b-2 text-xl">
+      <h2 class="px-2">Past Games</h2>
+    </div>
+    <div class="py-4 px-2 md:px-20">
+      <div *ngFor="let game of inactiveTrivia(); let i = index">
+        <div
+          *ngIf="userIsAdmin() || !game?.isDraft"
+          class="flex justify-between items-center py-1"
+        >
+          <a
+            class="min-w-fit"
+            [ngClass]="{
+              'hover-primary': i % 2 === 0,
+              'hover-secondary': i % 2 !== 0
+            }"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ game?.name ? game?.name : 'Unnamed Draft' }}</a
+          >
+          <div class="w-full mx-3 trivia-line"></div>
+          <p class="min-w-fit">{{
+            game?.eventDate ? (game?.eventDate | date : 'MM/dd/yy') : 'NA'
+          }}</p>
+          <div class="flex ml-2" *ngIf="userIsAdmin()">
+            <core-ui-button
+              *ngIf="!activeTrivia()"
+              [type]="BUTTON_TYPES().OUTLINE"
+              label="Activate"
+              (onClick)="activateTriviaClick(game, true)"
+            ></core-ui-button>
+            <core-ui-button
+              [type]="BUTTON_TYPES().OUTLINE"
+              [color]="CORE_COLORS().DANGER"
+              label="Delete"
+              (onClick)="deleteTriviaClick(game)"
+              class="ml-2"
+            ></core-ui-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </core-ui-page-wrapper>
 
 <dialog
@@ -16,12 +70,6 @@
       <div class="p-4">
         <!-- parent form -->
         <form [formGroup]="triviaParentForm" class="grid gap-2">
-          <core-ui-img-input
-            class="mb-2"
-            [control]="triviaParentForm.get('coverImage')"
-            [parentForm]="triviaParentForm"
-          >
-          </core-ui-img-input>
           <core-ui-input
             label="Title"
             type="text"
@@ -71,7 +119,6 @@
           </div>
           <!-- add option form -->
         </div>
-
         <h2 class="mb-3 text-xl border-b-2">Add Question</h2>
         <div class="mx-2">
           <form [formGroup]="questionForm" class="grid gap-2">

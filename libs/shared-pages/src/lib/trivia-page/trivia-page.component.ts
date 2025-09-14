@@ -8,6 +8,7 @@ import { BUTTON_TYPES, CORE_COLORS } from '@angular-monorepo/shared-constants'
 import { ToastMessage } from '@angular-monorepo/shared-models'
 import {
   AuthService,
+  ConfirmationDialogService,
   OrgService,
   ToastService,
   TriviaService,
@@ -49,7 +50,8 @@ export class TriviaPageComponent implements OnInit {
     private authService: AuthService,
     private spinnerService: NgxSpinnerService,
     private triviaService: TriviaService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private confirmationDialogService: ConfirmationDialogService
   ) {}
 
   BUTTON_TYPES = signal(BUTTON_TYPES)
@@ -60,6 +62,10 @@ export class TriviaPageComponent implements OnInit {
 
   draftTriviaId = signal<string | null>(null)
   draftTriviaQuestions = signal<any[]>([])
+
+  // todo: type
+  activeTrivia = signal<any>(null)
+  inactiveTrivia = signal<any[]>([])
 
   // form management
   @ViewChild('triviaFormDialog', { static: true })
@@ -95,7 +101,6 @@ export class TriviaPageComponent implements OnInit {
     })
   questionForm = this.generateQuestionForm()
   triviaParentForm = new FormGroup({
-    coverImage: new FormControl<File | null>(null, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     eventDate: new FormControl('', [Validators.required]),
     isActive: new FormControl(false, [Validators.required]),
@@ -105,14 +110,27 @@ export class TriviaPageComponent implements OnInit {
     this.orgService.currentOrgId$.subscribe(orgId => {
       this.orgId.set(orgId)
       this.userIsAdmin.set(this.authService.isUserAdmin(orgId))
-      // get trivia games
-      // find active trivia game
+      this.triviaService.getTriviaGames(orgId)
+      this.initSortTriviaSub()
+    })
+  }
+
+  initSortTriviaSub() {
+    this.triviaService.triviaGames$.subscribe(games => {
+      this.inactiveTrivia.set([])
+      this.activeTrivia.set(null)
+      console.log(games)
+      games.forEach((game: any) => {
+        if (game?.isActive) {
+          this.activeTrivia.set(game)
+        } else {
+          this.inactiveTrivia().push(game)
+        }
+      })
     })
   }
 
   initTriviaDraft() {
-    //TODO: check if any drafts exist
-
     this.triviaService.createTriviaDraft(this.orgId()).subscribe({
       next: (triviaDraft: any) => {
         this.draftTriviaId.set(triviaDraft.id)
@@ -127,6 +145,119 @@ export class TriviaPageComponent implements OnInit {
     })
   }
 
+  deleteTriviaClick(game: any) {
+    const triviaTitle = game?.name || 'unnamed draft'
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${triviaTitle} was deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting trivia game`,
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Trivia Game',
+        message: `Are you sure you want to delete ${triviaTitle}?`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.spinnerService.show()
+        this.triviaService.deleteTriviaGame(this.orgId(), game.id).subscribe({
+          next: () => {
+            this.spinnerService.hide()
+            this.toastService.showToast(successMsg)
+            this.triviaService.getTriviaGames(this.orgId())
+          },
+          error: () => {
+            this.spinnerService.hide()
+            this.toastService.showToast(errorMsg)
+          },
+        })
+      })
+  }
+
+  activateTriviaClick(game: any, setActive: boolean) {
+    const triviaTitle = game?.name || 'unnamed draft'
+    const activeText = setActive ? 'activate' : 'deactivate'
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `${triviaTitle} has been ${activeText}ed`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error, can not ${activeText} trivia game`,
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Activate/Deactivate Trivia Game',
+        message: `Are you sure you want to ${activeText} ${triviaTitle}?`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.triviaService
+          .activateTriviaGame(this.orgId(), game.id, setActive)
+          .subscribe({
+            next: () => {
+              this.toastService.showToast(successMsg)
+              this.triviaService.getTriviaGames(this.orgId())
+            },
+            error: () => {
+              this.spinnerService.hide()
+              this.toastService.showToast(errorMsg)
+            },
+          })
+      })
+  }
+
+  closeTriviaFormDialog() {
+    this.dialog.nativeElement.close()
+    this.triviaParentForm.reset()
+    this.questionForm.reset()
+    this.draftTriviaId.set(null)
+    this.draftTriviaQuestions.set([])
+  }
+
+  cancelTriviaGame() {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `Trivia creation canceled`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Whoops, try again`,
+    }
+
+    const draftId = this.draftTriviaId()
+    if (!draftId) {
+      this.toastService.showToast(errorMsg)
+      return
+    }
+
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Delete Trivia Game',
+        message: `Are you sure you want to cancel? Progress will not be saved`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+        this.dialogLoading.set(true)
+        this.triviaService.deleteTriviaGame(this.orgId(), draftId).subscribe({
+          next: () => {
+            this.dialogLoading.set(false)
+            this.closeTriviaFormDialog()
+            this.toastService.showToast(successMsg)
+          },
+          error: () => {
+            this.dialogLoading.set(false)
+            this.toastService.showToast(errorMsg)
+          },
+        })
+      })
+  }
+
   // -------------------- Questions -------------------- //
   getOptionsControls() {
     return (this.questionForm.get('options') as FormArray).controls
@@ -136,16 +267,6 @@ export class TriviaPageComponent implements OnInit {
     return (this.questionForm.get('options') as FormArray).at(
       index
     ) as FormGroup
-  }
-
-  refreshDraftTriviaQuestions(draftId: string) {
-    this.dialogLoading.set(true)
-    this.triviaService.getTriviaQuestions(draftId).subscribe({
-      next: (res: any) => {
-        this.dialogLoading.set(false)
-        this.draftTriviaQuestions.set(res)
-      },
-    })
   }
 
   createQuestion() {
@@ -169,20 +290,15 @@ export class TriviaPageComponent implements OnInit {
     }
 
     const questionValues = this.questionForm.value
-    const data = new FormData()
-    questionValues.question && data.append('question', questionValues.question)
-    questionValues.questionNumber &&
-      data.append('questionNumber', questionValues.questionNumber)
 
     this.dialogLoading.set(true)
-    // TODO: change this to form data after be is done
     this.triviaService
       .createTriviaQuestion(this.orgId(), draftId, questionValues)
       .subscribe({
-        next: () => {
+        next: res => {
           this.dialogLoading.set(false)
           this.questionForm = this.generateQuestionForm()
-          this.refreshDraftTriviaQuestions(draftId)
+          this.draftTriviaQuestions().push(res)
         },
       })
   }
@@ -191,11 +307,81 @@ export class TriviaPageComponent implements OnInit {
     this.dialog.nativeElement.showModal()
   }
 
-  deleteQuestion(question: any) {
-    console.log(question)
+  deleteQuestion(questionToDelete: any) {
+    const successMsg: ToastMessage = {
+      type: 'success',
+      message: `Question deleted`,
+    }
+    const errorMsg: ToastMessage = {
+      type: 'error',
+      message: `Error deleting question`,
+    }
+
+    this.dialogLoading.set(true)
+    this.triviaService
+      .deleteTriviaQuestion(this.orgId(), questionToDelete.id)
+      .subscribe({
+        next: () => {
+          this.dialogLoading.set(false)
+          this.toastService.showToast(successMsg)
+          this.draftTriviaQuestions.set(
+            this.draftTriviaQuestions().filter(
+              question => question.id !== questionToDelete.id
+            )
+          )
+        },
+        error: () => {
+          this.dialogLoading.set(false)
+          this.toastService.showToast(errorMsg)
+        },
+      })
   }
 
-  cancelTriviaGame() {}
+  publishTriviaGame() {
+    if (!this.triviaParentForm.valid) {
+      this.triviaParentForm.markAllAsTouched()
+      return
+    }
 
-  publishTriviaGame() {}
+    this.confirmationDialogService
+      .openDialog({
+        title: 'Publish Album',
+        message: `Are you sure you want to publish this game?`,
+      })
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return
+
+        const triviaData = this.triviaParentForm.value
+        const drafID = this.draftTriviaId()
+        const successMsg: ToastMessage = {
+          type: 'success',
+          message: `${triviaData.name} was created`,
+        }
+        const errorMsg: ToastMessage = {
+          type: 'error',
+          message: `Error creating game`,
+        }
+
+        if (!drafID) {
+          this.toastService.showToast(errorMsg)
+          return
+        }
+        this.dialogLoading.set(true)
+
+        this.triviaService
+          .publishTriviaDraft(this.orgId(), drafID, triviaData)
+          .subscribe({
+            next: () => {
+              this.dialogLoading.set(false)
+              this.toastService.showToast(successMsg)
+              this.triviaService.getTriviaGames(this.orgId())
+              this.closeTriviaFormDialog()
+            },
+            error: () => {
+              this.toastService.showToast(errorMsg)
+              this.dialogLoading.set(true)
+            },
+          })
+      })
+  }
 }

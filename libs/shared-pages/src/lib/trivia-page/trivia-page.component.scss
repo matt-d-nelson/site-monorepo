@@ -6,6 +6,25 @@
   background-color: rgba(var(--secondary), 0.5);
 }
 
+.trivia-line {
+  background-color: rgb(var(--primary));
+  height: 2px;
+}
+
+.hover-primary {
+  transition: color 0.3s ease;
+  &:hover {
+    color: rgb(var(--primary));
+  }
+}
+
+.hover-secondary {
+  transition: color 0.3s ease;
+  &:hover {
+    color: rgb(var(--secondary));
+  }
+}
+
 .dialog-body {
   background-color: rgba(var(--background), 0.85);
   border: 3px solid rgb(var(--background));

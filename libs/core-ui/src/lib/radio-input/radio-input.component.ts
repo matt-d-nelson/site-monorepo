@@ -19,7 +19,6 @@ export class RadioInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.uniqueId = this.getUniqueId()
-    console.log(this.uniqueId)
   }
 
   getUniqueId(): string {
