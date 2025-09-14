@@ -133,7 +133,6 @@ export class TriviaPageComponent implements OnInit {
     this.triviaService.triviaGames$.subscribe(games => {
       this.inactiveTrivia.set([])
       this.activeTrivia.set(null)
-      console.log(games)
       games.forEach((game: any) => {
         if (game?.isActive) {
           this.activeTrivia.set(game)

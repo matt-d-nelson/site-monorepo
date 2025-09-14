@@ -28,20 +28,26 @@ export class TriviaLeaderboardsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.spinnerService.show()
     this.triviaId.set(this.route.snapshot.paramMap.get('id')!)
-    this.triviaService.getTriviaLeaderboards(this.triviaId()).subscribe({
-      next: res => {
-        this.spinnerService.hide()
-        console.log(res)
-        this.leaderboardData.set(res)
-      },
-      error: () => {
-        this.spinnerService.hide()
-      },
-    })
+    this.refreshResults()
     this.orgService.currentOrgTheme$.subscribe((orgTheme: any) => {
       this.bannerImg.set(orgTheme.staticResouces.triviaPage)
     })
+  }
+
+  refreshResults() {
+    this.spinnerService.show()
+    this.triviaService
+      .getTriviaLeaderboards(this.triviaId())
+      .pipe(delay(1000))
+      .subscribe({
+        next: res => {
+          this.spinnerService.hide()
+          this.leaderboardData.set(res)
+        },
+        error: () => {
+          this.spinnerService.hide()
+        },
+      })
   }
 }
