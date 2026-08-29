@@ -228,7 +228,7 @@ const OrgComponentColors = {
 const OrgStaticResouces: any = {
   [ORGIDS.TELESTELA]: {
     homePage:
-      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732407756/monorepo/12356/static/uibreyyhdx6f1fvx5qt3.png',
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1788021795/monorepo/12356/static/homepage_ddz3sj.png',
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
     eventsPage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
