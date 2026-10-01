@@ -2,18 +2,31 @@ import { ORGIDS } from '../org-ids.constants'
 import { CORE_COLORS } from './org-themes.models'
 
 const OrgBaseColors = {
+  // [ORGIDS.TELESTELA]: {
+  //   yellow: '#fedf25',
+  //   orange: '#ffa959',
+  //   red: '#f46d6a',
+  //   lightGreen: '#9be0aa',
+  //   green: '#2cc7c9',
+  //   pink: '#ea97dd',
+  //   blue: '#007ace',
+  //   purple: '#6759bb',
+  //   offWhite: '#e6e6e6',
+  //   black: '#2b2b2b',
+  //   offBlack: '#323232',
+  // },
   [ORGIDS.TELESTELA]: {
-    yellow: '#fedf25',
-    orange: '#ffa959',
-    red: '#f46d6a',
-    lightGreen: '#9be0aa',
-    green: '#2cc7c9',
-    pink: '#ea97dd',
-    blue: '#007ace',
-    purple: '#6759bb',
-    offWhite: '#e6e6e6',
-    black: '#2b2b2b',
-    offBlack: '#323232',
+    yellow: '#257dad',
+    orange: '#21729d',
+    red: '#206c95',
+    lightGreen: '#1f6991',
+    green: '#1a597c',
+    pink: '#1f6991',
+    blue: '#1c6287',
+    purple: '#1a597c',
+    offWhite: '#eef4f8',
+    black: '#11232e',
+    offBlack: '#172f3e',
   },
   [ORGIDS.MATT]: {
     black: '#030303',
@@ -232,8 +245,10 @@ const OrgStaticResouces: any = {
     logo: 'https://res.cloudinary.com/dllkd6o9h/image/upload/v1732553990/monorepo/12356/static/vrcvulamgzqwq4gezrwv.png',
     eventsPage:
       'https://res.cloudinary.com/dllkd6o9h/image/upload/v1734020457/monorepo/12356/static/telestela-live-barn_ttgom2.png',
+    // triviaPage:
+    //   'https://res.cloudinary.com/dllkd6o9h/image/upload/v1757883608/monorepo/12356/static/teleween43Trans_eme7rp.png',
     triviaPage:
-      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1757883608/monorepo/12356/static/teleween43Trans_eme7rp.png',
+      'https://res.cloudinary.com/dllkd6o9h/image/upload/v1790816434/monorepo/12356/static/flc-logo-2_xpy3gm.jpg',
   },
   [ORGIDS.MATT]: {
     homePage:
